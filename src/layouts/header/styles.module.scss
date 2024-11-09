@@ -34,18 +34,43 @@
 	}
 }
 
-.mobileNav {
-	display: block;
-
-	@include breakpoint(sm) {
-		display: none;
-	}
-}
-
 .navButton {
 	all: unset;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: var(--spacing-xs);
+}
+
+.mobilemenu {
+	transform: translateX(100%);
+	transition:
+		transform 0.4s,
+		overlay 0.4s ease-out;
+	height: 100vh;
+	inset: unset;
+	right: 0;
+	top: 0;
+	width: 90vw;
+	background: var(--brand-900);
+
+	&:popover-open {
+		transform: translateX(0);
+	}
+
+	@starting-style {
+		transform: translateX(100%);
+	}
+}
+
+.mobileNav {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md);
+	justify-content: center;
+
+	@include breakpoint(sm) {
+		display: none;
+	}
 }

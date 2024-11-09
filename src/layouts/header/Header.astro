@@ -40,8 +40,8 @@ const links = [
                 </svg>
                 <div>Menu</div>
             </button>
-            <div id="mobilemenu" popover>
-                <nav class:list={[CSS.mainNav]}>
+            <div id="mobilemenu" popover class:list={[CSS.mobilemenu]}>
+                <nav class:list={[CSS.mobileNav]}>
                     {links.map((link) => (
                         <Link href={link.href} text={link.text} />
                     ))}
