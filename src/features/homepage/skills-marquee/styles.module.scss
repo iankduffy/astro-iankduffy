@@ -1,0 +1,41 @@
+@import '../../../styles/_shared/breakpoints.scss';
+
+.containerList {
+	display: flex;
+	gap: var(--spacing-md);
+	list-style: none;
+	padding: 0;
+	overflow: hidden;
+
+	> * {
+		flex-shrink: 0;
+	}
+}
+
+.list {
+	display: flex;
+	overflow: hidden;
+	gap: var(--spacing-md);
+	list-style: none;
+	min-width: 100%;
+	width: 100%;
+	padding: 0;
+	flex-shrink: 0;
+	animation: marquee 30s linear infinite;
+	> * {
+		flex-shrink: 0;
+	}
+
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: var(--brand-600);
+}
+
+@keyframes marquee {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(calc(-100% - var(--spacing-md)));
+	}
+}

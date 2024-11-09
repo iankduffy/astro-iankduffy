@@ -1,0 +1,42 @@
+---
+import CSS from './styles.module.scss'
+
+const skills = [
+  "WEB PERFORMANCE.",
+  "HTML.",
+  "CSS.",
+  "JAVASCRIPT.",
+  "REACT.",
+  "NEXTJS.",
+  "JQUERY.",
+  "SCSS.",
+  "RUBY ON RAILS.",
+  "NODEJS.",
+  "TYPESCRIPT.",
+  "RESPONSIVE DESIGN.",
+  "ACCESSIBILITY.",
+  "CYPRESS.",
+  "RSPEC.",
+  "ASTRO.",
+  "TEST DRIVEN DEVELOPMENT."
+]
+--- 
+
+<section aria-label="Skills List">
+    <ul class:list={[CSS.containerList]}>
+        <li>
+            <ul class:list={[CSS.list]}>
+                {skills.map((skill) => (
+                    <li>{skill}</li>
+                ))}
+            </ul>
+        </li>
+        <li>
+            <ul aria-hidden="true" class:list={[CSS.list, 'delayed']}>
+                {skills.map((skill) => (
+                    <li>{skill}</li>
+                ))}
+            </ul>
+        </li>
+    </ul>
+</section>
