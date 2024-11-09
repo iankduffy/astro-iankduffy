@@ -1,0 +1,44 @@
+.link {
+	color: var(--brand-600);
+	text-decoration: none;
+	cursor: pointer;
+	transition: color 0.15s;
+	font-size: var(--font-size-xl);
+	font-weight: 800;
+	position: relative;
+
+	&:after {
+		content: '';
+		height: 4px;
+		width: 0;
+		background-color: var(--brand-700);
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		transition: width 0.5s;
+	}
+
+	&:hover {
+		color: var(--brand-700);
+
+		&:after {
+			content: '';
+			width: 75%;
+		}
+	}
+}
+
+.active {
+	color: var(--brand-900);
+	position: relative;
+
+	&:after {
+		content: '';
+		height: 4px;
+		width: 75%;
+		background-color: var(--brand-900);
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+	}
+}

@@ -1,0 +1,51 @@
+@import './_shared/breakpoints.scss';
+
+:root {
+	--brand-50: #f4f7fb;
+	--brand-100: #e7eff7;
+	--brand-200: #cadced;
+	--brand-300: #9cbedd;
+	--brand-400: #679cc9;
+	--brand-500: #4480b3;
+	--brand-600: #326697;
+	--brand-700: #2a527a;
+	--brand-800: #264666;
+	--brand-900: #243c56;
+	--brand-950: #182739;
+
+	--spacing-xxs: 4px;
+	--spacing-xs: 8px;
+	--spacing-sm: 16px;
+	--spacing-md: 24px;
+	--spacing-lg: 32px;
+	--spacing-xl: 40px;
+	--spacing-xxl: 48px;
+	--spacing-xxxl: 56px;
+	--spacing-xxxxl: 64px;
+
+	--font-size-xxs: 0.625rem; /* 10px */
+	--font-size-xs: 0.75rem; /* 12px */
+	--font-size-sm: 0.875rem; /* 14px */
+	--font-size-md: 1rem; /* 16px */
+	--font-size-lg: 1.125rem; /* 18px */
+	--font-size-xl: 1.25rem; /* 20px */
+	--font-size-xxl: 1.5rem; /* 24px */
+	--font-size-xxxl: 1.75rem; /* 28px */
+	--font-size-xxxxl: 2rem; /* 32px */
+}
+
+html {
+	background: var(--brand-100);
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}

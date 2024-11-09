@@ -1,0 +1,51 @@
+@import '../../styles/_shared/breakpoints.scss';
+
+.headerContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 0;
+	max-height: 100px;
+}
+
+.logo {
+	width: 60px;
+}
+
+.socials {
+	display: flex;
+	gap: var(--spacing-md);
+
+	a {
+		cursor: pointer;
+	}
+}
+
+.mainNav {
+	display: flex;
+	gap: var(--spacing-md);
+}
+
+.desktopNavElements {
+	display: none;
+	@include breakpoint(sm) {
+		display: flex;
+		gap: var(--spacing-md);
+	}
+}
+
+.mobileNav {
+	display: block;
+
+	@include breakpoint(sm) {
+		display: none;
+	}
+}
+
+.navButton {
+	all: unset;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--spacing-xs);
+}

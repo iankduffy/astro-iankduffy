@@ -1,0 +1,11 @@
+---
+interface Props {
+  text: string;
+  href: string;
+}
+const { text, href } = Astro.props
+const isCurrent = Astro.url.pathname === href;
+import CSS from './styles.module.scss'
+---
+
+<a href={href} class:list={[CSS.link, isCurrent ? CSS.active : null]}>{text}</a>
