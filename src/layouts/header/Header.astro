@@ -41,6 +41,7 @@ const links = [
                 <div>Menu</div>
             </button>
             <div id="mobilemenu" popover class:list={[CSS.mobilemenu]}>
+                <button popovertarget="mobilemenu" popovertargetaction="hide">Close</button>
                 <nav class:list={[CSS.mobileNav]}>
                     {links.map((link) => (
                         <Link href={link.href} text={link.text} />

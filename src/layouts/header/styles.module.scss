@@ -40,6 +40,11 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--spacing-xs);
+
+	&:focus-visible {
+		outline: 2px solid var(--brand-900);
+		outline-offset: 4px;
+	}
 }
 
 .mobilemenu {
@@ -53,6 +58,7 @@
 	top: 0;
 	width: 90vw;
 	background: var(--brand-900);
+	border: none;
 
 	&:popover-open {
 		transform: translateX(0);
