@@ -1,0 +1,14 @@
+---
+import ArticleLink from './ArticleLink.astro'
+import CSS from './styles.module.scss'
+---
+<section class:list={['container']}>
+    <h2>Articles</h2>
+    <ul>
+        {Array.from({length: 5}).map((_, index) => (
+            <li>
+                <ArticleLink href='' title='' />
+            </li>
+        ))}
+    </ul>
+</section>

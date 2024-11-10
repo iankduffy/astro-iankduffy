@@ -34,6 +34,34 @@
 	--font-size-xxxxl: 2rem; /* 32px */
 }
 
+html.dark {
+	--brand-50: #182739;
+	--brand-100: #243c56;
+	--brand-200: #264666;
+	--brand-300: #2a527a;
+	--brand-400: #326697;
+	--brand-500: #4480b3;
+	--brand-600: #679cc9;
+	--brand-700: #9cbedd;
+	--brand-800: #cadced;
+	--brand-900: #e7eff7;
+	--brand-950: #f4f7fb;
+}
+
+html.light {
+	--brand-50: #f4f7fb;
+	--brand-100: #e7eff7;
+	--brand-200: #cadced;
+	--brand-300: #9cbedd;
+	--brand-400: #679cc9;
+	--brand-500: #4480b3;
+	--brand-600: #326697;
+	--brand-700: #2a527a;
+	--brand-800: #264666;
+	--brand-900: #243c56;
+	--brand-950: #182739;
+}
+
 html {
 	background: var(--brand-100);
 	font-family: 'Roboto', sans-serif;
