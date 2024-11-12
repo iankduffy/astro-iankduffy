@@ -2,13 +2,18 @@
 import ArticleLink from './ArticleLink.astro'
 import CSS from './styles.module.scss'
 ---
-<section class:list={['container']}>
-    <h2>Articles</h2>
-    <ul>
-        {Array.from({length: 5}).map((_, index) => (
-            <li>
-                <ArticleLink href='' title='' />
-            </li>
-        ))}
-    </ul>
-</section>
+<div class:list={['container', CSS.articlesSection]}>
+    <section class:list={[]}>
+        <h2>Recent Articles</h2>
+        <ul class:list={[CSS.list]}>
+            {Array.from({length: 5}).map((_, index) => (
+                <li>
+                    <ArticleLink href='/' title='Common performance issue when using functions to get initial state for React Use State' />
+                </li>
+            ))}
+        </ul>
+    </section>
+    <aside>
+        Filters
+    </aside>
+</div>

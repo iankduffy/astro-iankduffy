@@ -1,1 +1,30 @@
 @import '../../../styles/_shared/breakpoints.scss';
+
+.articlesSection {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+	color: var(--brand-900);
+	margin: var(--spacing-lg) auto;
+
+	@include breakpoint(lg) {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+	}
+}
+
+.list {
+	list-style: none;
+	padding: 0;
+}
+
+// Todo: Does importing this twice cause any issues?
+.articleLink {
+	text-decoration: none;
+	color: var(--brand-900);
+	font-size: 1.2rem;
+
+	&:not(:last-of-type) {
+		border-bottom: 1px solid var(--brand-900);
+	}
+}

@@ -4,7 +4,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px 0;
+	padding: 20px;
 	max-height: 100px;
 }
 
@@ -41,6 +41,10 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--spacing-xs);
+	padding: var(--spacing-md);
+	padding-right: 0;
+	cursor: pointer;
+	color: var(--button-color);
 
 	&:focus-visible {
 		outline: 2px solid var(--brand-900);
@@ -49,10 +53,12 @@
 }
 
 .mobilemenu {
+	--button-color: var(--brand-100);
 	transform: translateX(100%);
 	transition:
-		transform 0.4s,
-		overlay 0.4s ease-out;
+		500ms transform,
+		display 500ms allow-discrete,
+		overlay 500ms allow-discrete;
 	height: 100vh;
 	inset: unset;
 	right: 0;
@@ -63,18 +69,17 @@
 
 	&:popover-open {
 		transform: translateX(0);
-	}
-
-	@starting-style {
-		transform: translateX(100%);
+		@starting-style {
+			transform: translateX(100%);
+		}
 	}
 }
 
 .mobileNav {
+	--button-color: var(--brand-900);
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-md);
-	padding: var(--spacing-md);
 	justify-content: center;
 
 	@include breakpoint(sm) {

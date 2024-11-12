@@ -14,7 +14,7 @@ const links = [
 <header>
     <div class:list={[CSS.headerContainer, 'container']}>
         <a class:list={[CSS.logo]} href="/">
-            <img src="https://iankduffy.com/logo.svg" alt="Ian Duffy" width="60" height="67" loading="eager"/>
+            <img src="https://iankduffy.com/logo.svg" alt="Ian Duffy" width="60" height="67" loading="eager" fetchpriority="high"/>
         </a>
         <nav class:list={[CSS.mainNav, CSS.desktopNavElements]}>
             {links.map((link) => (

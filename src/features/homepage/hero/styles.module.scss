@@ -6,11 +6,11 @@
 	gap: var(--spacing-md);
 	color: var(--brand-900);
 	align-items: center;
-	margin: var(--spacing-lg) 0;
+	margin: var(--spacing-lg) auto;
 
 	@include breakpoint(md) {
 		display: grid;
-		grid-template-columns: 1fr 500px;
+		grid-template-columns: 1fr auto;
 	}
 }
 
@@ -19,9 +19,9 @@
 	flex-direction: column;
 	justify-content: center;
 	gap: var(--spacing-md);
-	font-size: 48px;
+	font-size: clamp(1.5rem, -0.3707rem + 3vw, 3.75rem);
 
 	span {
-		font-size: 68px;
+		font-size: clamp(2rem, -0.3707rem + 10vh, 4rem);
 	}
 }

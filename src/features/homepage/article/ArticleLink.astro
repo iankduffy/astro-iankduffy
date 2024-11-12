@@ -4,12 +4,13 @@ interface Props {
     title: string;
 }
 const { href, title } = Astro.props
+import CSS  from './styles.module.scss'
 ---
 
-<a href='/'>
-    <h3>Title</h3>
+<a href='/' class:list={[CSS.articleLink]}>
+    <h3 style="text-wrap:pretty">{title}</h3>
     <div>
-        <p>Published Date</p>
-        <p>Article read time</p>
+        <span>Published Date</span>
+        <span>Article read time</span>
     </div>
 </a>

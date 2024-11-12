@@ -4,7 +4,8 @@
 	display: flex;
 	gap: var(--spacing-md);
 	list-style: none;
-	padding: 0;
+	padding: var(--spacing-lg) 0;
+	max-width: 100vw;
 	overflow: hidden;
 
 	> * {
@@ -13,6 +14,7 @@
 }
 
 .list {
+	--animation-duration: 30s;
 	display: flex;
 	overflow: hidden;
 	gap: var(--spacing-md);
@@ -21,7 +23,8 @@
 	width: 100%;
 	padding: 0;
 	flex-shrink: 0;
-	animation: marquee 30s linear infinite;
+	animation: marquee var(--animation-duration) linear infinite;
+
 	> * {
 		flex-shrink: 0;
 	}
