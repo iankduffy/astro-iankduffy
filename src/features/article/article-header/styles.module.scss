@@ -1,0 +1,14 @@
+.container {
+	color: var(--brand-900);
+	margin: 0 var(--spacing-sm);
+}
+
+.articleInfo {
+	display: flex;
+	column-gap: var(--spacing-sm);
+	flex-wrap: wrap;
+
+	p {
+		margin: var(--spacing-xs) 0;
+	}
+}

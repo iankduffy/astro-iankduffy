@@ -1,0 +1,12 @@
+---
+import CSS from './styles.module.scss'
+---
+
+<div>
+    <details class:list={[CSS.mobileTableOfContents]}>
+        <summary class:list={[CSS.summary]}>Table of Contents</summary>
+        <nav class:list={[CSS.articleMobileNav]}>
+            <slot />
+        </nav>
+    </details>
+</div>

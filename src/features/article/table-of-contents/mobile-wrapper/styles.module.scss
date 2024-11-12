@@ -1,0 +1,21 @@
+@import '../../../../styles/_shared/breakpoints.scss';
+
+.mobileTableOfContents {
+	display: block;
+	background: var(--brand-200);
+	color: var(--brand-800);
+	padding: var(--spacing-sm);
+
+	@include breakpoint(lg) {
+		display: none;
+	}
+}
+
+.summary {
+	cursor: pointer;
+	list-style: none;
+}
+
+.articleMobileNav {
+	padding: var(--spacing-sm) 0;
+}
