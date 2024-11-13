@@ -1,10 +1,26 @@
 ---
+// import ArticleList from '../../features/homepage/article/ArticleList.astro';
 import Layout from '../../layouts/Layout.astro';
+import { getAllArticles } from '../../queries/articles';
+
+const articles = await getAllArticles()
+// console.log({articles})
+
 ---
 
 <Layout title="Welcome to Astro.">
 	<main class="container">
-		<h1>Articles</h1>
+		{articles.map((article: {title: string}) => {
+			console.log({article})
+			return (
+				<article>
+					<h2>{article.title}</h2>
+				</article>
+			)
+		})}
+		
+		<!-- <ArticleList /> -->
+
 	</main>
 </Layout>
 
