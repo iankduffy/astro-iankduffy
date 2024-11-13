@@ -10,23 +10,28 @@ const { slug } = Astro.params;
 
 const article = await getArticleFromSlug(slug)
 
-import ArticleHeader from "../../features/article/article-header/ArticleHeader.astro";
-import MobileTableOfContents from "../../features/article/table-of-contents/mobile-wrapper/MobileTableOfContents.astro";
+import ArticleHeader from "../../features/article/components/article-header/ArticleHeader.astro";
+import MobileTableOfContents from "../../features/article/components/table-of-contents/mobile-wrapper/MobileTableOfContents.astro";
 import Layout from "../../layouts/Layout.astro";
-import ArticleBody from "../../features/article/article-body/ArticleBody.astro";
-import DesktopTableOfContents from "../../features/article/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
+import ArticleBody from "../../features/article/components/article-body/ArticleBody.astro";
+import DesktopTableOfContents from "../../features/article/components/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
+import { getContentHeader } from "../../features/article/lib/get-content-tables";
+import { PortableText } from "astro-portabletext"
+
+const contentTables = await getContentHeader(article.content)
+
 ---
 
 <Layout title={article.title}>
   <main>
     <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
     <MobileTableOfContents>
-        Hello I am Here
+        <PortableText value={contentTables}/>
     </MobileTableOfContents>
     <div>
-        <ArticleBody />
+        <ArticleBody content={article.content} />
         <DesktopTableOfContents>
-            Hello I am Here
+          <PortableText value={contentTables} />
         </DesktopTableOfContents>
     </div>
   </main>

@@ -1,0 +1,18 @@
+---
+import {PortableText} from "astro-portabletext"
+import AlertBox from "./portable-text-components/AlertBox.astro"
+import type { PortableTextComponents } from "astro-portabletext/types"
+const { content } = Astro.props
+
+// Todo: Solve how to do this better
+const articleComponents: Partial<PortableTextComponents> = {
+    type: {
+        // @ts-ignore
+        alertBox: AlertBox
+    }
+}
+
+---
+<article>
+    <PortableText value={content} components={articleComponents} />
+</article>

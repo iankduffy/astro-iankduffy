@@ -1,0 +1,25 @@
+---
+import type { PortableTextBlock } from 'sanity'
+import { PortableText } from "astro-portabletext"
+
+interface Props {
+    text: PortableTextBlock[]
+    variant: 'success' | 'danger' | 'warning' | 'info'
+}
+
+const {text, variant} = Astro.props
+
+// const variantStyle = {
+//     info: 'bg-brand-900 text-brand-100 border-brand-500',
+//     success: 'bg-green-500 text-white',
+//     warning: 'bg-orange-500 text-black',
+//     danger: 'bg-red-500 text-white',
+// }
+
+---
+
+<div>
+    <h1>In am an alert</h1>
+    <PortableText value={text} />
+</div>
+
