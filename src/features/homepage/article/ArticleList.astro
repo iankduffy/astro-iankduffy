@@ -1,14 +1,16 @@
 ---
+import { getAllArticles } from '../../../queries/articles'
 import ArticleLink from './ArticleLink.astro'
 import CSS from './styles.module.scss'
+const articles = await getAllArticles()
 ---
 <div class:list={['container', CSS.articlesSection]}>
     <section class:list={[]}>
         <h2>Recent Articles</h2>
         <ul class:list={[CSS.list]}>
-            {Array.from({length: 5}).map((_, index) => (
+            {articles.map((article, index) => (
                 <li>
-                    <ArticleLink href='/' title='Common performance issue when using functions to get initial state for React Use State' />
+                    <ArticleLink {...article} />
                 </li>
             ))}
         </ul>

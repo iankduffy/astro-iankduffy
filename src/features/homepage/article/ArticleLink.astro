@@ -1,13 +1,10 @@
 ---
-interface Props {
-    href: string;
-    title: string;
-}
-const { href, title } = Astro.props
+
+const { slug, title } = Astro.props
 import CSS  from './styles.module.scss'
 ---
 
-<a href='/' class:list={[CSS.articleLink]}>
+<a href={`/articles/${slug.current}`} class:list={[CSS.articleLink]}>
     <h3 style="text-wrap:pretty">{title}</h3>
     <div>
         <span>Published Date</span>

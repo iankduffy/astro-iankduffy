@@ -1,0 +1,33 @@
+---
+import { getArticleFromSlug } from "../../queries/articles";
+import { getAllArticlesSlug } from "../../queries/articles"
+export async function getStaticPaths() {
+  const articlesSlugs = await getAllArticlesSlug()
+  return articlesSlugs
+}
+
+const { slug } = Astro.params;
+
+const article = await getArticleFromSlug(slug)
+
+import ArticleHeader from "../../features/article/article-header/ArticleHeader.astro";
+import MobileTableOfContents from "../../features/article/table-of-contents/mobile-wrapper/MobileTableOfContents.astro";
+import Layout from "../../layouts/Layout.astro";
+import ArticleBody from "../../features/article/article-body/ArticleBody.astro";
+import DesktopTableOfContents from "../../features/article/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
+---
+
+<Layout title={article.title}>
+  <main>
+    <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
+    <MobileTableOfContents>
+        Hello I am Here
+    </MobileTableOfContents>
+    <div>
+        <ArticleBody />
+        <DesktopTableOfContents>
+            Hello I am Here
+        </DesktopTableOfContents>
+    </div>
+  </main>
+</Layout>
