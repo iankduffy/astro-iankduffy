@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+
+---
+
+<Layout title="Basic Image Example">
+    <h1>This is a basic example of a image element with srcset</h1>
+    <img 
+            src="https://dummyimage.com/300" 
+    srcset="
+            https://dummyimage.com/100 100w, 
+            https://dummyimage.com/200 200w, 
+            https://dummyimage.com/300 300w, 
+            https://dummyimage.com/400 400w, 
+            https://dummyimage.com/500 500w, 
+            https://dummyimage.com/600 600w, 
+            https://dummyimage.com/700 700w, 
+            https://dummyimage.com/800 800w, 
+            https://dummyimage.com/900 900w, 
+            https://dummyimage.com/1000 1000w, 
+            https://dummyimage.com/1100 1100w, 
+            https://dummyimage.com/1200 1200w, 
+            https://dummyimage.com/1300 1300w, 
+            https://dummyimage.com/1400 1400w, 
+            https://dummyimage.com/1500 1500w, 
+            https://dummyimage.com/1600 1600w, 
+            https://dummyimage.com/1700 1700w, 
+            https://dummyimage.com/1800 1800w, 
+            https://dummyimage.com/1900 1900w, 
+            https://dummyimage.com/2000 2000w, 
+            https://dummyimage.com/2100 2100w, 
+            https://dummyimage.com/2200 2200w, 
+            https://dummyimage.com/2300 2300w, 
+            https://dummyimage.com/2400 2400w, 
+            https://dummyimage.com/2500 2500w, 
+            https://dummyimage.com/2600 2600w, 
+            https://dummyimage.com/2700 2700w, 
+            https://dummyimage.com/2800 2800w, 
+            https://dummyimage.com/2900 2900w, 
+            https://dummyimage.com/3000 3000w
+        " 
+            alt="A dummy image" 
+            sizes="100vw" 
+        />
+</Layout>

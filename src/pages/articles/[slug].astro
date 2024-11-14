@@ -23,16 +23,17 @@ const contentTables = await getContentHeader(article.content)
 ---
 
 <Layout title={article.title}>
-  <main>
+  <main class="container">
     <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
+    <aside>
     <MobileTableOfContents>
         <PortableText value={contentTables}/>
     </MobileTableOfContents>
-    <div>
-        <ArticleBody content={article.content} />
-        <DesktopTableOfContents>
-          <PortableText value={contentTables} />
-        </DesktopTableOfContents>
-    </div>
+    <DesktopTableOfContents>
+      <PortableText value={contentTables} />
+    </DesktopTableOfContents>
+</aside>
+    <ArticleBody content={article.content} />
+
   </main>
 </Layout>
