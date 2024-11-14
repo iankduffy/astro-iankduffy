@@ -6,8 +6,14 @@ import Layout from "../../layouts/Layout.astro";
 
 <Layout title="Basic Image Example">
     <h1>This is a basic example of a image element with srcset</h1>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <div id="dpr"></div>
+        <div id="screen"></div>
+        <div id="equal"></div>
+        <div id="currentSrc"></div>
+    </div>
     <img 
-    data-testid="basic-image-example"
+    id="basic-image-example"
             src="https://dummyimage.com/300" 
     srcset="
             https://dummyimage.com/100 100w, 
@@ -44,4 +50,27 @@ import Layout from "../../layouts/Layout.astro";
             alt="A dummy image" 
             sizes="100vw" 
         />
+
 </Layout>
+
+<script is:inline>
+    function updateDisplay() {
+        const dpr = window.devicePixelRatio;
+        document.getElementById('dpr').innerHTML = `Device Pixel Ratio: ${dpr}`;
+
+        const screen = window.innerWidth;
+        document.getElementById('screen').innerHTML = `Screen Width: ${screen}`;
+
+        const equal = screen * dpr;
+        document.getElementById('equal').innerHTML = `Screen Width * DPR: ${equal}`;
+
+        const img = document.querySelector("#basic-image-example");
+        
+        const currentSrc = img.currentSrc;
+
+        document.getElementById('currentSrc').innerHTML = `Current Src: ${currentSrc}`;
+    }
+
+    window.addEventListener('resize', updateDisplay);
+    updateDisplay();
+</script>
