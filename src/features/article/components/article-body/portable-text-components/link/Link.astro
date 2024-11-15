@@ -1,0 +1,8 @@
+---
+import { PortableText } from "astro-portabletext"
+const { node } = Astro.props
+---
+
+<a href={node.markDef.href} target={node.markDef.href.startsWith('/') ? null : '_blank'} rel={node.markDef.href.startsWith('/') ? null : "noopener noreferrer"}>
+    <PortableText value={node.children}/>
+</a>

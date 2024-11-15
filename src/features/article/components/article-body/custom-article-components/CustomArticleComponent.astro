@@ -1,0 +1,38 @@
+---
+const { node } = Astro.props
+const {component} = node
+
+---
+
+{component === 'dumb' && (
+    <h2>dumb</h2>
+)}
+
+{component === 'articleContainerQueriesRow' && (
+    <h2>articleContainerQueriesRow</h2>
+)}
+
+{component === 'cssVarButtons' && (
+    <h2>cssVarButtons</h2>
+)}
+
+{component === 'basicPopover' && (
+    <h2>basicPopover</h2>
+)}
+
+{component === 'mobileNavPopover' && (
+    <h2>mobileNavPopover</h2>
+)}
+
+{component === 'imgClsExample' && (
+    <h2>imgClsExample</h2>
+)}
+
+{component === 'performanceUseStateBad' && (
+    <h2>performanceUseStateBad</h2>
+)}
+
+{component === 'performanceUseStateGood' && (
+    <h2>performanceUseStateGood</h2>
+)}
+
