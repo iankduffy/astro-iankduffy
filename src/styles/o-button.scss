@@ -1,0 +1,42 @@
+body {
+	--btn-background: var(--brand-100);
+	--btn-color: var(--brand-900);
+}
+
+.secondary {
+	--btn-border: transparent;
+	--btn-background: transparent;
+	--btn-color: white;
+}
+
+.danger {
+	--btn-border: red;
+	--btn-background: red;
+	--btn-color: white;
+}
+
+.success {
+	--btn-border: rgb(6, 104, 6);
+	--btn-background: green;
+	--btn-color: white;
+}
+
+.brand {
+	--btn-border: rgb(33 53 79);
+	--btn-background: rgb(33 53 79);
+	--btn-color: white;
+}
+
+.button {
+	background: var(--btn-background);
+	color: var(--btn-color);
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 20px;
+	border-radius: 5px;
+
+	&:hover {
+		opacity: 0.95;
+	}
+}

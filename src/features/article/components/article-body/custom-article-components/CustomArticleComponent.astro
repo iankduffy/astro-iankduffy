@@ -1,4 +1,5 @@
 ---
+import {CssVarButtons} from './custom-css-buttons/CustomCSSButtons'
 const { node } = Astro.props
 const {component} = node
 
@@ -13,7 +14,7 @@ const {component} = node
 )}
 
 {component === 'cssVarButtons' && (
-    <h2>cssVarButtons</h2>
+    <CssVarButtons />
 )}
 
 {component === 'basicPopover' && (
