@@ -5,6 +5,7 @@ const {playbackId} = node.video.asset
 
 <mux-player playback-id={playbackId}></mux-player>
 
-<script>
+<script is:inline>
     import('@mux/mux-player');
+    console.log('MuxPlayer');
 </script>
