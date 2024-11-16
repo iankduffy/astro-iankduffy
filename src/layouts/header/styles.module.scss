@@ -36,7 +36,6 @@
 }
 
 .navButton {
-	all: unset;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -47,7 +46,7 @@
 	color: var(--button-color);
 
 	&:focus-visible {
-		outline: 2px solid var(--brand-900);
+		// outline: 2px solid var(--brand-900);
 		outline-offset: 4px;
 	}
 }

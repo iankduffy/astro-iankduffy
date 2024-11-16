@@ -1,0 +1,6 @@
+.container {
+	display: flex;
+	gap: var(--spacing-sm);
+	justify-content: center;
+	flex-wrap: wrap;
+}

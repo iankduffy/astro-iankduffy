@@ -1,10 +1,14 @@
 ---
 import { PortableText } from "astro-portabletext"
 import { getContentHeader } from "../../../lib/get-content-tables"
+import ContentLink from "./ContentLink.astro"
 
 const {content} = Astro.props
 
 const contentTables = await getContentHeader(content)
+console.log({contentTables})
 ---
 
-<PortableText value={contentTables} />
+<nav>
+    <PortableText value={contentTables} components={{block: {h1: ContentLink, h2: ContentLink, h3: ContentLink, h4: ContentLink, h5: ContentLink, h6: ContentLink}}} />
+</nav>

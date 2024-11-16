@@ -10,7 +10,6 @@ const articles = await getAllArticles()
 <Layout title="Welcome to Astro.">
 	<main class="container">
 		{articles.map((article) => {
-			console.log({article})
 			return (
 				<article>
 					<h2>{article.title}</h2>

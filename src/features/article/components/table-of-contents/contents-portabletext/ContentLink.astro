@@ -1,3 +1,8 @@
 ---
 const { node } = Astro.props
+const headingId = `#h${node._key}`
 ---
+
+<a href={headingId} class="contents-link">
+    <slot/>
+</a> 
