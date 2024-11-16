@@ -1,0 +1,14 @@
+---
+import { VscMenu } from "react-icons/vsc";
+import style from './mobile-nav.module.scss'
+---
+
+<section class="grid place-items-center py-8">
+    <button popovertarget="article-mobile-menu" class="button"><span class="flex gap-4"><VscMenu className="text-2xl" /> <span>Menu</span></span></button>
+    <div popover='auto' id="article-mobile-menu" class={style.mobileMenuPopover}>
+        <button popovertarget="article-mobile-menu" popovertargetaction="hide" class="button danger">Close</button>
+        <nav>
+            <p>Mobile Menu Appears Here</p>
+        </nav>
+    </div>
+</section>
