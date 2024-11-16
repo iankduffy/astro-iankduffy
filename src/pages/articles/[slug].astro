@@ -15,11 +15,8 @@ import MobileTableOfContents from "../../features/article/components/table-of-co
 import Layout from "../../layouts/Layout.astro";
 import ArticleBody from "../../features/article/components/article-body/ArticleBody.astro";
 import DesktopTableOfContents from "../../features/article/components/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
-import { getContentHeader } from "../../features/article/lib/get-content-tables";
-import { PortableText } from "astro-portabletext"
 import Contents from "../../features/article/components/table-of-contents/contents-portabletext/Contents.astro";
 
-const contentTables = await getContentHeader(article.content)
 
 ---
 

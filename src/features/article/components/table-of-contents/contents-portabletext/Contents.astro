@@ -6,9 +6,20 @@ import ContentLink from "./ContentLink.astro"
 const {content} = Astro.props
 
 const contentTables = await getContentHeader(content)
-console.log({contentTables})
 ---
 
-<nav>
+<nav class="list">
     <PortableText value={contentTables} components={{block: {h1: ContentLink, h2: ContentLink, h3: ContentLink, h4: ContentLink, h5: ContentLink, h6: ContentLink}}} />
 </nav>
+
+<style scoped>
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        strong {
+            font-weight: inherit;
+        }
+    }
+</style>

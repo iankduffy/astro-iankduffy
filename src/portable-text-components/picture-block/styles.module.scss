@@ -1,0 +1,14 @@
+.figure {
+	margin: 0;
+	width: 100%;
+	background: var(--brand-200);
+	color: var(--brand-900);
+	border-radius: var(--spacing-xxs);
+	overflow: hidden;
+
+	figcaption {
+		padding: var(--spacing-xs);
+		font-size: var(--font-size-sm);
+		text-align: center;
+	}
+}

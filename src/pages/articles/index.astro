@@ -1,5 +1,6 @@
 ---
 // import ArticleList from '../../features/homepage/article/ArticleList.astro';
+import ArticleList from '../../features/homepage/article/ArticleList.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getAllArticles } from '../../queries/articles';
 
@@ -9,14 +10,8 @@ const articles = await getAllArticles()
 
 <Layout title="Welcome to Astro.">
 	<main class="container">
-		{articles.map((article) => {
-			return (
-				<article>
-					<h2>{article.title}</h2>
-					{article.estimatedReadingTime}
-				</article>
-			)
-		})}
+		<h1>Articles</h1>
+		<ArticleList articles={articles} />
 	</main>
 </Layout>
 

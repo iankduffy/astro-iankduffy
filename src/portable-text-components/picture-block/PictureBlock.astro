@@ -1,5 +1,12 @@
 ---
-
+const {node } = Astro.props
+import {urlForImage} from '../../lib/urlForImage'
+import CSS from './styles.module.scss'
+const url = urlForImage(node.image).fit('fill').width(1000).quality(80).auto('format').url()
+console.log(node)
 ---
 
-<div>Picture Block</div>
+<figure class:list={[CSS.figure]}>
+    <img src={url} alt={node.alt}  width="1000" height="600"/>
+    <figcaption>{node.alt}</figcaption>
+</figure>

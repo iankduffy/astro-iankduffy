@@ -1,13 +1,13 @@
 ---
-
-const { slug, title } = Astro.props
+const { slug, title, publishedDate, estimatedReadingTime } = Astro.props
 import CSS  from './styles.module.scss'
+const publishedDAte = new Date(publishedDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
 ---
 
 <a href={`/articles/${slug.current}`} class:list={[CSS.articleLink]}>
     <h3 style="text-wrap:pretty">{title}</h3>
     <div>
-        <span>Published Date</span>
-        <span>Article read time</span>
+        <span>{publishedDAte}</span>
+        {estimatedReadingTime ? <span>{estimatedReadingTime} mins read</span> : null}
     </div>
 </a>
