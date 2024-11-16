@@ -1,0 +1,13 @@
+.counterButtons {
+	display: flex;
+	gap: var(--spacing-sm);
+}
+
+.counter {
+	background: var(--brand-200);
+	padding: var(--spacing-sm);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--spacing-sm);
+}

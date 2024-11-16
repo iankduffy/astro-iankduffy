@@ -1,6 +1,7 @@
 ---
 import { PortableText } from "astro-portabletext";
 import Span from "../span-block/Span.astro";
+import CSS from './styles.module.scss';
 
 const { node } = Astro.props
 
@@ -10,7 +11,7 @@ const HeadingTag = style
 const headingId = `h${_key}`;
 ---
 
-<a href={`#${headingId}`} id={headingId}> 
+<a href={`#${headingId}`} id={headingId} class:list={[CSS.headingLink]}> 
     <HeadingTag>
         <PortableText value={children} components={{type: {span: Span}}} />
     </HeadingTag>

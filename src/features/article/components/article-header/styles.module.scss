@@ -1,6 +1,11 @@
+@import '../../../../styles/_shared/breakpoints.scss';
+
 .container {
 	color: var(--brand-900);
-	margin: 0 var(--spacing-sm);
+	margin: 0 auto;
+	max-width: 1000px;
+	// padding: 0 var(--spacing-sm);
+	width: 90vw;
 }
 
 .articleInfo {

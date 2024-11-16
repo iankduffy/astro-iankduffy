@@ -1,9 +1,10 @@
 ---
 import { Code } from 'astro:components';
+import CSS from './styles.module.scss'
 const { node } = Astro.props
 const { code } = node
 ---
 
-<div style="max-width: 100%;">
-<Code code={code} theme="dark-plus" />
-</div>
+<!-- <div style="max-width: 100%;"> -->
+<Code code={code} class:list={[CSS.codeBlock]}/>
+<!-- </div> -->

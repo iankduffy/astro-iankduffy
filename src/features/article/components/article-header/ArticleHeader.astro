@@ -1,12 +1,18 @@
 ---
 import CSS from './styles.module.scss'
+import Alert from '../../../../components/alert-box/Alert.astro'
 const { title, datePublished, readTime } = Astro.props
+
+const isOldArticle = new Date(datePublished) < new Date(import.meta.env.MIGRATION_DATE ?? '')
+
+console.log({isOldArticle}, {datePublished}, import.meta.env.MIGRATION_DATE)
 ---
 
-<header class:list={['container', CSS.container, 'article-container']}>
+<header class:list={[ CSS.container]}>
     <h1>{title}</h1>
     <div class:list={[CSS.articleInfo]}>
         <p>{datePublished}</p>
         {readTime ? <p>Read Time {readTime} mins</p> : null}
     </div>
+    {isOldArticle ? <Alert variant='warning'>This article was published before the migration to Astro. And might not work as fully expected, you can find the previous version at: </Alert> : null}
 </header>

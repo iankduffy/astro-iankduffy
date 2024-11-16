@@ -1,0 +1,10 @@
+@import '../../../../../styles/_shared/breakpoints.scss';
+
+.desktopContents {
+	display: none;
+	@include breakpoint(lg) {
+		position: sticky;
+		top: var(--spacing-md);
+		display: block;
+	}
+}

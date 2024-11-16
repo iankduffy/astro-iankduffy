@@ -4,16 +4,11 @@ import { PortableText } from "astro-portabletext"
 import CSS from './styles.module.scss'
 
 interface Props {
-    node: {
-        text: PortableTextBlock[]
-        variant: 'success' | 'danger' | 'warning' | 'info'
-    }
+    variant: 'success' | 'danger' | 'warning' | 'info'
 }
+const { variant } = Astro.props
 
-const { node } = Astro.props
-const {text, variant} = node
-
-const variantStyle: { [key in Props['node']['variant']]: string } = {
+const variantStyle: { [key in Props['variant']]: string } = {
     info: CSS['alert-info'],
     success: CSS['alert-success'],
     warning: CSS['alert-warning'],
@@ -22,5 +17,5 @@ const variantStyle: { [key in Props['node']['variant']]: string } = {
 ---
 
 <div class:list={[CSS.alertBox, variantStyle[variant]]}>
-    <PortableText value={text} />
+    <slot/>
 </div>
