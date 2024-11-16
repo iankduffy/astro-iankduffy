@@ -5,7 +5,16 @@ const {playbackId} = node.video.asset
 
 <mux-player playback-id={playbackId}></mux-player>
 
-<script is:inline>
-    import('@mux/mux-player');
-    console.log('MuxPlayer');
+<script>
+    const player = document.querySelector('mux-player')
+
+    const onIntersection = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                import('@mux/mux-player')
+            }
+        })
+    }
+    const observer = new IntersectionObserver(onIntersection)
+    if (player) observer.observe(player)
 </script>
