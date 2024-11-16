@@ -111,6 +111,7 @@ img {
 		display: grid;
 		grid-template-areas: 'article aside';
 		grid-template-columns: 2fr 1fr;
+		align-items: flex-start;
 
 		aside {
 			grid-area: aside;
@@ -121,6 +122,15 @@ img {
 			max-width: 100%;
 			overflow: hidden;
 		}
+	}
+}
+
+.article-aside {
+	position: sticky;
+	top: 0;
+
+	@include breakpoint('lg') {
+		top: var(--spacing-md);
 	}
 }
 

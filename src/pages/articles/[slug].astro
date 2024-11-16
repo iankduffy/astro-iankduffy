@@ -24,7 +24,7 @@ import Contents from "../../features/article/components/table-of-contents/conten
   <main class="">
     <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
     <div class="article-body">
-      <aside>
+      <aside class="article-aside">
       <MobileTableOfContents>
           <Contents content={article.content} />
       </MobileTableOfContents>

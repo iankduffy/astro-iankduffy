@@ -3,8 +3,6 @@
 .desktopContents {
 	display: none;
 	@include breakpoint(lg) {
-		position: sticky;
-		top: var(--spacing-md);
 		display: block;
 	}
 
