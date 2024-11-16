@@ -17,6 +17,7 @@ import ArticleBody from "../../features/article/components/article-body/ArticleB
 import DesktopTableOfContents from "../../features/article/components/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
 import { getContentHeader } from "../../features/article/lib/get-content-tables";
 import { PortableText } from "astro-portabletext"
+import Contents from "../../features/article/components/table-of-contents/contents-portabletext/Contents.astro";
 
 const contentTables = await getContentHeader(article.content)
 
@@ -28,10 +29,10 @@ const contentTables = await getContentHeader(article.content)
     <div class="article-body">
       <aside>
       <MobileTableOfContents>
-          <PortableText value={contentTables}/>
+          <Contents content={article.content} />
       </MobileTableOfContents>
       <DesktopTableOfContents>
-        <PortableText value={contentTables} />
+          <Contents content={article.content} />
       </DesktopTableOfContents>
       </aside>    
       <ArticleBody content={article.content} />

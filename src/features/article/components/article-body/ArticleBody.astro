@@ -13,7 +13,5 @@ const { content } = Astro.props
 
 ---
 <article class:list={[]}>
-    <div style="max-width: 100%">
     <PortableText value={content} components={mergeComponents({type: { alertBox: AlertBox, code: CodeBlock, canIUse: CanIUse, articleVideo: VideoBlock, articleCustomComp: CustomArticleComponent }, block: {h1: Heading, h2: Heading, h3: Heading, h4: Heading, h5: Heading, h6: Heading}, mark: {link: Link}, list: {bullet: BulletList}}, {})} />
-    </div>
 </article>

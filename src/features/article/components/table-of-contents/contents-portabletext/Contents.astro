@@ -1,0 +1,10 @@
+---
+import { PortableText } from "astro-portabletext"
+import { getContentHeader } from "../../../lib/get-content-tables"
+
+const {content} = Astro.props
+
+const contentTables = await getContentHeader(content)
+---
+
+<PortableText value={contentTables} />
