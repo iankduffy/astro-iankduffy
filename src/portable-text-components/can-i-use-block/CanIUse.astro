@@ -1,0 +1,15 @@
+---
+const {node } = Astro.props
+console.log(node)
+const { feature } = node
+---
+
+<div class="my-4 ciu_embed" data-feature={feature} data-periods="future_1,current,past_1,past_2" data-accessible-colours="false">
+    <picture>
+    <source type="image/webp" srcset={`https://caniuse.bitsofco.de/image/${feature}.webp`} />
+    <source type="image/png" srcset={`https://caniuse.bitsofco.de/image/${feature}.png`} />
+    <img src={`https://caniuse.bitsofco.de/image/${feature}.jpg`} alt={`Data on support for the ${feature} feature across the major browsers from caniuse.com`} loading="lazy" width={800} height={388} class="w-full"/>
+    </picture>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/ireade/caniuse-embed/public/caniuse-embed.min.js"></script>

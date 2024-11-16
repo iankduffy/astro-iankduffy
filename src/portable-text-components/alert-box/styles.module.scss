@@ -1,0 +1,16 @@
+.alertBox {
+	margin: var(--spacing-md) var(--spacing-sm);
+	padding: var(--spacing-sm);
+	margin-left: 0;
+	border-left: 4px solid;
+
+	p {
+		margin: var(--spacing-xs) 0;
+	}
+}
+
+.alert-info {
+	border-color: var(--brand-500);
+	color: var(--brand-800);
+	background-color: var(--brand-200);
+}

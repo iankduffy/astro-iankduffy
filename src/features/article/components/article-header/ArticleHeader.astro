@@ -3,7 +3,7 @@ import CSS from './styles.module.scss'
 const { title, datePublished, readTime } = Astro.props
 ---
 
-<header class:list={['container', CSS.container]}>
+<header class:list={['container', CSS.container, 'article-container']}>
     <h1>{title}</h1>
     <div class:list={[CSS.articleInfo]}>
         <p>{datePublished}</p>

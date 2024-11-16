@@ -1,0 +1,11 @@
+---
+const {node} = Astro.props
+console.log(node)
+const {playbackId} = node.video.asset
+---
+
+<mux-player playback-id={playbackId}></mux-player>
+
+<script>
+    import '@mux/mux-player';
+</script>

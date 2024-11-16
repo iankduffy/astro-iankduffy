@@ -1,39 +1,35 @@
 ---
 import {CssVarButtons} from './react/custom-css-buttons/CustomCSSButtons'
+import {BadCounterComponent} from './react/performance-counter/BadCounterComponent'
+import {BasicPopover} from './react/basic-popover/BasicPopover'
+import {MobileNavPopover} from './react/mobile-nav-popover'
+import {GoodCounterComponent} from './react/performance-counter/GoodCounterComponent'
 const { node } = Astro.props
 const {component} = node
 
 ---
 
-{component === 'dumb' && (
-    <h2>dumb</h2>
-)}
-
-{component === 'articleContainerQueriesRow' && (
+<!-- {component === 'articleContainerQueriesRow' && (
     <h2>articleContainerQueriesRow</h2>
-)}
+)} -->
 
 {component === 'cssVarButtons' && (
     <CssVarButtons />
 )}
 
 {component === 'basicPopover' && (
-    <h2>basicPopover</h2>
+    <BasicPopover />
 )}
 
 {component === 'mobileNavPopover' && (
-    <h2>mobileNavPopover</h2>
-)}
-
-{component === 'imgClsExample' && (
-    <h2>imgClsExample</h2>
+    <MobileNavPopover />
 )}
 
 {component === 'performanceUseStateBad' && (
-    <h2>performanceUseStateBad</h2>
+    <BadCounterComponent client:visible />
 )}
 
 {component === 'performanceUseStateGood' && (
-    <h2>performanceUseStateGood</h2>
+    <GoodCounterComponent client:visible />
 )}
 

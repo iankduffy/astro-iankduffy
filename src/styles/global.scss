@@ -93,3 +93,33 @@ img {
 }
 
 @import './o-button.scss';
+
+.article-container {
+	max-width: 1000px;
+	width: 90vw;
+}
+
+.article-body {
+	max-width: 1000px;
+	margin: 0 auto;
+	width: 90vw;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+
+	@include breakpoint('lg') {
+		display: grid;
+		grid-template-areas: 'article aside';
+		grid-template-columns: 2fr 1fr;
+
+		aside {
+			grid-area: aside;
+		}
+
+		article {
+			grid-area: article;
+			max-width: 100%;
+			overflow: hidden;
+		}
+	}
+}

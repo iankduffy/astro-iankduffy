@@ -1,0 +1,9 @@
+---
+import { Code } from 'astro:components';
+const { node } = Astro.props
+const { code } = node
+---
+
+<div style="max-width: 100%;">
+<Code code={code} theme="dark-plus" />
+</div>

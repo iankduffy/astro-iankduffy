@@ -1,0 +1,27 @@
+---
+import type { PortableTextBlock } from 'sanity'
+import { PortableText } from "astro-portabletext"
+import CSS from './styles.module.scss'
+
+interface Props {
+    node: {
+        text: PortableTextBlock[]
+        variant: 'success' | 'danger' | 'warning' | 'info'
+    }
+}
+
+const { node } = Astro.props
+const {text, variant} = node
+
+const variantStyle: { [key in Props['node']['variant']]: string } = {
+    info: CSS['alert-info'],
+    success: 'bg-green-500 text-white',
+    warning: 'bg-orange-500 text-black',
+    danger: 'bg-red-500 text-white',
+}
+
+---
+
+<div class:list={[CSS.alertBox, variantStyle[variant]]}>
+    <PortableText value={text} />
+</div>

@@ -1,0 +1,22 @@
+.mobileMenuPopover {
+	/* Closed state transformed off the screen */
+	transform: translateX(100%);
+	transition: transform 0.4s, overlay 0.4s ease-out;
+	display: block;
+	max-width: 400px;
+	width: 90vw;
+	inset: unset;
+	right: 0;
+	top: 0;
+	height: 100%;
+
+	/* Styles while the menu is open */
+	&:popover-open {
+		transform: translateX(0);
+	}
+
+	/* Backdrop that overlays other content */
+	&::backdrop {
+		background-color: rgba(0, 0, 0, 0.15);
+	}
+}
