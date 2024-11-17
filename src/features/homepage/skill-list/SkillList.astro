@@ -1,0 +1,36 @@
+---
+const skills = [
+  "WEB PERFORMANCE.",
+  "HTML.",
+  "CSS.",
+  "JAVASCRIPT.",
+  "REACT.",
+  "NEXTJS.",
+  "JQUERY.",
+  "SCSS.",
+  "RUBY ON RAILS.",
+  "NODEJS.",
+  "TYPESCRIPT.",
+  "RESPONSIVE DESIGN.",
+  "ACCESSIBILITY.",
+  "CYPRESS.",
+  "RSPEC.",
+  "ASTRO.",
+  "TEST DRIVEN DEVELOPMENT."
+]
+
+import CSS from './styles.module.scss'
+---
+
+<section class:list={['container']}>
+    <h2>Skills</h2>
+    <p>This is a list of the technologies and skills I often use and have experience with:</p>
+    <ul class:list={[CSS.skillList]}>
+        {skills.map((skill, index) => {
+            const delay = index * 100
+            return (
+                <li style={{ '--delay': `${delay}ms` }}>{skill}</li>
+            )
+        })}
+    </ul>
+</section>

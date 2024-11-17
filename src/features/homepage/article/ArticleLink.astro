@@ -5,9 +5,9 @@ const publishedDAte = new Date(publishedDate).toLocaleDateString('en-GB', { year
 ---
 
 <a href={`/articles/${slug.current}`} class:list={[CSS.articleLink]}>
-    <h3 style="text-wrap:pretty">{title}</h3>
+    <h3 style="text-wrap:pretty" transition:name={`article-title-${title.replaceAll(' ', '-')}`}>{title}</h3>
     <div>
-        <span>{publishedDAte}</span>
-        {estimatedReadingTime ? <span>{estimatedReadingTime} mins read</span> : null}
+        <span transition:name={`article-publishedDate-${title.replaceAll(' ', '-')}`}>{publishedDAte}</span>
+        {estimatedReadingTime ? <span transition:name={`article-readTime-${title.replaceAll(' ', '-')}`}>{estimatedReadingTime} mins read</span> : null}
     </div>
 </a>
