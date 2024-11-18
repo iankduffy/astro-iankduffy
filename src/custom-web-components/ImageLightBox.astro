@@ -1,0 +1,102 @@
+---
+
+---
+<custom-lightbox>
+	<slot/>
+</custom-lightbox>
+
+<style>
+	custom-lightbox {
+		position: relative;
+		/* border: 1px solid red; */
+		display: block;
+	}
+
+	.open-lightbox {
+		position: absolute;
+		bottom: var(--spacing-sm);
+		right: var(--spacing-sm);
+		z-index: 1;
+	}
+</style>
+
+<script is:inline lang="ts">
+class ImageLightbox extends HTMLElement {
+	// image: HTMLImageElement | null | undefined;
+	// dialog: HTMLDialogElement | null | undefined;
+	static get observedAttributes() {
+		return [];
+	}
+
+	constructor() {
+		super();
+	}
+
+	connectedCallback() {
+		this.findImage();
+		this.addDialogButton();
+	}
+
+	disconnectedCallback() {
+		console.log('inside disconnectedCallback');
+	}
+
+	findImage() {
+		this.image = this.querySelector('img');
+	}
+
+	addDialogButton() {
+		const dialogButton = document.createElement('button');
+		dialogButton.classList.add('open-lightbox');
+		dialogButton.textContent = 'Open Lightbox';
+		dialogButton.addEventListener('click', this.openDialog.bind(this));
+		this.appendChild(dialogButton);
+	}
+
+	addDialogElement() {
+		const dialog = document.createElement('dialog');
+		dialog.innerHTML = `<img src='${this.image?.src}' alt='${this.image?.alt}' />`;
+		this.appendChild(dialog);
+		this.dialog = dialog;
+		this.dialogCloseButton();
+	}
+
+	openDialog() {
+		if (!this.dialog) {
+			this.addDialogElement();
+		}
+		this.dialog?.showModal();
+	}
+
+	dialogCloseButton() {
+		const closeButton = document.createElement('button');
+		closeButton.textContent = 'Close Lightbox';
+		closeButton.addEventListener('click', this.closeDialog.bind(this));
+		this.dialog?.appendChild(closeButton);
+	}
+
+	closeDialog() {
+		const dialog = this.querySelector('dialog');
+		dialog?.close();
+	}
+
+	addComponentStyles() {
+		const style = document.createElement('style');
+		style.textContent = `
+             custom-lightbox {
+                position: relative;
+             }
+
+             custom-lightbox button {
+                position: absolute;
+                bottom: var(--spacing-sm);
+                right: var(--spacing-sm);
+                z-index: 1;
+             }
+        `;
+		this.appendChild(style);
+	}
+}
+
+customElements.define('custom-lightbox', ImageLightbox);
+</script>
