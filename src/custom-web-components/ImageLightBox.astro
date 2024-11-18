@@ -20,10 +20,10 @@
 	}
 </style>
 
-<script is:inline lang="ts">
+<script >
 class ImageLightbox extends HTMLElement {
-	// image: HTMLImageElement | null | undefined;
-	// dialog: HTMLDialogElement | null | undefined;
+	image: HTMLImageElement | null | undefined;
+	dialog: HTMLDialogElement | null | undefined;
 	static get observedAttributes() {
 		return [];
 	}
