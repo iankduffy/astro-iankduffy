@@ -79,23 +79,6 @@ class ImageLightbox extends HTMLElement {
 		const dialog = this.querySelector('dialog');
 		dialog?.close();
 	}
-
-	addComponentStyles() {
-		const style = document.createElement('style');
-		style.textContent = `
-             custom-lightbox {
-                position: relative;
-             }
-
-             custom-lightbox button {
-                position: absolute;
-                bottom: var(--spacing-sm);
-                right: var(--spacing-sm);
-                z-index: 1;
-             }
-        `;
-		this.appendChild(style);
-	}
 }
 
 customElements.define('custom-lightbox', ImageLightbox);

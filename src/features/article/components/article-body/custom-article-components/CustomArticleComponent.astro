@@ -4,6 +4,7 @@ import {BadCounterComponent} from './react/performance-counter/BadCounterCompone
 import BasicPopover from './basic-popover/BasicPopover.astro'
 import MobileNavPopover from './mobile-nav-popover/MobilePopover.astro'
 import {GoodCounterComponent} from './react/performance-counter/GoodCounterComponent'
+import LightBox from './lightbox-component/LightBox.astro'
 const { node } = Astro.props
 const {component} = node
 
@@ -33,3 +34,6 @@ const {component} = node
     <GoodCounterComponent client:visible />
 )}
 
+{component === 'lightboxCustomWebComponent' && (
+    <LightBox />
+)}
