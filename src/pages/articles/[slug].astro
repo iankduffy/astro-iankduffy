@@ -20,7 +20,7 @@ import Contents from "../../features/article/components/table-of-contents/conten
 
 ---
 
-<Layout title={article.title}>
+<Layout title={`${article.title} | Articles `}>
   <main class="">
     <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
     <div class="article-body">
