@@ -1,11 +1,18 @@
 ---
+import CSS from './styles.module.scss'
+
 interface Props {
   text: string;
   href: string;
 }
+
 const { text, href } = Astro.props
-const isCurrent = Astro.url.pathname === href;
-import CSS from './styles.module.scss'
+const section = href.split('/')[1];
+
+const isHomePage = section === '' && Astro.url.pathname === '/';
+const isSubPage = section === Astro.url.pathname.split('/')[1];
+
+const isCurrent = isHomePage || isSubPage;
 ---
 
 <a href={href} class:list={[CSS.link, isCurrent ? CSS.active : null]}>{text}</a>

@@ -16,7 +16,7 @@ const links = [
         <a class:list={[CSS.logo]} href="/">
             <img src="https://iankduffy.com/logo.svg" alt="Ian Duffy" width="60" height="67" loading="eager" fetchpriority="high"/>
         </a>
-        <nav class:list={[CSS.mainNav, CSS.desktopNavElements]}>
+        <nav class:list={[CSS.mainNav, CSS.desktopNavElements]} >
             {links.map((link) => (
                 <Link href={link.href} text={link.text} />
             ))}
