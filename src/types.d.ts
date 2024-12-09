@@ -8,4 +8,16 @@ declare module React {
 	interface HTMLAttributes<T> extends HTMLAttributes<T> {
 		popover?: 'manual' | 'auto' | 'none';
 	}
+
+	type UpdateCallback = undefined | (() => void | Promise<void>);
+	type StartViewTransitionParameter = {
+		types?: string[];
+		update?: UpdateCallback;
+	};
+
+	interface Document {
+		startViewTransition(
+			param?: StartViewTransitionParameter | UpdateCallback
+		): ViewTransition;
+	}
 }

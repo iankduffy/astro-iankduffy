@@ -1,5 +1,9 @@
 @import './_shared/breakpoints.scss';
 
+@view-transition {
+	navigation: auto;
+}
+
 :root {
 	--brand-50: #f4f7fb;
 	--brand-100: #e7eff7;
@@ -138,3 +142,80 @@ a {
 	color: var(--brand-700);
 	text-decoration: underline;
 }
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes slide-from-left {
+	from {
+		transform: translateX(-30px);
+	}
+}
+
+@keyframes slide-from-right {
+	from {
+		transform: translateX(30px);
+	}
+}
+
+@keyframes slide-to-left {
+	to {
+		transform: translateX(-30px);
+	}
+}
+
+@keyframes slide-to-right {
+	to {
+		transform: translateX(30px);
+	}
+}
+
+.element {
+	width: 500px;
+}
+
+html:active-view-transition-type(forwards, backwards) {
+	.element {
+		view-transition-name: element;
+		// background-color: white;
+	}
+}
+
+// .element {
+html:active-view-transition-type(forwards) {
+	&::view-transition-old(element) {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+	}
+
+	&::view-transition-new(element) {
+		animation:
+			210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+	}
+}
+
+html:active-view-transition-type(backwards) {
+	&::view-transition-old(element) {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+	}
+
+	& ::view-transition-new(element) {
+		animation:
+			210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
+	}
+}
+// }

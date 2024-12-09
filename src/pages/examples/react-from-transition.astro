@@ -1,0 +1,14 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {FormWrapper} from '../../components/react/form-example/FormWrapper.tsx';
+
+---
+
+<Layout title="React Form Transition">
+    <main>
+        <h1>Travel Documents</h1>
+        <div class="element">
+            <FormWrapper client:load/>
+        </div>
+    </main>
+</Layout>
