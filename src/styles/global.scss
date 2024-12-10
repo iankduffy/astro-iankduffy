@@ -85,6 +85,14 @@ img {
 	width: 90vw;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+	* {
+		animation: none !important;
+		transition: none !important;
+		scroll-behavior: auto !important;
+	}
+}
+
 .article-body {
 	max-width: 1000px;
 	margin: 0 auto;
