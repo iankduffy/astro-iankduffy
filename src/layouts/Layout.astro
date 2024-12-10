@@ -34,8 +34,8 @@ const { title } = Astro.props;
 
 <script is:inline>
 	document.addEventListener('astro:page-load', () => {
-		const theme = localStorage.getItem('theme') || html.style.getPropertyValue('color-scheme');
 		const html =  document.querySelector('html');
+		const theme = localStorage.getItem('theme') || html.style.getPropertyValue('color-scheme');
 		html.style.setProperty("color-scheme", theme);
 		const toggleMode = document.getElementById('toggle-mode');
 
