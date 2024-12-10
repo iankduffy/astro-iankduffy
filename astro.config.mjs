@@ -1,14 +1,13 @@
 // @ts-check
 import { loadEnv } from 'vite';
 import { defineConfig } from 'astro/config';
+import sanity from '@sanity/astro';
+import react from '@astrojs/react';
 const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = loadEnv(
 	process.env.NODE_ENV || '',
 	process.cwd(),
 	''
 );
-import sanity from '@sanity/astro';
-
-import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
