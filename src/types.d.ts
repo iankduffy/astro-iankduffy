@@ -9,3 +9,11 @@ declare module React {
 		popover?: 'manual' | 'auto' | 'none';
 	}
 }
+
+declare global {
+	namespace JSX {
+		interface IntrinsicElements {
+			'custom-lightbox': any;
+		}
+	}
+}
