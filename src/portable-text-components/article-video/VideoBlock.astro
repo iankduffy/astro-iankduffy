@@ -6,15 +6,17 @@ const {playbackId} = node.video.asset
 <mux-player playback-id={playbackId}></mux-player>
 
 <script>
-    const player = document.querySelector('mux-player')
+    document.addEventListener('astro:page-load', () => {
+        const player = document.querySelector('mux-player')
 
-    const onIntersection = (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                import('@mux/mux-player')
-            }
-        })
-    }
-    const observer = new IntersectionObserver(onIntersection)
-    if (player) observer.observe(player)
+        const onIntersection = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    import('@mux/mux-player')
+                }
+            })
+        }
+        const observer = new IntersectionObserver(onIntersection)
+        if (player) observer.observe(player)
+    })
 </script>

@@ -61,10 +61,27 @@ body {
 	height: 100dvh;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--brand-900);
+}
+
+p {
+	width: 100%;
+}
+
 .container {
 	max-width: 1400px;
 	margin: 0 auto;
 	padding: 0 20px;
+
+	&--small {
+		max-width: 1000px;
+	}
 }
 
 img {
@@ -76,6 +93,10 @@ img {
 
 .w-full {
 	width: 100%;
+}
+
+.text-left {
+	text-align: left;
 }
 
 @import './o-button.scss';
