@@ -6,6 +6,7 @@
 	gap: var(--spacing-md);
 	color: var(--brand-900);
 	margin: var(--spacing-lg) auto;
+	max-width: 1400px;
 
 	@include breakpoint(lg) {
 		display: grid;
