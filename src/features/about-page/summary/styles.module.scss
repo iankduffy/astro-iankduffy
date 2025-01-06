@@ -1,0 +1,54 @@
+@import '../../../styles/_shared/breakpoints.scss';
+
+.intro {
+	width: 100%;
+	position: sticky;
+	top: 0;
+	height: auto;
+	font-weight: 700;
+	text-transform: uppercase;
+	text-wrap: balance;
+	container-type: inline-size;
+	align-content: center;
+	padding: var(--spacing-xxl) 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+
+	h2 {
+		margin: 0;
+		color: var(--brand-700);
+		font-size: 2rem;
+
+		@include breakpoint(md) {
+			font-size: 2.5rem;
+		}
+	}
+
+	p {
+		max-width: 90%;
+		font-size: 2.5rem;
+		margin: 0;
+		color: var(--brand-900);
+
+		@include breakpoint(md) {
+			font-size: 4rem;
+		}
+	}
+}
+
+.image {
+	aspect-ratio: 1/1;
+	border-radius: var(--spacing-xs);
+	overflow: hidden;
+	width: 50cqw;
+
+	@include breakpoint(md) {
+		width: 33cqw;
+	}
+}
+
+.socials {
+	display: flex;
+	gap: var(--spacing-sm);
+}

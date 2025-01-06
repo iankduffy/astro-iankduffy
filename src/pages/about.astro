@@ -1,14 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AboutLayout from '../features/about-page/layout/AboutLayout.astro';
+import AboutSummary from '../features/about-page/summary/AboutSummary.astro';
 ---
 
 <Layout title="About">
-	<main class="container container--small text-left">
-		<h1>About Me</h1>
-		<!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quam nesciunt at maiores eos vel quos dolorum, harum fugit laborum velit laboriosam incidunt quis eum libero quaerat magni fuga culpa.</p>
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quam nesciunt at maiores eos vel quos dolorum, harum fugit laborum velit laboriosam incidunt quis eum libero quaerat magni fuga culpa.</p>
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quam nesciunt at maiores eos vel quos dolorum, harum fugit laborum velit laboriosam incidunt quis eum libero quaerat magni fuga culpa.</p>
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quam nesciunt at maiores eos vel quos dolorum, harum fugit laborum velit laboriosam incidunt quis eum libero quaerat magni fuga culpa.</p> -->
-	</main>
+	<AboutLayout >
+		<AboutSummary />
+	</AboutLayout>
 </Layout>
+
+<style type="scss">
+
+</style>
 
