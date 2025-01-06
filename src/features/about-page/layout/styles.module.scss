@@ -1,16 +1,15 @@
 @import '../../../styles/_shared/breakpoints.scss';
 
-.layout {
+.aboutLayout {
 	max-width: 1400px;
 	margin: 0 auto;
 	padding: 0 20px;
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
+	box-sizing: border-box;
 
 	@include breakpoint(lg) {
 		grid-template-columns: 1fr 1fr;
-		// height: 200vh;
-		// align-content: start;
 	}
 }
