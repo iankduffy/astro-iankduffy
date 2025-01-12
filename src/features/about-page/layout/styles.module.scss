@@ -11,5 +11,7 @@
 
 	@include breakpoint(lg) {
 		grid-template-columns: 1fr 1fr;
+		gap: var(--spacing-lg);
+		align-items: start;
 	}
 }

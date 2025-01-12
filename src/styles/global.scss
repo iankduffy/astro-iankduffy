@@ -154,16 +154,6 @@ a {
 	text-decoration: underline;
 }
 
-@keyframes move-out {
-	from {
-		clip-path: circle(100% at var(--theme-button-cord));
-	}
-
-	to {
-		clip-path: circle(0% at var(--theme-button-cord));
-	}
-}
-
 .theme-switch-button {
 	position: fixed;
 	bottom: var(--spacing-md);
@@ -172,6 +162,16 @@ a {
 	color: var(--brand-100);
 	padding: var(--spacing-xs);
 	border-radius: 50px;
+}
+
+@keyframes move-out {
+	from {
+		clip-path: circle(100% at var(--theme-button-cord));
+	}
+
+	to {
+		clip-path: circle(0% at var(--theme-button-cord));
+	}
 }
 
 ::view-transition-old(changing-theme) {
