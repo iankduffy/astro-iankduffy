@@ -11,9 +11,9 @@ const oldURL = `${import.meta.env.MIGRATION_OLD_DOMAIN}${currentPath.pathname}`
 
 <header class:list={[ CSS.container]}>
     <h1 transition:name={`article-title-${title.replaceAll(' ', '-')}`}>{title}</h1>
-    <div class:list={[CSS.articleInfo]}>
-        <p transition:name={`article-publishedDate-${title.replaceAll(' ', '-')}`}>{publishedDAte}</p>
-        {readTime ? <p transition:name={`article-readTime-${title.replaceAll(' ', '-')}`}>Read Time {readTime} mins</p> : null}
-    </div>
+    <p class:list={[CSS.articleInfo]}>
+        <span transition:name={`article-publishedDate-${title.replaceAll(' ', '-')}`}>{publishedDAte}</span>
+        {readTime ? <span transition:name={`article-readTime-${title.replaceAll(' ', '-')}`}>Read Time {readTime} mins</span> : null}
+    </p>
     {isOldArticle ? <Alert variant='warning'>This article was published before the migration to Astro. And might not work as fully expected, you can find the previous version at: <a href={oldURL} target="_blank">{title}</a>'</Alert> : null}
 </header>
