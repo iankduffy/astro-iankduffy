@@ -20,8 +20,8 @@
 	justify-content: center;
 	gap: var(--spacing-md);
 	font-size: clamp(1.5rem, -0.3707rem + 3vw, 3.75rem);
-
+	text-wrap: pretty;
 	span {
-		font-size: clamp(2rem, -0.3707rem + 10vh, 4rem);
+		font-size: clamp(2rem, -0.3707rem + 10vw, 4rem);
 	}
 }
