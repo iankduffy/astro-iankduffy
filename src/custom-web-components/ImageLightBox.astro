@@ -5,7 +5,7 @@
 	<slot/>
 </custom-lightbox>
 
-<style>
+<style is:global>
 	custom-lightbox {
 		position: relative;
 		/* border: 1px solid red; */
@@ -14,9 +14,12 @@
 
 	.open-lightbox {
 		position: absolute;
-		bottom: var(--spacing-sm);
+		top: var(--spacing-sm);
 		right: var(--spacing-sm);
 		z-index: 1;
+		background: white;
+		padding: var(--spacing-xs);
+		font-size: smaller;
 	}
 </style>
 
