@@ -1,6 +1,6 @@
 ---
-import { getArticleFromSlug } from "../../queries/articles";
-import { getAllArticlesSlug } from "../../queries/articles"
+import { getArticleFromSlug } from "../../../queries/articles";
+import { getAllArticlesSlug } from "../../../queries/articles"
 export async function getStaticPaths() {
   const articlesSlugs = await getAllArticlesSlug()
   return articlesSlugs
@@ -10,12 +10,12 @@ const { slug } = Astro.params;
 
 const article = await getArticleFromSlug(slug)
 
-import ArticleHeader from "../../features/article/components/article-header/ArticleHeader.astro";
-import MobileTableOfContents from "../../features/article/components/table-of-contents/mobile-wrapper/MobileTableOfContents.astro";
-import Layout from "../../layouts/Layout.astro";
-import ArticleBody from "../../features/article/components/article-body/ArticleBody.astro";
-import DesktopTableOfContents from "../../features/article/components/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
-import Contents from "../../features/article/components/table-of-contents/contents-portabletext/Contents.astro";
+import ArticleHeader from "../../../features/article/components/article-header/ArticleHeader.astro";
+import MobileTableOfContents from "../../../features/article/components/table-of-contents/mobile-wrapper/MobileTableOfContents.astro";
+import Layout from "../../../layouts/Layout.astro";
+import ArticleBody from "../../../features/article/components/article-body/ArticleBody.astro";
+import DesktopTableOfContents from "../../../features/article/components/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
+import Contents from "../../../features/article/components/table-of-contents/contents-portabletext/Contents.astro";
 
 
 ---
