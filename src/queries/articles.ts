@@ -1,4 +1,4 @@
-import type { PortableTextBlock, Slug } from 'sanity';
+import type { Image, PortableTextBlock, Slug } from 'sanity';
 import { sanityClient } from 'sanity:client';
 
 export interface Article {
@@ -13,6 +13,7 @@ export interface Article {
 	estimatedReadingTime: number | null;
 	content: PortableTextBlock[];
 	publishedDate: string;
+	socialImage: Image;
 }
 
 export const getAllArticlesSlug = async (): Promise<

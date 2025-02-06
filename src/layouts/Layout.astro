@@ -3,13 +3,15 @@ import '../styles/global.scss';
 
 interface Props {
 	title: string;
+	ogImage?: string | null;
+	url?: string;
 }
 
 import { ViewTransitions } from 'astro:transitions';
 import Header from './header/Header.astro';
 import Footer from './footer/Footer.astro';
-
-const { title } = Astro.props;
+const astroURL = Astro.url;
+const { title, ogImage } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,6 +24,9 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | IanKDuffy.com</title>
 		<meta property="og:title" content={`${title} | IanKDuffy.com`} />
+		{ogImage && <meta property="og:image" content={ogImage} />}
+		<meta property='og:description' content={`An Article on ${title}`}/>
+		<meta property='og:url' content={astroURL.href} />
 		<ViewTransitions />
 	</head>
 	<body>

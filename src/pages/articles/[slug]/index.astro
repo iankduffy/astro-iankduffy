@@ -1,6 +1,7 @@
 ---
 import { getArticleFromSlug } from "../../../queries/articles";
 import { getAllArticlesSlug } from "../../../queries/articles"
+
 export async function getStaticPaths() {
   const articlesSlugs = await getAllArticlesSlug()
   return articlesSlugs
@@ -16,11 +17,12 @@ import Layout from "../../../layouts/Layout.astro";
 import ArticleBody from "../../../features/article/components/article-body/ArticleBody.astro";
 import DesktopTableOfContents from "../../../features/article/components/table-of-contents/desktop-wrapper/DesktopTableOfContents.astro";
 import Contents from "../../../features/article/components/table-of-contents/contents-portabletext/Contents.astro";
+import { urlForImage } from "../../../lib/urlForImage";
 
-
+const ogImage = article.socialImage ? urlForImage(article.socialImage).fit('fill').width(1200).auto('format').url() : null;
 ---
 
-<Layout title={`${article.title} | Articles `}>
+<Layout title={`${article.title} | Articles `} ogImage={ogImage}>
   <main class="">
     <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
     <div class="article-body">
