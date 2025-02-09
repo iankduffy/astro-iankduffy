@@ -22,7 +22,7 @@ import { urlForImage } from "../../../lib/urlForImage";
 const ogImage = article.socialImage ? urlForImage(article.socialImage).fit('fill').width(1200).auto('format').url() : null;
 ---
 
-<Layout title={`${article.title} | Articles `} ogImage={ogImage}>
+<Layout title={`${article.title} | Articles `} ogImage={ogImage} >
   <main class="">
     <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
     <div class="article-body">
