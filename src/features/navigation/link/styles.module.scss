@@ -1,16 +1,17 @@
 @import '../../../styles/_shared/breakpoints.scss';
 
 .link {
-	color: var(--brand-200);
+	color: var(--brand-800);
 	text-decoration: none;
 	cursor: pointer;
 	transition: color 0.15s;
-	font-size: var(--font-size-xl);
+	font-size: var(--font-size-xxxl);
 	font-weight: 600;
 	position: relative;
 
 	@include breakpoint(sm) {
-		color: var(--brand-600);
+		color: var(--brand-700);
+		font-size: var(--font-size-xl);
 	}
 
 	&:after {
@@ -25,10 +26,10 @@
 	}
 
 	&:hover {
-		color: var(--brand-50);
+		color: var(--brand-800);
 
 		@include breakpoint(sm) {
-			color: var(--brand-700);
+			color: var(--brand-800);
 		}
 
 		&:after {
@@ -39,11 +40,12 @@
 }
 
 .active {
-	color: var(--brand-100);
+	color: var(--brand-900);
 
 	@include breakpoint(sm) {
 		color: var(--brand-900);
 	}
+
 	position: relative;
 
 	&:after {
