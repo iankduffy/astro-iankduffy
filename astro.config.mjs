@@ -3,6 +3,7 @@ import { loadEnv } from 'vite';
 import { defineConfig } from 'astro/config';
 import sanity from '@sanity/astro';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = loadEnv(
 	process.env.NODE_ENV || '',
 	process.cwd(),
@@ -11,6 +12,7 @@ const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = loadEnv(
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://iankduffy.com',
 	devToolbar: {
 		enabled: false,
 	},
@@ -23,6 +25,11 @@ export default defineConfig({
 		}),
 		react({
 			include: ['**/react/*'],
+		}),
+		sitemap({
+			filter: (page) =>
+				page !== 'https://iankduffy.com/uses' &&
+				page !== 'https://iankduffy.com/snippets/',
 		}),
 	],
 });
