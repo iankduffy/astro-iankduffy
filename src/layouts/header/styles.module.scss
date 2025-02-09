@@ -19,6 +19,10 @@
 	a {
 		cursor: pointer;
 		color: var(--brand-600);
+
+		&:hover {
+			color: var(--brand-800);
+		}
 	}
 }
 
