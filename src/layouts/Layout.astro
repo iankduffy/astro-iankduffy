@@ -27,6 +27,7 @@ const { title, ogImage } = Astro.props;
 		{ogImage && <meta property="og:image" content={ogImage} />}
 		<meta property='og:description' content={`An Article on ${title}`}/>
 		<meta property='og:url' content={astroURL.href} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<ViewTransitions />
 	</head>
 	<body>

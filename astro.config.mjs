@@ -26,6 +26,10 @@ export default defineConfig({
 		react({
 			include: ['**/react/*'],
 		}),
-		sitemap(),
+		sitemap({
+			filter: (page) =>
+				page !== 'https://iankduffy.com/uses' &&
+				page !== 'https://iankduffy.com/snippets/',
+		}),
 	],
 });
