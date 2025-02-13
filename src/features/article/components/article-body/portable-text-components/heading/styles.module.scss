@@ -3,3 +3,23 @@
 	text-decoration: none;
 	transition: color 0.2s;
 }
+
+.h2 {
+	font-size: var(--font-size-xxxxl);
+}
+
+.h3 {
+	font-size: var(--font-size-xxxl);
+}
+
+.h4 {
+	font-size: var(--font-size-xxl);
+}
+
+.h5 {
+	font-size: var(--font-size-xl);
+}
+
+.heading {
+	font-size: inherit;
+}

@@ -7,12 +7,20 @@ const { node } = Astro.props
 
 const { style, _key, children } = node
 
-const HeadingTag = style
+const HeadingTag = style as 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 const headingId = `h${_key}`;
+
+const headingStyles = {
+    h2: CSS.h2,
+    h3: CSS.h3,
+    h4: CSS.h4,
+    h5: CSS.h5,
+    h6: CSS.h6,
+}
 ---
 
-<a href={`#${headingId}`} id={headingId} class:list={[CSS.headingLink]}> 
-    <HeadingTag>
+<a href={`#${headingId}`} id={headingId} class:list={[CSS.headingLink, headingStyles[HeadingTag]]}> 
+    <HeadingTag class={CSS.heading}>
         <PortableText value={children} components={{type: {span: Span}}} />
     </HeadingTag>
 </a>
