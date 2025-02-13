@@ -1,8 +1,34 @@
 ---
 const { node } = Astro.props
 const headingId = `#h${node._key}`
+const headingType = node.style as 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+const headingTypeStyles = {
+    h2: 'contents-link--h2',
+    h3: 'contents-link--h3',
+    h4: 'contents-link--h4',
+    h5: 'contents-link--h5',
+    h6: 'contents-link--h6',
+}
 ---
 
-<a href={headingId} class="contents-link">
+<a href={headingId} class:list={[headingTypeStyles[headingType], 'contents-link']}>
     <slot/>
 </a> 
+
+<style>
+    .contents-link--h2 {
+        margin-left: 0;
+    }
+
+    .contents-link--h3 {
+        margin-left: 1rem;
+    }
+
+    .contents-link--h4 {
+        margin-left: 2rem;
+    }
+
+    .contents-link--h5 {
+        margin-left: 3rem;
+    }
+</style>
