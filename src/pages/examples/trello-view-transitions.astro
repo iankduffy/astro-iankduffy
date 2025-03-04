@@ -1,0 +1,94 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { TrelloClone } from "../../features/demos/react/trello-clone";
+
+const initialState = {
+    lists: [
+        {
+            title: 'Todo',
+            id: "todo",
+            cards: [
+                {title: 'Title', id: '1'},
+                 { title: 'Task 2', id: '2' },
+                { title: 'Task 3', id: '3' }
+            ]
+        },
+        {
+            title: 'In Progess',
+            id: 'in-progress',
+            cards: [
+                { title: 'Task 4', id: '4' },
+                { title: 'Task 5', id: '5' }
+            ]
+        },
+        {
+            title: 'In Review',
+            id: 'in-review',
+            cards: [
+                { title: 'Task 6', id: '6' }
+            ]
+        },
+        {
+            title: 'Done',
+            id: 'done',
+            cards: []
+        }
+    ],
+    dispatch: () => {} // Provide a default dispatch function
+};
+
+---
+
+<Layout title="Trello Clone">
+    <TrelloClone client:load initialState={initialState}/>
+</Layout>
+
+<style is:global>
+    :root {
+        --bounce-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+	.card {
+		view-transition-class: card;
+	}
+
+	/* Without view-transition-class you had to write a selector that targets all cards … and that selector needed updating whenever you added/removed a card */
+	::view-transition-group(*.card) {
+		/* animation-timing-function: var(--bounce-easing);
+		animation-duration: 0.5s; */
+        transition: transform 0.3s;
+	}
+
+    /* @keyframes animate-in {
+	0% {
+		opacity: 0;
+		translate: 0 -200px;
+	}
+	100% {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+::view-transition-new(card) {
+	animation: animate-in ease-in 0.25s;
+}
+/* } */
+
+/* Cards that get removed should animate-out */
+/* @layer remove-card { */
+/* @keyframes animate-out {
+	0% {
+		opacity: 1;
+		translate: 0 0;
+		background: red;
+	}
+	100% {
+		opacity: 0;
+		translate: 0 -200px;
+	}
+}
+
+::view-transition-old(card) {
+	animation: animate-out ease-out 0.5s;
+} */ */
+</style>

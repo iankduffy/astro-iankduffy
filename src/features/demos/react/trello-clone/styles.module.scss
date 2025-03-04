@@ -1,0 +1,20 @@
+.column {
+	background: var(--brand-600);
+	height: 100%;
+	padding: var(--spacing-xs);
+	gap: var(--spacing-xs);
+	display: flex;
+	flex-direction: column;
+}
+
+.board {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: var(--spacing-xs);
+}
+
+.card {
+	background: var(--brand-400);
+	padding: var(--spacing-xs);
+	border-radius: var(--border-radius);
+}
