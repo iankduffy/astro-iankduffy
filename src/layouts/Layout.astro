@@ -28,6 +28,12 @@ const { title, ogImage } = Astro.props;
 		<meta property='og:description' content={`An Article on ${title}`}/>
 		<meta property='og:url' content={astroURL.href} />
 		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title="IankDuffy.com RSS Feed"
+			href={new URL("rss.xml", Astro.site)}
+		/>
 		<ViewTransitions />
 	</head>
 	<body>
