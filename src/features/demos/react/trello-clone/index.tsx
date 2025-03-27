@@ -6,7 +6,6 @@ import { useRef } from "react";
 export function TrelloClone({initialState}: {initialState: BoardContextType}) {
     return (
         <div>
-            <h1>Trello Clone</h1>
             <BoardProvider initialState={initialState}>
                 <AddItemDialog />
                 <Board />
@@ -31,7 +30,7 @@ export function AddItemDialog() {
         const form = e.currentTarget;
         const formData = new FormData(form);
         const title = formData.get('title') as string;
-        const id = title.split(' ').join('-').toLowerCase()
+        const id = title.split(' ').join('-').toLowerCase() + '-' + new Date().getTime();
 
         form.style.viewTransitionName = `card-${id}`
         const transition = document.startViewTransition(() => {
@@ -60,7 +59,6 @@ export function Board() {
     const { lists } = useBoard();
     return (
         <div className={styles.board}>
-
             {lists.map((list: List) => (
                 <ListColumn key={list.id} list={list} />
             ))}
@@ -98,6 +96,7 @@ export function ListColumn({ list }: { list: List }) {
 export function Card({ card }: { card: Card }) {
     const { dispatch } = useBoard();
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const itemRef = useRef<HTMLDivElement>(null);
     function onDragStart(e: React.DragEvent) {
         console.log(e)
         e.dataTransfer.effectAllowed = 'move';
@@ -108,7 +107,6 @@ export function Card({ card }: { card: Card }) {
         e.preventDefault();
         e.stopPropagation();
 
-        e.currentTarget.style.viewTransitionName = 'card-delete';
         const transition = document.startViewTransition(() => {
             flushSync(() => {
                 dispatch({ type: 'DELETE_CARD', payload: { cardId: card.id }
@@ -118,15 +116,30 @@ export function Card({ card }: { card: Card }) {
      await transition.ready;
     }
 
+    // function onView(e: React.MouseEvent<HTMLButtonElement>) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     // if (itemRef.current) itemRef.current.style.viewTransitionName = `none`
+
+    //     document.startViewTransition(() => {
+    //         flushSync(() => {
+    //             if (dialogRef.current) {
+    //                 if (dialogRef) dialogRef.current.style.viewTransitionClass = 'card';
+    //                 if (dialogRef) dialogRef.current.style.viewTransitionName = `card-${card.id}`;
+
+
+    //                 dialogRef.current.showModal();
+    //             }
+    //         })
+    //     })
+    // }
+    console.log(card)
+
     return (
-        <div className={`${styles.card} card`} onDrag={() => {}} draggable onDragStart={onDragStart} style={{ viewTransitionName: `card-${card.id}`}}>
+        <div ref={itemRef} className={`${styles.card} card`} onDrag={() => {}} draggable onDragStart={onDragStart} style={{ viewTransitionName: `card-${card.id}`}}>
             <h3>{card.title}</h3>
             <button onClick={onDelete}>Delete</button>
-            <button onClick={() => document.startViewTransition(() => { flushSync(() => {dialogRef.current?.showModal()        })})}>View</button>
-            <dialog ref={dialogRef} style={{ viewTransitionName: `card-${card.id}`, width: '300px', height: '300px'}}>
-                <button onClick={() => dialogRef.current?.close()}>Close</button>
-                <h2>{card.title}</h2>
-            </dialog>
+            {/* <button onClick={onView}>View</button> */}
         </div>
     )
 }

@@ -38,7 +38,7 @@ interface AddCardAction {
     }
 }
 
- type BoardContextActions = MoveCardAction | DeleteCardAction | AddCardAction
+type BoardContextActions = MoveCardAction | DeleteCardAction | AddCardAction
 
 function boardReducer(state: BoardContextType, action: BoardContextActions): BoardContextType {
     switch (action.type) {
@@ -61,12 +61,11 @@ function boardReducer(state: BoardContextType, action: BoardContextActions): Boa
                     cards: list.cards.filter(c => c.title !== card.title)
                 };
             })
-            // document.startViewTransition(() => {
                 return {
                     ...state,
                     lists: newLists
                 }
-            // })
+
         case 'DELETE_CARD': {
             const { cardId } = action.payload;
             const newLists = state.lists.map(list => {
