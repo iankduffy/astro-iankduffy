@@ -174,11 +174,11 @@ a {
 	}
 }
 
-::view-transition-old(.changing-theme) {
+::view-transition-old(changing-theme) {
 	animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) both move-out;
 	z-index: 10;
 }
 
-::view-transition-new(.changing-theme) {
+::view-transition-new(changing-theme) {
 	z-index: 9;
 }
