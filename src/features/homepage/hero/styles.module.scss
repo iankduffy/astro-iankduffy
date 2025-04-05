@@ -19,7 +19,9 @@
 }
 
 .content {
-	transition: transform 800ms;
+	transition:
+		transform 800ms,
+		opacity 800ms;
 	@include breakpoint(md) {
 		max-width: 60vw;
 	}
