@@ -1,0 +1,51 @@
+---
+const { words } = Astro.props;
+---
+
+<word-glitcher words={words}>
+    <slot/>
+</word-glitcher>
+
+<script>
+    class WordGlitcher extends HTMLElement {
+        static get observedAttributes() {
+            return ['words'];
+        }
+
+        constructor() {
+            super();
+            this.words = this.getAttribute('words') || '';
+            this.glitchedWords = [];
+        }
+
+        connectedCallback() {
+            this.glitchWords();
+            this.render();
+        }
+
+        glitchWords() {
+            const wordsArray = this.words.split(',');
+            this.glitchedWords = wordsArray.map(word => {
+                return word.split('').map(char => {
+                    return Math.random() < 0.5 ? char : String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+                }).join('');
+            });
+        }
+
+        render() {
+            this.innerHTML = `<span>${this.glitchedWords.join(' ')}</span>`;
+        }
+        attributeChangedCallback(name, oldValue, newValue) {
+            if (name === 'words' && oldValue !== newValue) {
+                this.words = newValue;
+                this.glitchWords();
+                this.render();
+            }
+        }
+        disconnectedCallback() {
+            this.innerHTML = '';
+        }
+    }
+
+    customElements.define('word-glitcher', WordGlitcher);
+</script>

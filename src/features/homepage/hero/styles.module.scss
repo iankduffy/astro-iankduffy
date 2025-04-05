@@ -22,6 +22,7 @@
 	transition:
 		transform 800ms,
 		opacity 800ms;
+	transition-timing-function: ease-in;
 	@include breakpoint(md) {
 		max-width: 60vw;
 	}

@@ -1,5 +1,6 @@
 ---
 import CSS from './styles.module.scss'
+import WordGlitcher from '../../../custom-web-components/WordGlitcher.astro'
 ---
 <section class:list={[CSS.container]}>
     <div class:list={['container', CSS.content]}>
@@ -7,5 +8,6 @@ import CSS from './styles.module.scss'
         <div class:list={["w-full"]}>
             <h1 class:list={[CSS.heroText]}>Hello I am Ian Duffy<br/><span>SENIOR SOFTWARE ENGINEER</span></h1>
         </div>
-    </div>
+        <!-- <WordGlitcher words={'Web Performance, React, Javascript'}><span>Web Performance</span></WordGlitcher>
+    </div> -->
 </section>
