@@ -38,7 +38,7 @@
 	gap: var(--spacing-md);
 	font-size: clamp(1.5rem, -0.3707rem + 2vw, 3.75rem);
 	text-wrap: balance;
-	color: var(--brand-500);
+	color: var(--brand-800);
 	span {
 		font-size: clamp(2rem, -0.3707rem + 10vw, 4rem);
 		color: var(--brand-900);
@@ -49,5 +49,5 @@
 	border-radius: 50%;
 	width: 100px;
 	aspect-ratio: 1/1;
-	border: 5px solid var(--brand-300);
+	border: 5px solid var(--brand-700);
 }
