@@ -8,11 +8,10 @@
 	align-items: center;
 	margin: var(--spacing-xl) auto;
 	padding: var(--spacing-xxxxl) 0;
-	transition: transform 800ms;
 	background: linear-gradient(
 		to bottom,
 		var(--brand-100),
-		var(--brand-50),
+		var(--brand-200),
 		var(--brand-100)
 	);
 	text-align: center;
@@ -49,5 +48,5 @@
 	border-radius: 50%;
 	width: 100px;
 	aspect-ratio: 1/1;
-	border: 5px solid var(--brand-700);
+	border: 5px solid var(--brand-800);
 }
