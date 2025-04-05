@@ -6,11 +6,28 @@
 	gap: var(--spacing-md);
 	color: var(--brand-900);
 	align-items: center;
-	margin: var(--spacing-lg) auto;
+	margin: var(--spacing-xl) auto;
+	padding: var(--spacing-xxxxl) 0;
+	transition: transform 800ms;
+	background: linear-gradient(
+		to bottom,
+		var(--brand-100),
+		var(--brand-50),
+		var(--brand-100)
+	);
+	text-align: center;
+	text-transform: uppercase;
+}
 
+.content {
+	transition: transform 800ms;
 	@include breakpoint(md) {
-		display: grid;
-		grid-template-columns: 1fr auto;
+		max-width: 60vw;
+	}
+	@starting-style {
+		transition-delay: 1s;
+		transform: translateY(100px);
+		opacity: 0;
 	}
 }
 
@@ -19,9 +36,18 @@
 	flex-direction: column;
 	justify-content: center;
 	gap: var(--spacing-md);
-	font-size: clamp(1.5rem, -0.3707rem + 3vw, 3.75rem);
-	text-wrap: pretty;
+	font-size: clamp(1.5rem, -0.3707rem + 2vw, 3.75rem);
+	text-wrap: balance;
+	color: var(--brand-500);
 	span {
 		font-size: clamp(2rem, -0.3707rem + 10vw, 4rem);
+		color: var(--brand-900);
 	}
+}
+
+.image {
+	border-radius: 50%;
+	width: 100px;
+	aspect-ratio: 1/1;
+	border: 5px solid var(--brand-300);
 }
