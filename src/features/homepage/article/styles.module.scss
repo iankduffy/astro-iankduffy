@@ -54,16 +54,9 @@
 	background: var(--brand-200);
 	transition: 500ms;
 	border-radius: var(--spacing-xxs);
-
 	animation: fadeIn ease-in-out both;
 	animation-timeline: view();
-	animation-range: 0% 15%;
-	transition: 600ms;
-	// transition:
-	// 	color 500ms,
-	// 	opacity 500ms,
-	// 	transform 500ms;
-	// animation-delay: var(--delay);
+	animation-range: 0% calc(15% + var(--delay));
 
 	&:hover {
 		background: var(--brand-300);
