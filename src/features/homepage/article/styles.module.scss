@@ -7,16 +7,23 @@
 	color: var(--brand-900);
 	margin: var(--spacing-lg) auto;
 	max-width: 1400px;
-
-	@include breakpoint(lg) {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
-	}
 }
 
 .list {
 	list-style: none;
 	padding: 0;
+	display: grid;
+	gap: var(--spacing-sm);
+	grid-template-columns: 1fr;
+
+	@include breakpoint(md) {
+		gap: var(--spacing-md);
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@include breakpoint(lg) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
 }
 
 // Todo: Does importing this twice cause any issues?
@@ -24,8 +31,39 @@
 	text-decoration: none;
 	color: var(--brand-900);
 	font-size: 1.2rem;
+	display: block;
+	padding: var(--spacing-md);
 
 	&:not(:last-of-type) {
 		border-bottom: 1px solid var(--brand-900);
 	}
+}
+
+.featuredArticle {
+	@include breakpoint(md) {
+		grid-column: span 2;
+
+		h3 {
+			font-size: 1.8rem;
+		}
+	}
+}
+
+.article {
+	background: var(--brand-200);
+	transition: 500ms;
+	border-radius: var(--spacing-xxs);
+
+	&:hover {
+		background: var(--brand-300);
+	}
+
+	h3 {
+		margin-top: 0;
+	}
+}
+
+.articleDetails {
+	display: flex;
+	gap: var(--spacing-sm);
 }
