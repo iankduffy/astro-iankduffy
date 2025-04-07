@@ -56,7 +56,8 @@
 	border-radius: var(--spacing-xxs);
 	animation: fadeIn ease-in-out both;
 	animation-timeline: view();
-	animation-range: 0% calc(15% + var(--delay));
+	animation-range: 0% calc(10% + var(--delay));
+	transform-origin: top;
 
 	&:hover {
 		background: var(--brand-300);
@@ -82,7 +83,7 @@
 		transform: translateY(-10%);
 	}
 	80% {
-		transform: translateY(5%);
+		transform: translateY(5%) scaleY(0.95) scaleX(1.02);
 	}
 	100% {
 		transform: translateY(0);
