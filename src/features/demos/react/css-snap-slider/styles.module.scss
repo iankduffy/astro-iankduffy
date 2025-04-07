@@ -1,0 +1,19 @@
+.slider {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; /* Hide scrollbar for Firefox */
+
+	* {
+		scroll-snap-align: center;
+		flex: 0 0 auto;
+		width: 100%;
+	}
+}
+
+.slide {
+	display: grid;
+	place-items: center;
+	font-size: 2rem;
+}
