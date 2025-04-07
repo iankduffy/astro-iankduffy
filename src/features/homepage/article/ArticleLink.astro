@@ -1,10 +1,10 @@
 ---
-const { slug, title, publishedDate, estimatedReadingTime, isFeatured } = Astro.props
+const { slug, title, publishedDate, estimatedReadingTime, isFeatured, delay } = Astro.props
 import CSS  from './styles.module.scss'
 const publishedDAte = new Date(publishedDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
 ---
 
-<li class:list={[isFeatured ? CSS.featuredArticle : null, CSS.article]}>
+<li class:list={[isFeatured ? CSS.featuredArticle : null, CSS.article]} style={{'--delay': `${delay * 1}s`}} >
     <a href={`/articles/${slug.current}`} class:list={[CSS.articleLink]}>
         <h3 style="text-wrap:pretty" transition:name={`article-title-${title.replaceAll(' ', '-')}`}>{title}</h3>
         <div class:list={[CSS.articleDetails]}>

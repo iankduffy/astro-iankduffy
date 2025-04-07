@@ -31,7 +31,8 @@
 	text-decoration: none;
 	color: var(--brand-900);
 	font-size: 1.2rem;
-	display: block;
+	display: flex;
+	flex-direction: column;
 	padding: var(--spacing-md);
 
 	&:not(:last-of-type) {
@@ -54,6 +55,16 @@
 	transition: 500ms;
 	border-radius: var(--spacing-xxs);
 
+	animation: fadeIn ease-in-out both;
+	animation-timeline: view();
+	animation-range: 0% 15%;
+	transition: 600ms;
+	// transition:
+	// 	color 500ms,
+	// 	opacity 500ms,
+	// 	transform 500ms;
+	// animation-delay: var(--delay);
+
 	&:hover {
 		background: var(--brand-300);
 	}
@@ -66,4 +77,21 @@
 .articleDetails {
 	display: flex;
 	gap: var(--spacing-sm);
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY(200%);
+	}
+	60% {
+		opacity: 1;
+		transform: translateY(-10%);
+	}
+	80% {
+		transform: translateY(5%);
+	}
+	100% {
+		transform: translateY(0);
+	}
 }

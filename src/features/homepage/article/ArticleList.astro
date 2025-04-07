@@ -10,7 +10,7 @@ const {hasTitle } = Astro.props
         {hasTitle && <h2>Recent Articles</h2>}
         <ul class:list={[CSS.list]}>
             {articles.map((article, index) => (
-                <ArticleLink {...article} isFeatured={index === 0}/>
+                <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
             ))}
         </ul>
     </section>
