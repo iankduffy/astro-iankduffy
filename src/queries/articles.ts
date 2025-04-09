@@ -27,6 +27,7 @@ export const getAllArticlesSlug = async (): Promise<
 
 export const allArticlesQuery = `*[_type == "articles"] { 
   ...,
+  'articleTags': tags[]->tagName,
   "estimatedReadingTime": round(length(pt::text(content)) / 5 / 180 )
 } |  order(publishedDate desc)`;
 

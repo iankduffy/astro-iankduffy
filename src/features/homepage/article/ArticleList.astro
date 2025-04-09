@@ -3,7 +3,7 @@ import { getAllArticles } from '../../../queries/articles'
 import ArticleLink from './ArticleLink.astro'
 import CSS from './styles.module.scss'
 const articles = await getAllArticles()
-const {hasTitle } = Astro.props
+const { hasTitle } = Astro.props
 ---
 <div class:list={[CSS.articlesSection]}>
     <section class:list={[]}>
