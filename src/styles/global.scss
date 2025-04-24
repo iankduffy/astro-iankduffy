@@ -1,5 +1,9 @@
 @import './_shared/breakpoints.scss';
 
+@view-transition {
+	navigation: auto;
+}
+
 :root {
 	--brand-50: #f4f7fb;
 	--brand-100: #e7eff7;
