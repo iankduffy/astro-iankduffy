@@ -45,6 +45,10 @@ const useSliderContext = () => {
 	return context;
 };
 
+interface ScrollSnapChangingEvent extends Event {
+	snapTargetInline: HTMLElement;
+}
+
 function handleScrollSnapChange({
 	slider,
 	callback,
@@ -53,16 +57,18 @@ function handleScrollSnapChange({
 	callback: (number: number) => void;
 }) {
 	if ('onscrollsnapchanging' in window) {
-		slider.addEventListener('scrollsnapchanging', (event: SnapEvent) => {
+		slider.addEventListener('scrollsnapchanging', (event) => {
 			console.log('scrollsnapchanging', event);
-			const newIndex = Number(event.snapTargetInline.dataset.index);
+			const newIndex = Number(
+				(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
+			);
 			callback(newIndex);
 		});
 		return () => {
 			console.log('disconnecting observer');
-			slider.removeEventListener('scrollsnapchanging', (event: SnapEvent) => {
+			slider.removeEventListener('scrollsnapchanging', (event) => {
 				const newIndex = Number(
-					(event.snapTargetInline as const).target.dataset.index
+					(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
 				);
 				callback(newIndex);
 			});
