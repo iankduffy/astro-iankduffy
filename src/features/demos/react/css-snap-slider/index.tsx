@@ -1,17 +1,25 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState, Children, type ReactNode, type Ref, type RefObject } from "react";
 import styles from './styles.module.scss'
+import { VscArrowLeft, VscArrowRight } from "react-icons/vsc";
 
-const SliderContext = createContext({})
+const SliderContext = createContext<{sliderRef: null | Ref<HTMLDivElement>}>({sliderRef: null})
 
-const SliderRoot = ({children, sliderControls}) => {
-    const ref = useRef(null)
-    console.log('SliderRoot ref', ref)
+interface SliderRootProps {
+    children: React.ReactNode
+    sliderControls: React.ReactNode
+}
+
+const SliderRoot = ({children, sliderControls}: SliderRootProps) => {
+    const ref = useRef<HTMLDivElement>(null)
+    console.log('SliderRoot ref', ref.current)
     return (
     <SliderContext.Provider value={{sliderRef: ref}}>
-        <Slider sliderRef={ref}>
-            {children}
-        </Slider>
-        {sliderControls}
+        <div className={styles.sliderContainer}>
+            <Slider sliderRef={ref}>
+                {children}
+            </Slider>
+            {sliderControls}
+        </div>
     </SliderContext.Provider>
     )
 }
@@ -24,28 +32,119 @@ const useSliderContext = () => {
     return context
 }
 
+function handleScrollSnapChange({slider, callback}: {slider: HTMLDivElement, callback: (e: Event) => void}) {
+    if ('onscrollsnapchanging' in window) {
+        slider.addEventListener('scrollsnapchanging', (event) => {
+            console.log('scrollsnapchanging', event)
+            const newIndex = Number(event.snapTargetInline.dataset.index)
+            callback(newIndex)
+        })
+        return () => {
+            console.log('disconnecting observer')
+            slider.removeEventListener('scrollsnapchanging', (event) => {
+                const newIndex = Number(event.detail.target.dataset.index)
+                callback(newIndex)
+            })
+        }
+    } else {
+        const observer = new IntersectionObserver(callback, {
+            root: slider,
+            rootMargin: '0px',
+            threshold: 0.80
+        })
+        const slides = [...slider.children];
+        slides.forEach((slide) => observer.observe(slide));
+        return () => {
+            console.log('disconnecting observer')
+            observer.disconnect()
+        }
+    }
+}
+ 
 const useSlider = () => {
     const context = useSliderContext()
-    const [currentSlide, setCurrentSlide] = useState(0)
+    const [currentSlide, setCurrentSlide] = useState(1)
+    const [length, setLength] = useState(0)
     const { sliderRef } = context
 
-    console.log('useSlider', context)
+    useEffect(() => {
+        if (!sliderRef.current) return
+        const length = sliderRef.current.children.length
+        setLength(length)
+    }, [sliderRef])
 
     useEffect(() => {
         if (!sliderRef.current) return
         const slider = sliderRef.current
-        slider.addEventListener('scrollend', (e) => {
-            console.log(e)
-        })
-        // sliderRef.current.addEventListner('scrollend', (e) => {
-        //     console.log(e)
-        // })
+        // if ('onscrollsnapchanging' in window) {
+        //     slider.addEventListener('scrollsnapchanging', (e) => {
+        //         const newIndex = Number(e.snapTargetInline.dataset.index)
+        //         setCurrentSlide(newIndex)
+        //     })
+        // } else {
+        //     const callback = (entries, observer) => {
+        //         entries.forEach((entry) => {
+        //             if (entry.isIntersecting) {
+        //                 const newIndex = Number(entry.target.dataset.index)
+        //                 setCurrentSlide(newIndex)
+        //             }
+        //         })
+        //     }
+        //     const observer = new IntersectionObserver(callback, {
+        //         root: slider,
+        //         rootMargin: '0px',
+        //         threshold: 0.80
+        //     })
+        //     const slides = [...slider.children];
+        //     slides.forEach((slide) => observer.observe(slide));
+        // }
+        const cleanup = handleScrollSnapChange({slider, callback: (number: number) => {
+            setCurrentSlide(number)
+        }})
+        return () => {
+            cleanup()
+        }
     }, [sliderRef])
-    return context
+
+    const isFirstSlide = currentSlide === 1
+    const isLastSlide = currentSlide === length
+
+    const scrollToSlide = useCallback((index: number) => {
+        if (!sliderRef.current) return
+        const slides = sliderRef.current.children
+        const targetSlide = slides[index - 1]
+        if (targetSlide) {
+            targetSlide.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'start'
+            })
+        }
+    }, [sliderRef])
+
+    return {
+        currentSlide,
+        length,
+        sliderRef,
+        isFirstSlide,
+        isLastSlide,
+        slideToRight: () => {
+            if (isLastSlide) scrollToSlide(1)
+            else scrollToSlide(currentSlide + 1)
+        },
+        slideToLeft: () => {
+            if (isFirstSlide) scrollToSlide(length)
+            else scrollToSlide(currentSlide - 1)
+        }
+    }
 }
 
-const Slider = ({children}) => {
-    const { sliderRef } = useSlider()
+interface SliderProps {
+  children: ReactNode;
+  sliderRef: RefObject<HTMLDivElement>;
+}
+
+const Slider = ({children, sliderRef}: SliderProps) => {
     return (
         <div className={styles.slider} ref={sliderRef}>
             {children}
@@ -54,28 +153,36 @@ const Slider = ({children}) => {
 }
 
 const SliderControls = () => {
-    const context = useSlider()
+    const { currentSlide, length, slideToRight, slideToLeft } = useSlider()
     return (
-        <div className="slider-controls">
-            <button onClick={() => alert('awui')}>Previous</button>
-            <p>Slide Number / Slider Length</p>
-            <button>Next</button>
+        <div className={styles.sliderControls}>
+            <button onClick={slideToLeft} className={styles.icons}><VscArrowLeft /></button>
+            <p>{currentSlide} / {length}</p>
+            <button onClick={slideToRight} className={styles.icons}><VscArrowRight aria-label='Right' /></button>
         </div>
     )
 }
 
-export function SliderDemo() {
+const image = [
+    'https://plus.unsplash.com/premium_photo-1680346551652-556c2b7f7b64?q=80&w=1000&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1674854272283-ad31463a4f48?q=80&w=1000&auto=format&fit=crop',    
+    'https://images.unsplash.com/photo-1673457751858-8369e6a8069a?q=80&w=1000&auto=format&fit=crop',    
+        'https://images.unsplash.com/photo-1670238058331-6c7139fc2bed?q=80&w=1000&auto=format&fit=crop',
+    'https://plus.unsplash.com/premium_photo-1680346551652-556c2b7f7b64?q=80&w=1000&auto=format&fit=crop',    
+    'https://plus.unsplash.com/premium_photo-1680346551652-556c2b7f7b64?q=80&w=1000&auto=format&fit=crop', 
+]
+
+export default function SliderDemo() {
+    const [enabled, setEnabled] = useState(true)
 
     return (
-        <SliderRoot sliderControls={<SliderControls />}>
-            <div className={styles.slide}>Slide 1</div>
-            <div className={styles.slide}>Slide 2</div>
-            <div className={styles.slide}>Slide 3</div>
-            <div className={styles.slide}>Slide 4</div>
-            <div className={styles.slide}>Slide 5</div>
-            <div className={styles.slide}>Slide 6</div>
-            <div className={styles.slide}>Slide 7</div>
-            <div className={styles.slide}>Slide 8</div>  
-        </SliderRoot>
+        <>
+        {enabled && <SliderRoot sliderControls={<SliderControls />}>
+            {image.map((src, index) => (
+                <img src={src} alt={`Slide ${index + 1}`} loading={index > 0 ? 'lazy' : 'eager'} className={styles.slide} key={index} data-index={index + 1} fetchpriority={index > 0 ? 'low' : 'high'}/>           
+            ))}
+        </SliderRoot>}
+        <button onClick={() => setEnabled(!enabled)}>{enabled ? 'Disable' : 'Enable'} Scroll Snap</button>
+    </>
     )
 }
