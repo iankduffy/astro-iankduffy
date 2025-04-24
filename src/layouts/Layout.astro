@@ -7,7 +7,7 @@ interface Props {
 	url?: string;
 }
 
-import { ViewTransitions } from 'astro:transitions';
+// import { ViewTransitions } from 'astro:transitions';
 import Header from './header/Header.astro';
 import Footer from './footer/Footer.astro';
 const astroURL = Astro.url;
@@ -34,7 +34,6 @@ const { title, ogImage } = Astro.props;
 			title="IankDuffy.com RSS Feed"
 			href={new URL("rss.xml", Astro.site)}
 		/>
-		<ViewTransitions />
 	</head>
 	<body>
 		<Header/>
