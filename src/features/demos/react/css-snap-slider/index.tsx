@@ -26,7 +26,6 @@ interface SliderRootProps {
 
 const SliderRoot = ({ children, sliderControls }: SliderRootProps) => {
 	const ref = useRef<HTMLDivElement>(null);
-	console.log('SliderRoot ref', ref.current);
 	return (
 		<SliderContext.Provider value={{ sliderRef: ref }}>
 			<div className={styles.sliderContainer}>
@@ -58,20 +57,20 @@ function handleScrollSnapChange({
 }) {
 	if ('onscrollsnapchanging' in window) {
 		slider.addEventListener('scrollsnapchanging', (event) => {
-			console.log('scrollsnapchanging', event);
 			const newIndex = Number(
 				(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
 			);
 			callback(newIndex);
 		});
-		return () => {
-			console.log('disconnecting observer');
-			slider.removeEventListener('scrollsnapchanging', (event) => {
-				const newIndex = Number(
-					(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
-				);
-				callback(newIndex);
-			});
+		return {
+			cleanUp: () => {
+				slider.removeEventListener('scrollsnapchanging', (event) => {
+					const newIndex = Number(
+						(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
+					);
+					callback(newIndex);
+				});
+			},
 		};
 	} else {
 		const instersectionCallback = (entries: IntersectionObserverEntry[]) => {
@@ -89,9 +88,11 @@ function handleScrollSnapChange({
 		});
 		const slides = [...slider.children];
 		slides.forEach((slide) => observer.observe(slide));
-		return () => {
-			console.log('disconnecting observer');
-			observer.disconnect();
+		return {
+			cleanUp: () => {
+				console.log('disconnecting observer');
+				observer.disconnect();
+			},
 		};
 	}
 }
@@ -111,14 +112,14 @@ const useSlider = () => {
 	useEffect(() => {
 		if (!sliderRef?.current) return;
 		const slider = sliderRef?.current;
-		const cleanup = handleScrollSnapChange({
+		const { cleanUp } = handleScrollSnapChange({
 			slider,
 			callback: (number: number) => {
 				setCurrentSlide(number);
 			},
 		});
 		return () => {
-			cleanup();
+			cleanUp();
 		};
 	}, [sliderRef]);
 
