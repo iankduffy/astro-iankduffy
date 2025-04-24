@@ -53,14 +53,14 @@ function handleScrollSnapChange({
 	callback: (number: number) => void;
 }) {
 	if ('onscrollsnapchanging' in window) {
-		slider.addEventListener('scrollsnapchanging', (event) => {
+		slider.addEventListener('scrollsnapchanging', (event: SnapEvent) => {
 			console.log('scrollsnapchanging', event);
-			const newIndex = Number((event.snapTargetInline as const).dataset.index);
+			const newIndex = Number(event.snapTargetInline.dataset.index);
 			callback(newIndex);
 		});
 		return () => {
 			console.log('disconnecting observer');
-			slider.removeEventListener('scrollsnapchanging', (event) => {
+			slider.removeEventListener('scrollsnapchanging', (event: SnapEvent) => {
 				const newIndex = Number(
 					(event.snapTargetInline as const).target.dataset.index
 				);
