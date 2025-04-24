@@ -44,7 +44,7 @@ const { title, ogImage } = Astro.props;
 </html>
 
 <script is:inline>
-	document.addEventListener('astro:page-load', () => {
+	// document.addEventListener('astro:page-load', () => {
 		const html =  document.querySelector('html');
 		const theme = localStorage.getItem('theme') || html.style.getPropertyValue('color-scheme');
 		html.style.setProperty("color-scheme", theme);
@@ -67,5 +67,5 @@ const { title, ogImage } = Astro.props;
 				localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
 			}
 		});
-	})
+	// })
 </script>
