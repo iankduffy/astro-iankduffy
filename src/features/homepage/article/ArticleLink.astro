@@ -6,7 +6,7 @@ const publishedDAte = new Date(publishedDate).toLocaleDateString('en-GB', { year
 
 <li class:list={[isFeatured ? CSS.featuredArticle : null, CSS.article]} style={{'--delay': `${delay * 5}%`}} >
     <a href={`/articles/${slug.current}`} class:list={[CSS.articleLink]}>
-        <h3 style="text-wrap:pretty" style={{viewTransitionName: `article-title-${title.replaceAll(' ', '-')}` }}>{title}</h3>
+        <h3 style={{viewTransitionName: `article-title-${title.replaceAll(' ', '-')}`, textWrap: 'pretty' }}>{title}</h3>
         <!-- {articleTags?.length > 0 ? <div class:list={[CSS.articleTags]} transition:name={`article-tags-${title.replaceAll(' ', '-')}`}>
             {articleTags.map((tag: string) => (
                 <span class:list={[CSS.tag]}>{tag}</span>
