@@ -2,17 +2,18 @@
 	display: flex;
 	overflow-x: scroll;
 	scroll-snap-type: x mandatory;
+	scroll-snap-stop: always;
 	-webkit-overflow-scrolling: touch;
 	scrollbar-width: none; /* Hide scrollbar for Firefox */
-	// width: 50%;
+	position: relative;
 	height: 100%;
 	width: 100%;
+	overscroll-behavior-inline: contain;
 
 	* {
 		scroll-snap-align: center;
 		flex: 0 0 auto;
 		width: 100%;
-		// overscroll-behavior-inline: contain;
 	}
 }
 
@@ -51,6 +52,7 @@
 }
 
 .thumbnails {
+	position: relative;
 	display: flex;
 	overflow-x: scroll;
 	scroll-snap-type: x mandatory;

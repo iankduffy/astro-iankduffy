@@ -5,6 +5,7 @@ import React, {
 	useEffect,
 	useRef,
 	useState,
+	Children,
 	type ReactNode,
 	type RefObject,
 } from 'react';
@@ -14,8 +15,10 @@ import clsx from 'clsx';
 
 const SliderContext = createContext<{
 	sliderRef: null | RefObject<HTMLDivElement>;
+	count: number;
 }>({
 	sliderRef: null,
+	count: 0,
 });
 
 interface SliderRootProps {
@@ -30,8 +33,9 @@ const SliderRoot = ({
 	thumbnails,
 }: SliderRootProps) => {
 	const ref = useRef<HTMLDivElement>(null);
+	const count = Children.count(children);
 	return (
-		<SliderContext.Provider value={{ sliderRef: ref }}>
+		<SliderContext.Provider value={{ sliderRef: ref, count }}>
 			<div className={styles.sliderContainer}>
 				<Slider sliderRef={ref}>{children}</Slider>
 				{sliderControls}
@@ -103,14 +107,8 @@ function handleScrollSnapChange({
 const useSlider = () => {
 	const context = useSliderContext();
 	const [currentSlide, setCurrentSlide] = useState(1);
-	const [length, setLength] = useState(0);
+	const length = context.count;
 	const { sliderRef } = context;
-
-	useEffect(() => {
-		if (!sliderRef?.current) return;
-		const length = sliderRef?.current?.children.length;
-		setLength(length);
-	}, [sliderRef]);
 
 	useEffect(() => {
 		if (!sliderRef?.current) return;
@@ -133,21 +131,19 @@ const useSlider = () => {
 		(index: number) => {
 			if (!sliderRef?.current) return;
 			const slides = sliderRef?.current?.children;
-			const targetSlide = slides[index - 1];
-			if (targetSlide) {
-				targetSlide.scrollIntoView({
-					behavior: 'smooth',
-					block: 'nearest',
-					inline: 'start',
-				});
-			}
+			const targetSlide = slides[index - 1] as HTMLElement;
+			if (!targetSlide) return;
+			sliderRef.current.scrollTo({
+				left: targetSlide?.offsetLeft,
+				behavior: 'smooth',
+			});
 		},
 		[sliderRef]
 	);
 
 	return {
 		currentSlide,
-		length,
+		length: context.count,
 		sliderRef,
 		isFirstSlide,
 		isLastSlide,
@@ -210,24 +206,22 @@ const image = [
 
 export default function SliderDemo() {
 	return (
-		<>
-			<SliderRoot
-				sliderControls={<SliderControls />}
-				thumbnails={<Thumbnail images={image} />}>
-				{image.map((src, index) => (
-					<img
-						src={src}
-						alt={`Slide ${index + 1}`}
-						loading={index > 0 ? 'lazy' : 'eager'}
-						className={styles.slide}
-						key={index}
-						data-index={index + 1}
-						fetchPriority={index > 0 ? 'low' : 'high'}
-						style={{ display: 'block' }}
-					/>
-				))}
-			</SliderRoot>
-		</>
+		<SliderRoot
+			sliderControls={<SliderControls />}
+			thumbnails={<Thumbnail images={image} />}>
+			{image.map((src, index) => (
+				<img
+					src={src}
+					alt={`Slide ${index + 1}`}
+					loading={index > 0 ? 'lazy' : 'eager'}
+					className={styles.slide}
+					key={index}
+					data-index={index + 1}
+					fetchPriority={index > 0 ? 'low' : 'high'}
+					style={{ display: 'block' }}
+				/>
+			))}
+		</SliderRoot>
 	);
 }
 
@@ -238,14 +232,12 @@ function Thumbnail({ images }: { images: string[] }) {
 	useEffect(() => {
 		if (!thumbnailsRef?.current) return;
 		const thumbnails = thumbnailsRef?.current?.children;
-		const currentThumbnail = thumbnails[currentSlide - 1];
-		if (currentThumbnail) {
-			currentThumbnail.scrollIntoView({
-				behavior: 'smooth',
-				block: 'nearest',
-				inline: 'start',
-			});
-		}
+		const currentThumbnail = thumbnails[currentSlide - 1] as HTMLElement;
+		if (!currentThumbnail) return;
+		thumbnailsRef.current.scrollTo({
+			left: currentThumbnail?.offsetLeft,
+			behavior: 'smooth',
+		});
 	}, [currentSlide, thumbnailsRef]);
 
 	return (
