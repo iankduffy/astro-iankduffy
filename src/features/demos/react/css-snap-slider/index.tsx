@@ -5,13 +5,12 @@ import React, {
 	useEffect,
 	useRef,
 	useState,
-	Children,
 	type ReactNode,
-	type Ref,
 	type RefObject,
 } from 'react';
 import styles from './styles.module.scss';
 import { VscArrowLeft, VscArrowRight } from 'react-icons/vsc';
+import clsx from 'clsx';
 
 const SliderContext = createContext<{
 	sliderRef: null | RefObject<HTMLDivElement>;
@@ -22,17 +21,22 @@ const SliderContext = createContext<{
 interface SliderRootProps {
 	children: React.ReactNode;
 	sliderControls: React.ReactNode;
+	thumbnails?: React.ReactNode;
 }
 
-const SliderRoot = ({ children, sliderControls }: SliderRootProps) => {
+const SliderRoot = ({
+	children,
+	sliderControls,
+	thumbnails,
+}: SliderRootProps) => {
 	const ref = useRef<HTMLDivElement>(null);
-	console.log('SliderRoot ref', ref.current);
 	return (
 		<SliderContext.Provider value={{ sliderRef: ref }}>
 			<div className={styles.sliderContainer}>
 				<Slider sliderRef={ref}>{children}</Slider>
 				{sliderControls}
 			</div>
+			{thumbnails}
 		</SliderContext.Provider>
 	);
 };
@@ -155,6 +159,7 @@ const useSlider = () => {
 			if (isFirstSlide) scrollToSlide(length);
 			else scrollToSlide(currentSlide - 1);
 		},
+		scrollToSlide,
 	};
 };
 
@@ -204,28 +209,67 @@ const image = [
 ];
 
 export default function SliderDemo() {
-	const [enabled, setEnabled] = useState(true);
-
 	return (
 		<>
-			{enabled && (
-				<SliderRoot sliderControls={<SliderControls />}>
-					{image.map((src, index) => (
-						<img
-							src={src}
-							alt={`Slide ${index + 1}`}
-							loading={index > 0 ? 'lazy' : 'eager'}
-							className={styles.slide}
-							key={index}
-							data-index={index + 1}
-							fetchPriority={index > 0 ? 'low' : 'high'}
-						/>
-					))}
-				</SliderRoot>
-			)}
-			<button onClick={() => setEnabled(!enabled)}>
-				{enabled ? 'Disable' : 'Enable'} Scroll Snap
-			</button>
+			<SliderRoot
+				sliderControls={<SliderControls />}
+				thumbnails={<Thumbnail images={image} />}>
+				{image.map((src, index) => (
+					<img
+						src={src}
+						alt={`Slide ${index + 1}`}
+						loading={index > 0 ? 'lazy' : 'eager'}
+						className={styles.slide}
+						key={index}
+						data-index={index + 1}
+						fetchPriority={index > 0 ? 'low' : 'high'}
+						style={{ display: 'block' }}
+					/>
+				))}
+			</SliderRoot>
 		</>
+	);
+}
+
+function Thumbnail({ images }: { images: string[] }) {
+	const { currentSlide, scrollToSlide } = useSlider();
+	const thumbnailsRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (!thumbnailsRef?.current) return;
+		const thumbnails = thumbnailsRef?.current?.children;
+		const currentThumbnail = thumbnails[currentSlide - 1];
+		if (currentThumbnail) {
+			currentThumbnail.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+				inline: 'start',
+			});
+		}
+	}, [currentSlide, thumbnailsRef]);
+
+	return (
+		<div
+			ref={thumbnailsRef}
+			className={styles.thumbnails}>
+			{images.map((src, index) => (
+				<img
+					src={src}
+					alt={`Slide ${index + 1}`}
+					loading={index > 0 ? 'lazy' : 'eager'}
+					className={clsx(
+						styles.slide,
+						index + 1 === currentSlide && styles.active
+					)}
+					key={index}
+					data-index={index + 1}
+					fetchPriority={index > 0 ? 'low' : 'high'}
+					style={{ display: 'block' }}
+					onClick={() => {
+						scrollToSlide(index + 1);
+					}}
+				/>
+			))}
+		</div>
 	);
 }
