@@ -196,12 +196,13 @@ const SliderControls = () => {
 };
 
 const image = [
-	'https://plus.unsplash.com/premium_photo-1680346551652-556c2b7f7b64?q=80&w=1000&auto=format&fit=crop',
+	'https://images.unsplash.com/photo-1581886038633-4c46f67b0e3d?q=80&w=1000&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1674854272283-ad31463a4f48?q=80&w=1000&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1673457751858-8369e6a8069a?q=80&w=1000&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1670238058331-6c7139fc2bed?q=80&w=1000&auto=format&fit=crop',
-	'https://plus.unsplash.com/premium_photo-1680346551652-556c2b7f7b64?q=80&w=1000&auto=format&fit=crop',
-	'https://plus.unsplash.com/premium_photo-1680346551652-556c2b7f7b64?q=80&w=1000&auto=format&fit=crop',
+	'https://images.unsplash.com/photo-1587812063827-3d36e5c5b8e3?q=80&w=1000&auto=format&fit=crop',
+	'https://images.unsplash.com/photo-1611237147279-a98066529cdb?q=80&w=1000&auto=format&fit=crop',
+	'https://images.unsplash.com/photo-1673457749223-b47a95a3dde6?q=80&w=1000&auto=format&fit=crop',
 ];
 
 export default function SliderDemo() {
