@@ -65,9 +65,24 @@
 	& img {
 		flex: 1 1 auto;
 		border: 2px solid transparent;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
 	}
 
 	.active {
 		border: 2px solid var(--brand-700);
 	}
+}
+
+.button {
+	background: var(--brand-900);
+	color: var(--brand-100);
+	border: none;
+	cursor: pointer;
+	padding: var(--spacing-sm) var(--spacing-md);
+	margin: var(--spacing-xs);
+	border-radius: 10px;
+	font-size: 1rem;
+	transition: all 0.3s ease-in-out;
 }

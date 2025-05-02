@@ -24,7 +24,7 @@ const ogImage = article.socialImage ? urlForImage(article.socialImage).fit('fill
 
 <Layout title={`${article.title} | Articles `} ogImage={ogImage} >
   <main class="">
-    <ArticleHeader title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
+    <ArticleHeader id={article._id} title={article.title} datePublished={article.publishedDate} readTime={article.estimatedReadingTime}/>
     <div class="article-body">
       <aside class="article-aside">
       <MobileTableOfContents>

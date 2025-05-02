@@ -201,28 +201,40 @@ const image = [
 	'https://images.unsplash.com/photo-1673457751858-8369e6a8069a?q=80&w=1000&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1670238058331-6c7139fc2bed?q=80&w=1000&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1587812063827-3d36e5c5b8e3?q=80&w=1000&auto=format&fit=crop',
-	'https://images.unsplash.com/photo-1611237147279-a98066529cdb?q=80&w=1000&auto=format&fit=crop',
+	// 'https://images.unsplash.com/photo-1611237147279-a98066529cdb?q=80&w=1000&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1673457749223-b47a95a3dde6?q=80&w=1000&auto=format&fit=crop',
 ];
 
 export default function SliderDemo() {
+	const [thumbnails, setThumbnails] = useState(false);
 	return (
-		<SliderRoot
-			sliderControls={<SliderControls />}
-			thumbnails={<Thumbnail images={image} />}>
-			{image.map((src, index) => (
-				<img
-					src={src}
-					alt={`Slide ${index + 1}`}
-					loading={index > 0 ? 'lazy' : 'eager'}
-					className={styles.slide}
-					key={index}
-					data-index={index + 1}
-					fetchPriority={index > 0 ? 'low' : 'high'}
-					style={{ display: 'block' }}
-				/>
-			))}
-		</SliderRoot>
+		<>
+			<SliderRoot
+				sliderControls={<SliderControls />}
+				thumbnails={thumbnails ? <Thumbnail images={image} /> : undefined}>
+				{image.map((src, index) => (
+					<img
+						src={src}
+						alt={`Slide ${index + 1}`}
+						loading={index > 0 ? 'lazy' : 'eager'}
+						className={styles.slide}
+						key={index}
+						data-index={index + 1}
+						fetchPriority={index > 0 ? 'low' : 'high'}
+						style={{ display: 'block' }}
+					/>
+				))}
+			</SliderRoot>
+			<div className={styles.thumbnailsButton}>
+				<button
+					className={styles.button}
+					onClick={() => {
+						setThumbnails((prev) => !prev);
+					}}>
+					{thumbnails ? 'Hide Thumbnails' : 'Show Thumbnails'}
+				</button>
+			</div>
+		</>
 	);
 }
 
@@ -247,7 +259,7 @@ function Thumbnail({ images }: { images: string[] }) {
 			className={styles.thumbnails}>
 			{images.map((src, index) => (
 				<img
-					src={src}
+					src={src + '?w=100&h=100&fit=crop'}
 					alt={`Slide ${index + 1}`}
 					loading={index > 0 ? 'lazy' : 'eager'}
 					className={clsx(
