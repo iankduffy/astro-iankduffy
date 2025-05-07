@@ -16,7 +16,7 @@ export default defineConfig({
 	devToolbar: {
 		enabled: false,
 	},
-	trailingSlash: 'never',
+	trailingSlash: 'ignore',
 	integrations: [
 		sanity({
 			projectId: SANITY_PROJECT_ID,
