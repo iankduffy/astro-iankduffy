@@ -13,10 +13,11 @@ const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = loadEnv(
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://iankduffy.com',
+	output: 'static',
 	devToolbar: {
 		enabled: false,
 	},
-	trailingSlash: 'ignore',
+	// trailingSlash: 'ignore',
 	integrations: [
 		sanity({
 			projectId: SANITY_PROJECT_ID,
