@@ -16,6 +16,7 @@ export default defineConfig({
 	devToolbar: {
 		enabled: false,
 	},
+	trailingSlash: 'never',
 	integrations: [
 		sanity({
 			projectId: SANITY_PROJECT_ID,
@@ -28,7 +29,7 @@ export default defineConfig({
 		}),
 		sitemap({
 			filter: (page) =>
-				page !== 'https://iankduffy.com/uses' &&
+				page !== 'https://iankduffy.com/uses/' &&
 				page !== 'https://iankduffy.com/snippets/',
 		}),
 	],
