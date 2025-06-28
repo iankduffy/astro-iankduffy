@@ -24,6 +24,8 @@ export default defineConfig({
 			dataset: SANITY_DATASET,
 			useCdn: true,
 			apiVersion: SANITY_API_VERSION,
+			// perspective: 'previewDrafts',
+			// token: process.env.SANITY_DRAFT_KEY,
 		}),
 		react({
 			include: ['**/react/*'],

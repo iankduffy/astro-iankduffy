@@ -64,7 +64,9 @@ function handleScrollSnapChange({
 	slider: HTMLDivElement;
 	callback: (number: number) => void;
 }) {
-	if ('onscrollsnapchanging' in window) {
+	console.log('onclick' in window);
+	if ('onscrollsnapchange' in window) {
+		console.log('scrollsnapchange supported');
 		slider.addEventListener('scrollsnapchanging', (event) => {
 			console.log('scrollsnapchanging', event);
 			const newIndex = Number(
@@ -195,24 +197,29 @@ const SliderControls = () => {
 	);
 };
 
-const image = [
-	'https://images.unsplash.com/photo-1581886038633-4c46f67b0e3d?q=80&w=1000&auto=format&fit=crop',
-	'https://images.unsplash.com/photo-1674854272283-ad31463a4f48?q=80&w=1000&auto=format&fit=crop',
-	'https://images.unsplash.com/photo-1673457751858-8369e6a8069a?q=80&w=1000&auto=format&fit=crop',
-	'https://images.unsplash.com/photo-1670238058331-6c7139fc2bed?q=80&w=1000&auto=format&fit=crop',
-	'https://images.unsplash.com/photo-1587812063827-3d36e5c5b8e3?q=80&w=1000&auto=format&fit=crop',
-	// 'https://images.unsplash.com/photo-1611237147279-a98066529cdb?q=80&w=1000&auto=format&fit=crop',
-	'https://images.unsplash.com/photo-1673457749223-b47a95a3dde6?q=80&w=1000&auto=format&fit=crop',
-];
+// const image = [
+// 	'https://images.unsplash.com/photo-1581886038633-4c46f67b0e3d?q=80&w=1000&auto=format&fit=crop',
+// 	'https://images.unsplash.com/photo-1674854272283-ad31463a4f48?q=80&w=1000&auto=format&fit=crop',
+// 	'https://images.unsplash.com/photo-1673457751858-8369e6a8069a?q=80&w=1000&auto=format&fit=crop',
+// 	'https://images.unsplash.com/photo-1670238058331-6c7139fc2bed?q=80&w=1000&auto=format&fit=crop',
+// 	'https://images.unsplash.com/photo-1587812063827-3d36e5c5b8e3?q=80&w=1000&auto=format&fit=crop',
+// 	// 'https://images.unsplash.com/photo-1611237147279-a98066529cdb?q=80&w=1000&auto=format&fit=crop',
+// 	'https://images.unsplash.com/photo-1673457749223-b47a95a3dde6?q=80&w=1000&auto=format&fit=crop',
+// ];
 
-export default function SliderDemo() {
-	const [thumbnails, setThumbnails] = useState(false);
+export default function SliderDemo({
+	images,
+	thumbnails,
+}: {
+	images: string[];
+	thumbnails?: boolean;
+}) {
 	return (
 		<>
 			<SliderRoot
 				sliderControls={<SliderControls />}
-				thumbnails={thumbnails ? <Thumbnail images={image} /> : undefined}>
-				{image.map((src, index) => (
+				thumbnails={thumbnails ? <Thumbnail images={images} /> : undefined}>
+				{images.map((src, index) => (
 					<img
 						src={src}
 						alt={`Slide ${index + 1}`}
@@ -225,15 +232,6 @@ export default function SliderDemo() {
 					/>
 				))}
 			</SliderRoot>
-			<div className={styles.thumbnailsButton}>
-				<button
-					className={styles.button}
-					onClick={() => {
-						setThumbnails((prev) => !prev);
-					}}>
-					{thumbnails ? 'Hide Thumbnails' : 'Show Thumbnails'}
-				</button>
-			</div>
 		</>
 	);
 }

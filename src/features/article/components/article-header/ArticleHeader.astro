@@ -10,7 +10,7 @@ const oldURL = `${import.meta.env.MIGRATION_OLD_DOMAIN}${currentPath.pathname}`
 ---
 
 <header class:list={[ CSS.container]}>
-    <h1 style={{viewTransitionName: `article-title-${id}` }}>{title}</h1>
+    <h1 style={{viewTransitionName: `article-title-${id}`, transition: '500ms' }}>{title}</h1>
     <p class:list={[CSS.articleInfo]}>
         <span style={{viewTransitionName: `article-publishedDate-${title.replaceAll(' ', '-')}`}}>{publishedDAte}</span>
         {readTime ? <span style={{viewTransitionName: `article-readTime-${title.replaceAll(' ', '-')}`}}>Read Time {readTime} mins</span> : null}
