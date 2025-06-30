@@ -119,3 +119,18 @@
 	border-radius: var(--spacing-xxs);
 	font-size: 0.8rem;
 }
+
+.articleNavigation {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	margin: var(--spacing-md) 0;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	scroll-snap-stop: always;
+	-webkit-overflow-scrolling: touch;
+
+	> * {
+		flex-shrink: 0;
+	}
+}

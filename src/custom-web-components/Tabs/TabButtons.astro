@@ -1,0 +1,32 @@
+---
+const { tabs } = Astro.props;
+export const prerender = false;
+const currentTab = Astro.url.searchParams.get('tab') || 'all';
+import styles from './styles.module.scss';
+// const activeTab = tab === tab.label;
+---
+
+<!-- <nav> -->
+    {tabs.map((tab: { label: string; name: string; active?: boolean }) => (
+        <button aria-current={tab.active ? 'true' : undefined} data-tab-name={tab.name} class:list={[currentTab === tab.name ? styles.active : '', styles.tabButton, 'tab-button']}>
+            {tab.label}
+        </button>
+    ))}
+<!-- </nav> -->
+
+
+<script define:vars={{activeTabClass: styles.active}}>
+    const tabButtons = document.querySelectorAll('[data-tab-name]');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.setAttribute('aria-current', 'false'));
+            button.setAttribute('aria-current', 'true');
+            const tabName = button.getAttribute('data-tab-name');
+            tabButtons.forEach(btn => btn.classList.remove(activeTabClass));
+            button.classList.add(activeTabClass);
+            history.pushState({}, '', `?tab=${tabName}`);
+
+            window.dispatchEvent(new Event('tabchange'));
+        });
+    });
+</script>

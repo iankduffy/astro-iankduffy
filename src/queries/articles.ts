@@ -14,6 +14,7 @@ export interface Article {
 	content: PortableTextBlock[];
 	publishedDate: string;
 	socialImage: Image;
+	articleTags: string[] | null;
 }
 
 export const getAllArticlesSlug = async (): Promise<
@@ -35,6 +36,14 @@ export const getAllArticles = async (): Promise<Article[]> => {
 	const articles = await sanityClient.fetch(allArticlesQuery);
 
 	return articles;
+};
+
+export const allArticleCategoriesQuery = `*[_type == "articleTags"] { tagName } `;
+
+export const getAllArticleCategories = async (): Promise<string[]> => {
+	const categories = await sanityClient.fetch(allArticleCategoriesQuery);
+
+	return categories.map((category: { tagName: string }) => category.tagName);
 };
 
 export const articleFromSlugQuery = `*[_type == "articles" && slug.current == $slug][0] {

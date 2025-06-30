@@ -1,17 +1,55 @@
 ---
-import { getAllArticles } from '../../../queries/articles'
+import TabButtons from '../../../custom-web-components/Tabs/TabButtons.astro'
+import TabList from '../../../custom-web-components/Tabs/TabList.astro'
+import TabItem from '../../../custom-web-components/Tabs/TabItem.astro'
+import { getAllArticles, getAllArticleCategories } from '../../../queries/articles'
 import ArticleLink from './ArticleLink.astro'
 import CSS from './styles.module.scss'
-const articles = await getAllArticles()
+const articles = await getAllArticles();
+const articleCategories = await getAllArticleCategories()
+console.log('articles', articles);
 const { hasTitle } = Astro.props
 ---
 <div class:list={[CSS.articlesSection]}>
     <section class:list={[]}>
-        {hasTitle && <h2>Recent Articles</h2>}
-        <ul class:list={[CSS.list]}>
-            {articles.map((article, index) => (
-                <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
-            ))}
-        </ul>
+        <nav class:list={[CSS.articleNavigation]}>
+            <TabButtons tabs={[
+                { label: 'All Articles', name: 'all' },
+                { label: 'Web Performance', name: 'web-performance' },
+                { label: 'CSS', name: 'css' },
+                { label: 'JavaScript', name: 'javascript' },
+            ]}/>
+        </nav>
+
+        <TabList>
+            <TabItem name="all">
+                <ul class:list={[CSS.list]}>
+                    {articles.map((article, index) => (
+                        <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
+                    ))}
+                </ul>
+            </TabItem>
+            <TabItem name="web-performance">
+                <ul class:list={[CSS.list]}>
+                    {articles.filter(article => article.articleTags?.includes('Web Performance')).map((article, index) => (
+                        <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
+                    ))}
+                </ul>
+            </TabItem>
+            <TabItem name="javascript">
+                <ul class:list={[CSS.list]}>
+                    {articles.filter(article => article.articleTags?.includes('Javascript')).map((article, index) => (
+                        <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
+                    ))}
+                </ul>
+            </TabItem>
+            <TabItem name="css">
+                <ul class:list={[CSS.list]}>
+                    {articles.filter(article => article.articleTags?.includes('CSS')).map((article, index) => (
+                        <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
+                    ))}
+                </ul>
+            </TabItem>
+        </TabList>
     </section>
 </div>

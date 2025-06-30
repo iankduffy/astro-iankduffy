@@ -1,0 +1,36 @@
+---
+
+---
+
+<tab-list>
+    <slot />
+</tab-list>
+
+<script>
+    class TabList extends HTMLElement {
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            console.log('TabList component connected');
+            this.addListener();
+        }
+
+        addListener() {
+            window.addEventListener('tabchange', (event) => {
+                const activeTab = new URLSearchParams(window.location.search).get('tab') || 'all'
+                document.startViewTransition(() => {
+                    this.querySelectorAll('tab-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-tab-name') === activeTab) {
+                        item.classList.add('active');
+                    }
+                });
+                })
+
+            });
+        }
+    }
+    customElements.define('tab-list', TabList);
+</script>
