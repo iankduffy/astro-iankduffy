@@ -20,6 +20,15 @@
         addListener() {
             window.addEventListener('tabchange', (event) => {
                 const activeTab = new URLSearchParams(window.location.search).get('tab') || 'all'
+                if (!document.startViewTransition) {
+                    this.querySelectorAll('tab-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('data-tab-name') === activeTab) {
+                            item.classList.add('active');
+                        }
+                    });
+                    return;
+                }
                 document.startViewTransition(() => {
                     this.querySelectorAll('tab-item').forEach(item => {
                     item.classList.remove('active');
