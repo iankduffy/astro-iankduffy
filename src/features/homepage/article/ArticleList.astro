@@ -5,6 +5,8 @@ import TabItem from '../../../custom-web-components/Tabs/TabItem.astro'
 import { getAllArticles, getAllArticleCategories } from '../../../queries/articles'
 import ArticleLink from './ArticleLink.astro'
 import CSS from './styles.module.scss'
+
+Astro.response.headers.set("Netlify-Vary", "query=tab");
 const articles = await getAllArticles();
 const articleCategories = await getAllArticleCategories()
 console.log('articles', articles);
