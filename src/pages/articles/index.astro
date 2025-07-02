@@ -2,17 +2,13 @@
 // import ArticleList from '../../features/homepage/article/ArticleList.astro';
 import ArticleList from '../../features/homepage/article/ArticleList.astro';
 import Layout from '../../layouts/Layout.astro';
-import { getAllArticles } from '../../queries/articles';
-Astro.response.headers.set("Netlify-Vary", "query=tab");
-
-const articles = await getAllArticles()
-
+// Astro.response.headers.set("Netlify-Vary", "query=tab");
 ---
 
 <Layout title="Articles">
 	<main class="container">
 		<h1>Articles</h1>
-		<ArticleList articles={articles} />
+		<ArticleList />
 	</main>
 </Layout>
 
