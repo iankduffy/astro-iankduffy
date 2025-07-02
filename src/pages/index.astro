@@ -5,8 +5,8 @@ import Hero from '../features/homepage/hero/Hero.astro';
 import ArticleList from '../features/homepage/article/ArticleList.astro';
 // import AboutMe from '../features/homepage/about-me/AboutMe.astro';
 import SkillList from '../features/homepage/skill-list/SkillList.astro';
-Astro.response.headers.set("Netlify-Vary", "query=tab");
 
+// const tab = Astro.url.searchParams.get('tab') || 'all';
 ---
 
 <Layout title="Home Page">

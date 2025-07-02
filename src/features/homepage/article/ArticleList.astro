@@ -6,11 +6,8 @@ import { getAllArticles, getAllArticleCategories } from '../../../queries/articl
 import ArticleLink from './ArticleLink.astro'
 import CSS from './styles.module.scss'
 
-Astro.response.headers.set("Netlify-Vary", "query=tab");
 const articles = await getAllArticles();
 const articleCategories = await getAllArticleCategories()
-console.log('articles', articles);
-const { hasTitle } = Astro.props
 ---
 <div class:list={[CSS.articlesSection]}>
     <section class:list={[]}>
