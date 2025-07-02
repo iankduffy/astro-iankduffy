@@ -50,10 +50,10 @@ const { title, ogImage } = Astro.props;
 		html.style.setProperty("color-scheme", theme);
 		const toggleMode = document.getElementById('toggle-mode');
 
-		toggleMode.addEventListener('click', (e) => {
+		toggleMode.addEventListener('click', async (e) => {
 			html.style.viewTransitionName = 'changing-theme';
 			if (document.startViewTransition) {
-				document.startViewTransition(() => {
+				const transition = document.startViewTransition(() => {
 					const xPosition = `${e.clientX / window.innerWidth * 100}%`
 					const yPosition = `${e.clientY / window.innerHeight * 100}%`
 					html.style.setProperty('--theme-button-cord', `${xPosition} ${yPosition}`)
@@ -61,11 +61,15 @@ const { title, ogImage } = Astro.props;
 					html.style.setProperty("color-scheme", theme === 'light' ? 'dark' : 'light');
 					localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
 				})
+				await transition.finished;
+				html.style.viewTransitionName = '';
 			} else {
 				const theme = html.style.getPropertyValue('color-scheme');
 				html.style.setProperty("color-scheme", theme === 'light' ? 'dark' : 'light');
 				localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
 			}
+			// html.style.viewTransitionName = '';
+
 		});
 	// })
 </script>
