@@ -6,6 +6,7 @@
     <slot />
 </tab-list>
 
+
 <script>
     class TabList extends HTMLElement {
         constructor() {
@@ -13,13 +14,16 @@
         }
 
         connectedCallback() {
-            console.log('TabList component connected');
+            this.updateTabs();
             this.addListener();
         }
 
         addListener() {
-            window.addEventListener('tabchange', (event) => {
-                const activeTab = new URLSearchParams(window.location.search).get('tab') || 'all'
+            window.addEventListener('tabchange', this.updateTabs.bind(this));
+        }
+
+        updateTabs() {
+            const activeTab = new URLSearchParams(window.location.search).get('tab') || 'all'
                 if (!document.startViewTransition) {
                     this.querySelectorAll('tab-item').forEach(item => {
                         item.classList.remove('active');
@@ -36,9 +40,7 @@
                         item.classList.add('active');
                     }
                 });
-                })
-
-            });
+            })
         }
     }
     customElements.define('tab-list', TabList);
