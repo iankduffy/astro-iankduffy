@@ -40,6 +40,18 @@ const { title, ogImage } = Astro.props;
 			<slot />
 		<Footer />
 		<button id="toggle-mode" class="theme-switch-button">Toggle Theme</button>
+		<script type="speculationrules" is:inline>
+			{
+			  "prefetch": [
+				{
+				  "where": {
+					"and": [{ "href_matches": "/*" }]
+				  }
+				  "eagerness": "moderate",
+				}
+			  ]
+			}
+		</script>
 	</body>
 </html>
 
