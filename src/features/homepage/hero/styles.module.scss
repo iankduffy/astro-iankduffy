@@ -37,6 +37,7 @@
 	transition:
 		transform 600ms,
 		opacity 600ms;
+	transition-delay: 200ms;
 	will-change: contents;
 	@starting-style {
 		transform: translateY(100px);
@@ -50,7 +51,7 @@
 	transition:
 		transform 600ms,
 		opacity 600ms;
-	transition-delay: 200ms;
+	transition-delay: 400ms;
 	margin: var(--spacing-sm) 0 0 0;
 	font-weight: bold;
 	will-change: contents;
