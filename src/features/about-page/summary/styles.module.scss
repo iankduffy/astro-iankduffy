@@ -45,6 +45,7 @@
 	overflow: hidden;
 	width: 50cqw;
 	view-transition-name: profile-image;
+	transition: 500ms ease-in-out;
 
 	@include breakpoint(md) {
 		width: 33cqw;
