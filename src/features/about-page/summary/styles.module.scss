@@ -44,6 +44,7 @@
 	border-radius: var(--spacing-xs);
 	overflow: hidden;
 	width: 50cqw;
+	view-transition-name: profile-image;
 
 	@include breakpoint(md) {
 		width: 33cqw;
