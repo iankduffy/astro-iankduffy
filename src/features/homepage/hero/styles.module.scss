@@ -19,16 +19,8 @@
 }
 
 .content {
-	transition:
-		transform 800ms,
-		opacity 800ms;
 	@include breakpoint(md) {
 		max-width: 60vw;
-	}
-	@starting-style {
-		transition-delay: 1s;
-		transform: translateY(100px);
-		opacity: 0;
 	}
 }
 
@@ -40,9 +32,32 @@
 	font-size: clamp(1.5rem, -0.3707rem + 2vw, 3.75rem);
 	text-wrap: balance;
 	color: var(--brand-800);
-	span {
-		font-size: clamp(2rem, -0.3707rem + 10vw, 4rem);
-		color: var(--brand-900);
+	margin-bottom: 0;
+
+	transition:
+		transform 600ms,
+		opacity 600ms;
+	will-change: contents;
+	@starting-style {
+		transform: translateY(100px);
+		opacity: 0;
+	}
+}
+
+.subText {
+	font-size: clamp(2rem, -0.3707rem + 10vw, 4rem);
+	color: var(--brand-900);
+	transition:
+		transform 600ms,
+		opacity 600ms;
+	transition-delay: 200ms;
+	margin: var(--spacing-sm) 0 0 0;
+	font-weight: bold;
+	will-change: contents;
+
+	@starting-style {
+		transform: translateY(100px);
+		opacity: 0;
 	}
 }
 
