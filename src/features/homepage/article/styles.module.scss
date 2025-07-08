@@ -11,7 +11,7 @@
 	transition:
 		opacity 800ms,
 		transform 800ms;
-	transition-delay: 400ms;
+	transition-delay: var(--article-delay, 0ms);
 	@starting-style {
 		opacity: 0;
 		transform: translateY(100px);
@@ -123,7 +123,7 @@
 		}
 
 		transition-delay: calc(
-			var(--transition-delay-base, 0ms) + 200ms * var(--sibling-index, 0)
+			var(--article-delay, 0ms) + 200ms * var(--sibling-index, 0)
 		);
 
 		@starting-style {
