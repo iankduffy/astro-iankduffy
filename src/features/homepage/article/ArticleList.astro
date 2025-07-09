@@ -22,28 +22,28 @@ const articles = await getAllArticles();
 
         <TabList>
             <TabItem name="all">
-                <ul class:list={[CSS.list]}>
+                <ul class:list={[CSS.list]} aria-label="All Articles">
                     {articles.map((article, index) => (
                         <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
                     ))}
                 </ul>
             </TabItem>
             <TabItem name="web-performance">
-                <ul class:list={[CSS.list]}>
+                <ul class:list={[CSS.list]} aria-label="Web Performance Articles">
                     {articles.filter(article => article.articleTags?.includes('Web Performance')).map((article, index) => (
                         <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
                     ))}
                 </ul>
             </TabItem>
             <TabItem name="javascript">
-                <ul class:list={[CSS.list]}>
+                <ul class:list={[CSS.list]} aria-label="JavaScript Articles">
                     {articles.filter(article => article.articleTags?.includes('Javascript')).map((article, index) => (
                         <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
                     ))}
                 </ul>
             </TabItem>
             <TabItem name="css">
-                <ul class:list={[CSS.list]}>
+                <ul class:list={[CSS.list]} aria-label="CSS Articles">
                     {articles.filter(article => article.articleTags?.includes('CSS')).map((article, index) => (
                         <ArticleLink {...article} isFeatured={index === 0} delay={index}/>
                     ))}
