@@ -15,7 +15,7 @@ const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = loadEnv(
 export default defineConfig({
 	site: 'https://iankduffy.com',
 	// output: 'hybrid',
-
+	// output: 'server',
 	devToolbar: {
 		enabled: false,
 	},

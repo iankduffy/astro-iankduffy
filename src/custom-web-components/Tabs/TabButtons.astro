@@ -1,9 +1,10 @@
 ---
 const { tabs } = Astro.props;
 export const prerender = false;
+
 const currentTab = Astro.url.searchParams.get('tab') || 'all';
 import styles from './styles.module.scss';
-// const activeTab = tab === tab.label;
+console.log('Current Tab:', Astro.url.searchParams);
 ---
 
 <!-- <nav> -->
@@ -29,4 +30,12 @@ import styles from './styles.module.scss';
             window.dispatchEvent(new Event('tabchange'));
         });
     });
+
+
+    const tabName = new URLSearchParams(window.location.search).get('tab') || 'all';
+    tabButtons.forEach(btn => {
+        btn.setAttribute('aria-current', btn.getAttribute('data-tab-name') === tabName ? 'true' : 'false');
+        btn.classList.toggle(activeTabClass, btn.getAttribute('data-tab-name') === tabName);
+    });
+   
 </script>
