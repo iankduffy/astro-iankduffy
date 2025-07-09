@@ -1,9 +1,29 @@
 .summary {
-	font-size: 1.15rem;
+	font-size: 1.25rem;
 	padding-bottom: var(--spacing-xs);
 	margin-bottom: var(--spacing-md);
 	border-bottom: 1px solid var(--brand-300);
 	color: var(--brand-900);
 	font-weight: 600;
 	line-height: 1.25;
+}
+
+.details {
+	section {
+		margin-bottom: var(--spacing-lg);
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		margin-top: 0;
+		margin-bottom: var(--spacing-xs);
+		color: var(--brand-800);
+		text-transform: uppercase;
+	}
+
+	p {
+		font-size: 1.1rem;
+		color: var(--brand-900);
+		line-height: 1.5;
+	}
 }
