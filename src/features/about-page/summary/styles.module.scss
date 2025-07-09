@@ -13,7 +13,7 @@
 	align-content: center;
 	padding-top: var(--spacing-xxl);
 
-	@include breakpoint(md) {
+	@include breakpoint(lg) {
 		position: sticky;
 		top: 0;
 	}
