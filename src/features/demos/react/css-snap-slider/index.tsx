@@ -238,6 +238,14 @@ export default function SliderDemo({
 	);
 }
 
+function createThumbnailSrc(src: string) {
+	const url = new URL(src);
+	url.searchParams.set('w', '100');
+	url.searchParams.set('h', '100');
+	url.searchParams.set('fit', 'crop');
+	return url.toString();
+}
+
 function Thumbnail({ images }: { images: string[] }) {
 	const { currentSlide, scrollToSlide } = useSlider();
 	const thumbnailsRef = useRef<HTMLDivElement>(null);
@@ -259,7 +267,7 @@ function Thumbnail({ images }: { images: string[] }) {
 			className={styles.thumbnails}>
 			{images.map((src, index) => (
 				<img
-					src={src + '?w=100&h=100&fit=crop'}
+					src={createThumbnailSrc(src)}
 					alt={`Slide ${index + 1}`}
 					loading={index > 0 ? 'lazy' : 'eager'}
 					className={clsx(
@@ -268,7 +276,7 @@ function Thumbnail({ images }: { images: string[] }) {
 					)}
 					key={index}
 					data-index={index + 1}
-					fetchPriority={index > 0 ? 'low' : 'high'}
+					fetchPriority={index > 3 ? 'low' : 'high'}
 					style={{ display: 'block' }}
 					onClick={() => {
 						scrollToSlide(index + 1);
