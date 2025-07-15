@@ -7,16 +7,32 @@
 	color: var(--brand-900);
 	margin: var(--spacing-lg) auto;
 	max-width: 1400px;
-
-	@include breakpoint(lg) {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
+	width: 100%;
+	transition:
+		opacity 800ms,
+		transform 800ms;
+	transition-delay: var(--article-delay, 0ms);
+	@starting-style {
+		opacity: 0;
+		transform: translateY(100px);
 	}
 }
 
 .list {
 	list-style: none;
 	padding: 0;
+	display: grid;
+	gap: var(--spacing-sm);
+	grid-template-columns: 1fr;
+
+	@include breakpoint(md) {
+		gap: var(--spacing-md);
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@include breakpoint(lg) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
 }
 
 // Todo: Does importing this twice cause any issues?
@@ -24,8 +40,95 @@
 	text-decoration: none;
 	color: var(--brand-900);
 	font-size: 1.2rem;
+	display: flex;
+	flex-direction: column;
+	padding: var(--spacing-md);
 
 	&:not(:last-of-type) {
 		border-bottom: 1px solid var(--brand-900);
+	}
+}
+
+.featuredArticle {
+	@include breakpoint(md) {
+		grid-column: span 2;
+
+		h3 {
+			font-size: 1.8rem;
+		}
+	}
+}
+
+.article {
+	background: var(--brand-200);
+	transition: 500ms;
+	border-radius: var(--spacing-xxs);
+
+	&:hover {
+		background: var(--brand-300);
+	}
+
+	h3 {
+		margin-top: 0;
+	}
+}
+
+.articleDetails {
+	display: flex;
+	gap: var(--spacing-sm);
+}
+
+.tag {
+	background: var(--brand-300);
+	color: var(--brand-950);
+	padding: var(--spacing-xxs) var(--spacing-xs);
+	border-radius: var(--spacing-xxs);
+	font-size: 0.8rem;
+}
+
+.articleNavigation {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	margin: var(--spacing-md) 0;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	scroll-snap-stop: always;
+	-webkit-overflow-scrolling: touch;
+
+	> * {
+		flex-shrink: 0;
+		transition:
+			opacity 800ms,
+			transform 800ms;
+
+		&:nth-child(1) {
+			--sibling-index: 1;
+		}
+
+		&:nth-child(2) {
+			--sibling-index: 2;
+		}
+
+		&:nth-child(3) {
+			--sibling-index: 3;
+		}
+
+		&:nth-child(4) {
+			--sibling-index: 4;
+		}
+
+		&:nth-child(5) {
+			--sibling-index: 5;
+		}
+
+		transition-delay: calc(
+			var(--article-delay, 0ms) + 200ms * var(--sibling-index, 0)
+		);
+
+		@starting-style {
+			opacity: 0;
+			transform: translateY(100px);
+		}
 	}
 }

@@ -7,7 +7,7 @@ interface Props {
 	url?: string;
 }
 
-import { ViewTransitions } from 'astro:transitions';
+// import { ViewTransitions } from 'astro:transitions';
 import Header from './header/Header.astro';
 import Footer from './footer/Footer.astro';
 const astroURL = Astro.url;
@@ -34,27 +34,38 @@ const { title, ogImage } = Astro.props;
 			title="IankDuffy.com RSS Feed"
 			href={new URL("rss.xml", Astro.site)}
 		/>
-		<ViewTransitions />
 	</head>
 	<body>
 		<Header/>
 			<slot />
 		<Footer />
 		<button id="toggle-mode" class="theme-switch-button">Toggle Theme</button>
+		<script type="speculationrules" is:inline>
+			{
+			  "prefetch": [
+				{
+				  "where": {
+					"and": [{ "href_matches": "/*" }]
+				  }
+				  "eagerness": "moderate",
+				}
+			  ]
+			}
+		</script>
 	</body>
 </html>
 
 <script is:inline>
-	document.addEventListener('astro:page-load', () => {
+	// document.addEventListener('astro:page-load', () => {
 		const html =  document.querySelector('html');
 		const theme = localStorage.getItem('theme') || html.style.getPropertyValue('color-scheme');
 		html.style.setProperty("color-scheme", theme);
 		const toggleMode = document.getElementById('toggle-mode');
 
-		toggleMode.addEventListener('click', (e) => {
+		toggleMode.addEventListener('click', async (e) => {
 			html.style.viewTransitionName = 'changing-theme';
 			if (document.startViewTransition) {
-				document.startViewTransition(() => {
+				const transition = document.startViewTransition(() => {
 					const xPosition = `${e.clientX / window.innerWidth * 100}%`
 					const yPosition = `${e.clientY / window.innerHeight * 100}%`
 					html.style.setProperty('--theme-button-cord', `${xPosition} ${yPosition}`)
@@ -62,11 +73,15 @@ const { title, ogImage } = Astro.props;
 					html.style.setProperty("color-scheme", theme === 'light' ? 'dark' : 'light');
 					localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
 				})
+				await transition.finished;
+				html.style.viewTransitionName = '';
 			} else {
 				const theme = html.style.getPropertyValue('color-scheme');
 				html.style.setProperty("color-scheme", theme === 'light' ? 'dark' : 'light');
 				localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
 			}
+			// html.style.viewTransitionName = '';
+
 		});
-	})
+	// })
 </script>

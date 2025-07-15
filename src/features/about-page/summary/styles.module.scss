@@ -13,7 +13,7 @@
 	align-content: center;
 	padding-top: var(--spacing-xxl);
 
-	@include breakpoint(md) {
+	@include breakpoint(lg) {
 		position: sticky;
 		top: 0;
 	}
@@ -44,6 +44,8 @@
 	border-radius: var(--spacing-xs);
 	overflow: hidden;
 	width: 50cqw;
+	view-transition-name: profile-image;
+	transition: 500ms ease-in-out;
 
 	@include breakpoint(md) {
 		width: 33cqw;

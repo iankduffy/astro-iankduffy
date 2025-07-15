@@ -1,0 +1,54 @@
+@import '../../styles/_shared/breakpoints.scss';
+
+.tabButton {
+	color: var(--brand-800);
+	text-decoration: none;
+	cursor: pointer;
+	transition: color 0.15s;
+	// font-size: var(--font-size-xxxl);
+	font-size: 1.3rem;
+	font-weight: 600;
+	position: relative;
+	overflow: visible;
+	padding-bottom: var(--spacing-xs);
+
+	@include breakpoint(sm) {
+		color: var(--brand-700);
+		font-size: 1.5rem;
+	}
+
+	&:after {
+		content: '';
+		height: 5px;
+		width: 0px;
+		background-color: var(--brand-800);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		transition: width 0.5s;
+	}
+
+	&:hover {
+		color: var(--brand-800);
+
+		&:after {
+			content: '';
+			width: 75%;
+		}
+	}
+}
+
+.active {
+	color: var(--brand-800);
+	position: relative;
+
+	&::after {
+		content: '';
+		height: 5px;
+		width: 75%;
+		background-color: var(--brand-800);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+}

@@ -1,0 +1,23 @@
+---
+interface Props {
+    name: string;
+    // activeTab: boolean;
+}
+
+const { name } = Astro.props;
+const tab = Astro.url.searchParams.get('tab') || 'all';
+const activeTab = tab === name;
+---
+
+<tab-item data-tab-name={name} aria-current={activeTab ? 'page' : undefined} class={activeTab ? 'active' : ''}>
+    <slot />
+</tab-item>
+
+<style is:global>
+    tab-item {
+        display: none;
+    }
+    tab-item.active {
+        display: block;
+    }
+</style>

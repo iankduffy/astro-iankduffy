@@ -2,17 +2,18 @@
 	display: flex;
 	overflow-x: scroll;
 	scroll-snap-type: x mandatory;
+	scroll-snap-stop: always;
 	-webkit-overflow-scrolling: touch;
 	scrollbar-width: none; /* Hide scrollbar for Firefox */
-	// width: 50%;
+	position: relative;
 	height: 100%;
 	width: 100%;
+	overscroll-behavior-inline: contain;
 
 	* {
 		scroll-snap-align: center;
 		flex: 0 0 auto;
 		width: 100%;
-		// overscroll-behavior-inline: contain;
 	}
 }
 
@@ -48,4 +49,40 @@
 
 .icons {
 	font-size: 1.5rem;
+}
+
+.thumbnails {
+	position: relative;
+	display: flex;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	height: 100px;
+	gap: var(--spacing-xs);
+	margin-top: var(--spacing-xs);
+
+	& img {
+		flex: 1 1 auto;
+		border: 2px solid transparent;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+
+	.active {
+		border: 2px solid var(--brand-700);
+	}
+}
+
+.button {
+	background: var(--brand-900);
+	color: var(--brand-100);
+	border: none;
+	cursor: pointer;
+	padding: var(--spacing-sm) var(--spacing-md);
+	margin: var(--spacing-xs);
+	border-radius: 10px;
+	font-size: 1rem;
+	transition: all 0.3s ease-in-out;
 }
