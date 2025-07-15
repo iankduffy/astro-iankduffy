@@ -68,20 +68,20 @@ function handleScrollSnapChange({
 	if ('onscrollsnapchange' in window) {
 		console.log('scrollsnapchange supported');
 		slider.addEventListener('scrollsnapchanging', (event) => {
-			console.log('scrollsnapchanging', event);
 			const newIndex = Number(
 				(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
 			);
 			callback(newIndex);
 		});
-		return () => {
-			console.log('disconnecting observer');
-			slider.removeEventListener('scrollsnapchanging', (event) => {
-				const newIndex = Number(
-					(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
-				);
-				callback(newIndex);
-			});
+		return {
+			cleanUp: () => {
+				slider.removeEventListener('scrollsnapchanging', (event) => {
+					const newIndex = Number(
+						(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
+					);
+					callback(newIndex);
+				});
+			},
 		};
 	} else {
 		const instersectionCallback = (entries: IntersectionObserverEntry[]) => {
@@ -99,9 +99,11 @@ function handleScrollSnapChange({
 		});
 		const slides = [...slider.children];
 		slides.forEach((slide) => observer.observe(slide));
-		return () => {
-			console.log('disconnecting observer');
-			observer.disconnect();
+		return {
+			cleanUp: () => {
+				console.log('disconnecting observer');
+				observer.disconnect();
+			},
 		};
 	}
 }
@@ -115,14 +117,14 @@ const useSlider = () => {
 	useEffect(() => {
 		if (!sliderRef?.current) return;
 		const slider = sliderRef?.current;
-		const cleanup = handleScrollSnapChange({
+		const { cleanUp } = handleScrollSnapChange({
 			slider,
 			callback: (number: number) => {
 				setCurrentSlide(number);
 			},
 		});
 		return () => {
-			cleanup();
+			cleanUp();
 		};
 	}, [sliderRef]);
 
@@ -236,6 +238,14 @@ export default function SliderDemo({
 	);
 }
 
+function createThumbnailSrc(src: string) {
+	const url = new URL(src);
+	url.searchParams.set('w', '100');
+	url.searchParams.set('h', '100');
+	url.searchParams.set('fit', 'crop');
+	return url.toString();
+}
+
 function Thumbnail({ images }: { images: string[] }) {
 	const { currentSlide, scrollToSlide } = useSlider();
 	const thumbnailsRef = useRef<HTMLDivElement>(null);
@@ -257,7 +267,7 @@ function Thumbnail({ images }: { images: string[] }) {
 			className={styles.thumbnails}>
 			{images.map((src, index) => (
 				<img
-					src={src + '?w=100&h=100&fit=crop'}
+					src={createThumbnailSrc(src)}
 					alt={`Slide ${index + 1}`}
 					loading={index > 0 ? 'lazy' : 'eager'}
 					className={clsx(
@@ -266,7 +276,7 @@ function Thumbnail({ images }: { images: string[] }) {
 					)}
 					key={index}
 					data-index={index + 1}
-					fetchPriority={index > 0 ? 'low' : 'high'}
+					fetchPriority={index > 3 ? 'low' : 'high'}
 					style={{ display: 'block' }}
 					onClick={() => {
 						scrollToSlide(index + 1);
