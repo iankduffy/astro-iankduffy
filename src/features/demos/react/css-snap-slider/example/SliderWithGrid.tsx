@@ -18,7 +18,7 @@ export function SliderWithGrid({ images }: { images: string[] }) {
 						className={styles.slide}
 						key={index}
 						data-index={index + 1}
-						fetchpriority={index > 0 ? 'low' : 'high'}
+						fetchPriority={index > 0 ? 'low' : 'high'}
 						style={{ display: 'block' }}
 					/>
 				))}
