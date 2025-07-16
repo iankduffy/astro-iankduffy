@@ -1,10 +1,20 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import SliderDemoComponent from "../../features/demos/react/css-snap-slider"
-
+import { SliderWithGrid } from "../../features/demos/react/css-snap-slider/example/SliderWithGrid"
+// import { undefined } from "astro:schema";
+const images = [
+	"https://cdn.sanity.io/images/hpnwtus3/production/67cebfa5236d91845a9d445e10b9f4e184d74475-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format",
+	"https://cdn.sanity.io/images/hpnwtus3/production/f83941d069e3b77f9c0da6f40dd463e432b3d55c-3024x4032.jpg?w=1000&h=667&q=80&fit=crop&auto=format",
+	"https://cdn.sanity.io/images/hpnwtus3/production/3827428e3d3ad9bc9949d3fc2e33dab22c1802d8-4722x3148.jpg?w=1000&h=667&q=80&fit=crop&auto=format",
+	"https://cdn.sanity.io/images/hpnwtus3/production/084b46405c6f613efd285040d014c697b2588a9a-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format",
+	"https://cdn.sanity.io/images/hpnwtus3/production/fc873326e44726cf304643db538a2d0d28d827bd-4317x2878.jpg?w=1000&h=667&q=80&fit=crop&auto=format",
+	"https://cdn.sanity.io/images/hpnwtus3/production/8d7c6f4e5c56da37874220780751b3c932a62d6e-5935x3957.jpg?w=1000&h=667&q=80&fit=crop&auto=format",
+	"https://images.unsplash.com/photo-1587896674919-6d6e91751318?w=1000&h=667&q=80&fit=crop&auto=format"
+];
 ---
 
 <Layout title="Basic Image Example">
-    <SliderDemoComponent images={[]} client:load/>
+    <div class="container">
+        <SliderWithGrid images={images} client:load />
+    </div>
 </Layout>
-

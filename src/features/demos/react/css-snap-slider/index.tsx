@@ -27,7 +27,7 @@ interface SliderRootProps {
 	thumbnails?: React.ReactNode;
 }
 
-const SliderRoot = ({
+export const SliderRoot = ({
 	children,
 	sliderControls,
 	thumbnails,
@@ -64,7 +64,6 @@ function handleScrollSnapChange({
 	slider: HTMLDivElement;
 	callback: (number: number) => void;
 }) {
-	console.log('onclick' in window);
 	if ('onscrollsnapchange' in window) {
 		console.log('scrollsnapchange supported');
 		slider.addEventListener('scrollsnapchanging', (event) => {
@@ -108,7 +107,7 @@ function handleScrollSnapChange({
 	}
 }
 
-const useSlider = () => {
+export const useSlider = () => {
 	const context = useSliderContext();
 	const [currentSlide, setCurrentSlide] = useState(1);
 	const length = context.count;
