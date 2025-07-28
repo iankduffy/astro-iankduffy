@@ -76,7 +76,24 @@ class ImageLightbox extends HTMLElement {
 		if (!this.dialog) {
 			this.addDialogElement();
 		}
-		this.dialog?.showModal();
+		if (document.startViewTransition) {
+			if (this.image && this.image.style) {
+				this.image.style.viewTransitionName = "image";
+			}
+
+		document.startViewTransition(() => {
+			if (this.image && this.image.style) {
+				this.image.style.viewTransitionName = "";
+			}
+			if (this.dialog && this.dialog.style) {
+				this.dialog.style.viewTransitionName = "image";
+			}
+			this.dialog?.showModal();
+		});
+		} else {
+			this.dialog?.showModal();
+		}
+
 	}
 
 	dialogCloseButton() {
@@ -87,9 +104,27 @@ class ImageLightbox extends HTMLElement {
 		this.dialog?.appendChild(closeButton);
 	}
 
-	closeDialog() {
+	async closeDialog() {
 		const dialog = this.querySelector('dialog');
-		dialog?.close();
+		if (document.startViewTransition) {
+			const transition = document.startViewTransition(() => {
+				if (this.image && this.image.style) {
+					this.image.style.viewTransitionName = "image";
+				}
+				if (this.dialog && this.dialog.style) {
+					this.dialog.style.viewTransitionName = "";
+				}
+				dialog?.close();
+			});
+
+		
+			await transition.finished;
+			if (this.image && this.image.style) {
+				this.image.style.viewTransitionName = "";
+			}
+		} else {
+			dialog?.close();
+		}
 	}
 }
 
