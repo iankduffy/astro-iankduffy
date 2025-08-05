@@ -6,8 +6,9 @@ import Layout from "../../layouts/Layout.astro";
 
 <Layout title="LCP Lazy JS Eager">
     <div class="container">
+        <section id="content">
         <img src="https://cdn.sanity.io/images/hpnwtus3/production/67cebfa5236d91845a9d445e10b9f4e184d74475-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format" width='1000' height="667" alt="Example Image" loading="lazy" id="image" style="display:none" />
-
+        </section>
         <h1>LCP Lazy JS Eager</h1>
     </div>
 
@@ -15,7 +16,7 @@ import Layout from "../../layouts/Layout.astro";
         setTimeout(() => {
             const img = document.getElementById('image');
             img.loading = 'eager';
-            img.style.display = 'block';
+            document.getElementById('image').style.display = 'block';
         }, 2000);
     </script>
     
