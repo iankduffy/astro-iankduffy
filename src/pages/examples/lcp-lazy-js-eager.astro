@@ -13,7 +13,7 @@ import Layout from "../../layouts/Layout.astro";
     </div>
 
     <script is:inline>
-        async function lighthouseHackLCP(section) {
+        async function changeLCPtoEager(section) {
             const lcpCandidate = section.querySelector('img');
             await new Promise((resolve) => {
                 if (lcpCandidate && !lcpCandidate.complete) {
@@ -26,7 +26,7 @@ import Layout from "../../layouts/Layout.astro";
             });
         }
         (async () => {
-            await lighthouseHack(document.getElementById('content'));
+            await changeLCPtoEager(document.getElementById('content'));
             document.getElementById('content').style.display = 'block';
         })();
     </script>
