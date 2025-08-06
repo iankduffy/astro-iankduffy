@@ -13,11 +13,22 @@ import Layout from "../../layouts/Layout.astro";
     </div>
 
     <script is:inline>
-        setTimeout(() => {
-            const img = document.getElementById('image');
-            img.loading = 'eager';
+        async function lighthouseHackLCP(section) {
+            const lcpCandidate = section.querySelector('img');
+            await new Promise((resolve) => {
+                if (lcpCandidate && !lcpCandidate.complete) {
+                    lcpCandidate.setAttribute('loading', 'eager');
+                    lcpCandidate.addEventListener('load', resolve);
+                    lcpCandidate.addEventListener('error', resolve);
+                } else {
+                    resolve();
+                }
+            });
+        }
+        (async () => {
+            await lighthouseHack(document.getElementById('content'));
             document.getElementById('content').style.display = 'block';
-        }, 2000);
+        })();
     </script>
     
 </Layout>
