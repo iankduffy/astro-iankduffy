@@ -1,0 +1,176 @@
+---
+interface Props {
+	images: string[];
+	hasControls?: boolean;
+	hasThumbnails?: boolean;
+}
+const { images, hasControls, hasThumbnails } = Astro.props;
+import styles from './slider.module.scss';
+---
+
+<image-slider
+	style='position:relative;display:block;width:100%;max-width:1000px;margin:auto;'>
+	<div
+		data-image-slider
+		class:list={[styles.slider]}>
+		{
+			images.map((src, index) => (
+				<div class:list={[styles.slide]}>
+					<img
+						src={src}
+						alt='Image Slide'
+						loading='lazy'
+						width='1000'
+						height='667'
+						data-index={index + 1}
+					/>
+				</div>
+			))
+		}
+	</div>
+	{
+		hasControls && (
+			<div
+				class={styles.sliderControls}
+				data-slide-controls>
+				<button
+					data-prev
+					aria-label='Previous Slide'>
+					Previous
+				</button>
+				<p>
+					<span data-current-slide>1</span> / <span>{images.length}</span>
+				</p>
+				<button
+					data-next
+					aria-label='Next Slide'>
+					Next
+				</button>
+			</div>
+		)
+	}
+	{
+		hasThumbnails && (
+			<div
+				class={styles.thumbnails}
+				data-slide-thumbnails>
+				{images.map((src) => (
+					<img
+						src={src}
+						alt='Thumbnail'
+						loading='lazy'
+						width='100'
+						height='67'
+					/>
+				))}
+			</div>
+		)
+	}
+</image-slider>
+
+<script>
+	interface ScrollSnapChangingEvent extends Event {
+		snapTargetInline: HTMLElement;
+	}
+	class ImageSlider extends HTMLElement {
+		slider: HTMLElement | null;
+		slides: HTMLElement[];
+		currentIndex: number;
+		totalSlides: number;
+		prevButton: HTMLButtonElement | null;
+		nextButton: HTMLButtonElement | null;
+		currentSlideDisplay: HTMLElement | null;
+		cleanup: (() => void) | null = null;
+
+		constructor() {
+			super();
+			this.slider = null;
+			this.slides = [];
+			this.currentIndex = 1;
+			this.totalSlides = 0;
+			this.prevButton = null;
+			this.nextButton = null;
+			this.currentSlideDisplay = null;
+			this.cleanup = null;
+		}
+
+		connectedCallback() {
+			this.slider = this.querySelector('[data-image-slider]');
+			if (!this.slider) return;
+			this.currentSlideDisplay = this.querySelector('[data-current-slide]');
+			this.handleScrollSnapChange(this.updateIndex.bind(this));
+			this.querySelector('[data-prev]')?.addEventListener('click', () => {
+				this.scrollToSlide(this.currentIndex - 1);
+				this.updateIndex(this.currentIndex - 1);
+			});
+			this.querySelector('[data-next]')?.addEventListener('click', () => {
+				this.scrollToSlide(this.currentIndex + 1);
+				this.updateIndex(this.currentIndex + 1);
+			});
+		}
+
+		updateIndex(number: number) {
+			this.currentIndex = number;
+			if (this.currentSlideDisplay) {
+				this.currentSlideDisplay.textContent = this.currentIndex.toString();
+			}
+		}
+
+		handleScrollSnapChange(callback: (index: number) => void) {
+			if ('scrollsnapchanging' in window) {
+				const updateSnapIndex = (event: Event) => {
+					const newIndex = Number(
+						(event as ScrollSnapChangingEvent)?.snapTargetInline.dataset.index
+					);
+					callback(newIndex);
+				};
+				this.slider?.addEventListener('scrollsnapchanging', updateSnapIndex);
+				this.cleanup = () => {
+					this.slider?.removeEventListener(
+						'scrollsnapchanging',
+						updateSnapIndex
+					);
+				};
+			} else {
+				const instersectionCallback = (
+					entries: IntersectionObserverEntry[]
+				) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							const newIndex = Number(
+								(entry.target as HTMLElement)?.dataset.index
+							);
+							callback(newIndex);
+						}
+					});
+				};
+				const observer = new IntersectionObserver(instersectionCallback, {
+					root: this.slider,
+					rootMargin: '0px',
+					threshold: 0.8,
+				});
+				const slides = [
+					...(this.slider?.childNodes as NodeListOf<HTMLElement>),
+				];
+				slides.forEach((slide) => observer.observe(slide));
+				this.cleanup = () => {
+					observer.disconnect();
+				};
+			}
+		}
+
+		scrollToSlide(index: number) {
+			if (!this.slider) return;
+			const targetSlide = this.slider.childNodes[index] as HTMLElement;
+			console.log('Scrolling to slide:', index, targetSlide);
+			if (targetSlide) {
+				this.slider.scrollTo({
+					behavior: 'smooth',
+					left: targetSlide?.offsetLeft,
+				});
+			}
+		}
+	}
+
+	customElements.define('image-slider', ImageSlider);
+</script>
