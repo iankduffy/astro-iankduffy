@@ -1,5 +1,7 @@
 ---
+// import { RecentSearchReact } from '@src/features/demos/react/recent-search/RecentSearchReact';
 import Layout from '../../layouts/Layout.astro';
+import { WebComponentReact } from '@src/features/demos/react/recent-search/AttemptTwo';
 
 const fallbackOffers = [
 	{
@@ -23,7 +25,7 @@ const fallbackOffers = [
 <Layout title='LCP Lazy JS Eager'>
 	<div>
 		<h1>Web Component Recent Search</h1>
-		<recent-search>
+		<!-- <recent-search>
 			<div><h3 class='skeleton'>Recent Search</h3> </div>
 			<div class='row'>
 				<div class='skeleton'></div>
@@ -31,11 +33,9 @@ const fallbackOffers = [
 				<div class='skeleton'></div>
 			</div>
 
-			<template id='recent-search-template'>
+			<template class='recent-search-template'>
 				<div class='search-item'>
 					<img
-						src=''
-						alt=''
 						width='150'
 						height='100'
 					/>
@@ -67,18 +67,27 @@ const fallbackOffers = [
 					})
 				}
 			</div>
-		</recent-search>
+		</recent-search> -->
 
 		<button class='add-recent-search'>Add Recent Search</button>
 		<button class='clear-recent-search'>Clear Recent Search</button>
 
-		<script lang='ts'>
+		<WebComponentReact client:load />
+
+		<!-- <script lang='ts' is:inline>
 			class RecentSearch extends HTMLElement {
 				constructor() {
 					super();
 				}
 
 				connectedCallback() {
+					// Store template content immediately when connected
+					const template = this.querySelector('.recent-search-template');
+					if (template) {
+						this.templateContent = template.content.cloneNode(true);
+					}
+
+					// this.attachShadow({ mode: 'open' });
 					console.log(this);
 					this.searchItems = this.getRecentSearches();
 					this.heading = this.querySelector('h3');
@@ -94,31 +103,38 @@ const fallbackOffers = [
 				}
 
 				renderSearchItems() {
-					// Get the template
-					const template = this.querySelector('#recent-search-template');
-
-					// Clear existing content and add header
-					this.innerHTML = `
-						<h3>Recent Searches</h3>
-						<div class="row"></div>
-					`;
+					if (!this.templateContent) {
+						console.error('Template content not found');
+						return;
+					}
 
 					const container = this.querySelector('.row');
+					if (!container) {
+						console.error('Container .row not found');
+						return;
+					}
+
+					// Clear only the container, not the entire component
+					container.innerHTML = '';
 
 					// Create items using the template
 					this.searchItems.forEach((item) => {
-						// Clone the template content
-						const clone = template.content.cloneNode(true);
+						// Clone the template content each time (this doesn't remove the original)
+						const clone = this.templateContent.cloneNode(true);
 
 						// Populate the cloned template with data
 						const img = clone.querySelector('img');
 						const name = clone.querySelector('h5');
 						const description = clone.querySelector('p');
 
-						img.src = item.img;
-						img.alt = item.name;
-						name.textContent = item.name;
-						description.textContent = item.description || 'Search item';
+						if (img) {
+							img.src = item?.img || '';
+							img.alt = item.name || '';
+						}
+
+						if (name) name.textContent = item.name || '';
+						if (description)
+							description.textContent = item.description || 'Search item';
 
 						// Append to container
 						container.appendChild(clone);
@@ -186,7 +202,43 @@ const fallbackOffers = [
 			});
 
 			customElements.define('recent-search', RecentSearch);
-		</script>
+		</script> -->
+
+		<!-- <script>
+			class WebSearch extends HTMLElement {
+				constructor() {
+					super();
+				}
+				connectedCallback() {
+					const template = this.querySelector('.result-template');
+					if (template) {
+						this.templateContent = template.content.cloneNode(true);
+					}
+
+					requestAnimationFrame(() => {
+						// const container = document.createElement('div');
+						// container.className = 'web-search-container';
+						// this.appendChild(container);
+
+						const input = this.querySelector('input');
+						const resultsContainer = this.querySelector('.results');
+
+						input?.addEventListener('input', (e) => {
+							if (!resultsContainer) return;
+							console.log('Search input:', e.target.value);
+							resultsContainer.textContent = `You searched for: ${e.target.value}`;
+
+							const clone = this.templateContent.cloneNode(true);
+							const title = clone.querySelector('h4');
+
+							if (title) title.textContent = e.target.value;
+							resultsContainer.appendChild(clone);
+						});
+					});
+				}
+			}
+			customElements.define('web-search', WebSearch);
+		</script> -->
 
 		<style lang='scss' is:global>
 			recent-search {
