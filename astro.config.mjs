@@ -40,4 +40,12 @@ export default defineConfig({
 	],
 
 	adapter: netlify(),
+
+	// vite: {
+	// 	resolve: {
+	// 		alias: {
+	// 			'@src': path.resolve(__dirname, './src'),
+	// 		},
+	// 	},
+	// },
 });

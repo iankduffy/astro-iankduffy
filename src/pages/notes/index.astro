@@ -1,0 +1,61 @@
+---
+import { getAllNotes } from '../../queries/notes';
+import Layout from '../../layouts/Layout.astro';
+import Note from '../../features/notes/Note.astro';
+const notes = await getAllNotes();
+import NotesLayout from '@src/features/notes/layouts/NotesLayout.astro';
+---
+
+<Layout title='Home Page'>
+	<NotesLayout>
+		<section class='notesList'>
+			<ul
+				>{
+					notes.map((note) => {
+						// return note.title;
+						return (
+							<li>
+								<Note
+									title={note.title}
+									mainContent={note.content}
+								/>
+							</li>
+						);
+					})
+				}</ul
+			></section
+		>
+		<aside></aside>
+	</NotesLayout>
+</Layout>
+
+<style>
+	.container {
+		max-width: 1000px;
+		width: 100%;
+	}
+
+	.notesList {
+		display: flex;
+		flex-direction: column;
+		/* border: 2px solid var(--brand-700); */
+		/* background: var(--brand-50); */
+		border-right: 2px solid var(--brand-300);
+		padding-right: var(--spacing-md);
+		height: 100%;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		padding: 0.5rem 1rem;
+		/* border-bottom: 1px solid var(--brand-700); */
+		h2 {
+			margin: 0 0 0.5rem 0;
+		}
+	}
+</style>

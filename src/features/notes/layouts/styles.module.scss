@@ -1,0 +1,17 @@
+@import '@src/styles/_shared/breakpoints.scss';
+
+.notesLayout {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	box-sizing: border-box;
+
+	@include breakpoint(lg) {
+		grid-template-columns: 2fr 1fr;
+		gap: var(--spacing-lg);
+		align-items: start;
+	}
+}

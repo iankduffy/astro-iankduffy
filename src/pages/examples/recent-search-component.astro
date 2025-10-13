@@ -1,0 +1,246 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const fallbackOffers = [
+	{
+		img: 'https://images.unsplash.com/photo-1527264935190-1401c51b5bbc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+		name: 'Offer 1',
+		description: 'Basic Offer',
+	},
+	{
+		img: 'https://images.unsplash.com/photo-1527264935190-1401c51b5bbc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+		name: 'Offer 2',
+		description: 'Standard Offer',
+	},
+	{
+		img: 'https://images.unsplash.com/photo-1527264935190-1401c51b5bbc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+		name: 'Offer 3',
+		description: 'Premium Offer',
+	},
+];
+---
+
+<Layout title='LCP Lazy JS Eager'>
+	<div>
+		<h1>Web Component Recent Search</h1>
+		<recent-search>
+			<div><h3 class='skeleton'>Recent Search</h3> </div>
+			<div class='row'>
+				<div class='skeleton'></div>
+				<div class='skeleton'></div>
+				<div class='skeleton'></div>
+			</div>
+
+			<template id='recent-search-template'>
+				<div class='search-item'>
+					<img
+						src=''
+						alt=''
+						width='150'
+						height='100'
+					/>
+					<div class='search-content'>
+						<h5>Name</h5>
+						<p></p>
+					</div>
+				</div>
+			</template>
+			<div
+				class='fallback row'
+				style='display: none;'>
+				{
+					fallbackOffers.map((offer) => {
+						return (
+							<div class='search-item'>
+								<img
+									src={offer.img || 'https://via.placeholder.com/150'}
+									alt={offer.name}
+									width='150'
+									height='100'
+								/>
+								<div class='search-content'>
+									<h5>{offer.name}</h5>
+									<p>{offer.description}</p>
+								</div>
+							</div>
+						);
+					})
+				}
+			</div>
+		</recent-search>
+
+		<button class='add-recent-search'>Add Recent Search</button>
+		<button class='clear-recent-search'>Clear Recent Search</button>
+
+		<script lang='ts'>
+			class RecentSearch extends HTMLElement {
+				constructor() {
+					super();
+				}
+
+				connectedCallback() {
+					console.log(this);
+					this.searchItems = this.getRecentSearches();
+					this.heading = this.querySelector('h3');
+
+					if (this.searchItems.length > 0) {
+						this.heading.textContent = 'Recent Searches';
+						this.classList.remove('skeleton');
+						this.renderSearchItems();
+					} else {
+						this.heading.textContent = 'No Recent Searches';
+						this.querySelector('.fallback').style.display = 'grid';
+					}
+				}
+
+				renderSearchItems() {
+					// Get the template
+					const template = this.querySelector('#recent-search-template');
+
+					// Clear existing content and add header
+					this.innerHTML = `
+						<h3>Recent Searches</h3>
+						<div class="row"></div>
+					`;
+
+					const container = this.querySelector('.row');
+
+					// Create items using the template
+					this.searchItems.forEach((item) => {
+						// Clone the template content
+						const clone = template.content.cloneNode(true);
+
+						// Populate the cloned template with data
+						const img = clone.querySelector('img');
+						const name = clone.querySelector('h5');
+						const description = clone.querySelector('p');
+
+						img.src = item.img;
+						img.alt = item.name;
+						name.textContent = item.name;
+						description.textContent = item.description || 'Search item';
+
+						// Append to container
+						container.appendChild(clone);
+					});
+				}
+
+				getRecentSearches() {
+					// return [
+					// 	{
+					// 		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+					// 		name: 'Example Search 1',
+					// 		description: 'Recent search result description',
+					// 	},
+					// 	{
+					// 		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+					// 		name: 'Example Search 2',
+					// 		description: 'Another search result',
+					// 	},
+					// 	{
+					// 		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+					// 		name: 'Example Search 3',
+					// 		description: 'Third search item',
+					// 	},
+					// ];
+					return localStorage.getItem('recentSearches')
+						? JSON.parse(localStorage.getItem('recentSearches'))
+						: [];
+				}
+			}
+
+			const fakeItems = [
+				{
+					img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+					name: 'Example Search 1',
+					description: 'Recent search result description',
+				},
+				{
+					img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+					name: 'Example Search 2',
+					description: 'Another search result',
+				},
+				{
+					img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+					name: 'Example Search 3',
+					description: 'Third search item',
+				},
+			];
+
+			const addButton = document.querySelector('.add-recent-search');
+			const clearButton = document.querySelector('.clear-recent-search');
+
+			addButton.addEventListener('click', () => {
+				let currentSearches = localStorage.getItem('recentSearches')
+					? JSON.parse(localStorage.getItem('recentSearches'))
+					: [];
+				const nextItem = fakeItems[currentSearches.length % fakeItems.length];
+				currentSearches.push(nextItem);
+				localStorage.setItem('recentSearches', JSON.stringify(currentSearches));
+				location.reload();
+			});
+
+			clearButton.addEventListener('click', () => {
+				localStorage.removeItem('recentSearches');
+				location.reload();
+			});
+
+			customElements.define('recent-search', RecentSearch);
+		</script>
+
+		<style lang='scss' is:global>
+			recent-search {
+				max-width: 1200px;
+				margin: 0 auto;
+				display: block;
+
+				&:not(:defined) {
+					.skeleton {
+						background: #eee;
+						height: 1.5rem;
+						margin: 0.5rem 0;
+						border-radius: 0.25rem;
+						animation: pulse 1.5s infinite;
+					}
+				}
+
+				.row {
+					display: grid;
+					grid-template-columns: 1fr 1fr 1fr;
+					gap: 1rem;
+				}
+
+				.search-item {
+					border: 1px solid #ddd;
+					border-radius: 8px;
+					display: flex;
+					gap: 0.5rem;
+					background: var(--brand-950);
+
+					img {
+						width: 25%;
+						height: auto;
+						border-radius: 4px;
+						aspect-ratio: 1/1;
+					}
+
+					.search-content {
+						padding: 1rem;
+
+						h5 {
+							margin: 0 0 0.25rem 0;
+							font-size: 1.1rem;
+							color: var(--brand-300);
+						}
+
+						p {
+							margin: 0;
+							color: var(--brand-200);
+							font-size: 0.9rem;
+						}
+					}
+				}
+			}
+		</style>
+	</div>
+</Layout>
