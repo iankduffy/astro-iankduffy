@@ -14,6 +14,18 @@ declare global {
 	namespace JSX {
 		interface IntrinsicElements {
 			'custom-lightbox': any;
+			'recent-search': React.DetailedHTMLProps<
+				React.HTMLAttributes<HTMLElement>,
+				HTMLElement
+			> & {
+				'data-status'?: string;
+			};
+			'web-search': React.DetailedHTMLProps<
+				React.HTMLAttributes<HTMLElement>,
+				HTMLElement
+			> & {
+				'data-status'?: string;
+			};
 		}
 	}
 }
