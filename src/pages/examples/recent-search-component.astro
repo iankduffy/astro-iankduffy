@@ -173,37 +173,27 @@ const fallbackOffers = [
 				customElements.define('recent-search', RecentSearch);
 			</script>
 
-			<!-- <script>
-			class WebSearch extends HTMLElement {
-				constructor() {
-					super();
-				}
-				connectedCallback() {
-					const template = this.querySelector('.result-template');
-					if (template) {
-						this.templateContent = template.content.cloneNode(true);
-					}
+			<script>
+				import type { ChangeEvent } from 'react';
 
-					requestAnimationFrame(() => {
+				class WebSearch extends HTMLElement {
+					constructor() {
+						super();
+					}
+					connectedCallback() {
 						const input = this.querySelector('input');
 						const resultsContainer = this.querySelector('.results');
 
-						input?.addEventListener('input', (e) => {
+						input?.addEventListener('input', (e: Event) => {
 							if (!resultsContainer) return;
-							console.log('Search input:', e.target.value);
-							resultsContainer.textContent = `You searched for: ${e.target.value}`;
-
-							const clone = this.templateContent.cloneNode(true);
-							const title = clone.querySelector('h4');
-
-							if (title) title.textContent = e.target.value;
-							resultsContainer.appendChild(clone);
+							const target = e.target as HTMLInputElement;
+							console.log('Search input:', target.value);
+							resultsContainer.textContent = `You searched for: ${target.value}`;
 						});
-					});
+					}
 				}
-			}
-			customElements.define('web-search', WebSearch);
-		</script> -->
+				customElements.define('web-search', WebSearch);
+			</script>
 
 			<style lang='scss' is:global>
 				recent-search {
@@ -217,7 +207,6 @@ const fallbackOffers = [
 						.row .skeleton {
 							background: #eee;
 							height: 100px;
-							margin: 0.5rem 0;
 							border-radius: 0.25rem;
 							animation: pulse 1.5s infinite;
 						}
