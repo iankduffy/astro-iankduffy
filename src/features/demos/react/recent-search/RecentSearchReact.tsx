@@ -25,7 +25,7 @@ export function RecentSearchReact({
 								className='search-item'
 								key={offer.name}>
 								<img
-									src={offer.img ?? null}
+									src={offer.img ?? undefined}
 									alt={offer.name}
 									width='150'
 									height='100'
