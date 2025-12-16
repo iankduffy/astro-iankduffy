@@ -39,7 +39,9 @@ const images = [
 	// Execute long task on page load (e.g., 500ms blocking task)
 	blockMainThread(300);
 	console.log('Long task on page load completed');
-	blockMainThread(300);
+	setTimeout(() => blockMainThread(300), 0);
+
+	setTimeout(() => blockMainThread(500), 100);
 
 	// blockMainThread(900);
 
@@ -48,7 +50,7 @@ const images = [
 	if (button) {
 		button.addEventListener('click', () => {
 			console.log('Starting long task from button click');
-			blockMainThread(1000); // 1 second blocking task
+			blockMainThread(100); // 1 second blocking task
 			console.log('Long task from button click completed');
 		});
 	}
