@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SliderWithGrid } from '../../features/demos/react/css-snap-slider/example/SliderWithGrid';
+// import { undefined } from "astro:schema";
+const images = [
+	'https://cdn.sanity.io/images/hpnwtus3/production/67cebfa5236d91845a9d445e10b9f4e184d74475-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/f83941d069e3b77f9c0da6f40dd463e432b3d55c-3024x4032.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/3827428e3d3ad9bc9949d3fc2e33dab22c1802d8-4722x3148.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/084b46405c6f613efd285040d014c697b2588a9a-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/fc873326e44726cf304643db538a2d0d28d827bd-4317x2878.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/8d7c6f4e5c56da37874220780751b3c932a62d6e-5935x3957.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://images.unsplash.com/photo-1587896674919-6d6e91751318?w=1000&h=667&q=80&fit=crop&auto=format',
+];
+---
+
+<Layout title='Basic Image Example'>
+	<div class='container'>
+		<SliderWithGrid
+			images={images}
+			client:load
+		/>
+		<button
+			id='triggerLongTask'
+			style='margin: 20px; padding: 10px 20px;'>
+			Trigger Long Task
+		</button>
+	</div>
+</Layout>
+
+<script>
+	// Long task on page load
+	function blockMainThread(duration: number) {
+		const start = performance.now();
+		while (performance.now() - start < duration) {
+			// Blocking operation
+		}
+	}
+
+	// Execute long task on page load (e.g., 500ms blocking task)
+	blockMainThread(1000);
+	console.log('Long task on page load completed');
+
+	blockMainThread(900);
+
+	// Long task on button click
+	const button = document.getElementById('triggerLongTask');
+	if (button) {
+		button.addEventListener('click', () => {
+			console.log('Starting long task from button click');
+			blockMainThread(1000); // 1 second blocking task
+			console.log('Long task from button click completed');
+		});
+	}
+</script>
