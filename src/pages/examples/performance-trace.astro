@@ -37,10 +37,11 @@ const images = [
 	}
 
 	// Execute long task on page load (e.g., 500ms blocking task)
-	blockMainThread(1000);
+	blockMainThread(300);
 	console.log('Long task on page load completed');
+	blockMainThread(300);
 
-	blockMainThread(900);
+	// blockMainThread(900);
 
 	// Long task on button click
 	const button = document.getElementById('triggerLongTask');
