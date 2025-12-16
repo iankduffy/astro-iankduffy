@@ -27,9 +27,9 @@ const images = [
 	</div>
 </Layout>
 
-<script>
+<script is:inline>
 	// Long task on page load
-	function blockMainThread(duration: number) {
+	function blockMainThread(duration) {
 		const start = performance.now();
 		while (performance.now() - start < duration) {
 			// Blocking operation
