@@ -36,6 +36,9 @@ const images = [
 		}
 	}
 
+	window.dataLayer.push = () => {
+		blockMainThread(50);
+	};
 	// Execute long task on page load (e.g., 500ms blocking task)
 	blockMainThread(80);
 	console.log('Long task on page load completed');
@@ -47,9 +50,9 @@ const images = [
 	const button = document.getElementById('triggerLongTask');
 	if (button) {
 		button.addEventListener('click', () => {
-			console.log('Starting long task from button click');
-			blockMainThread(100); // 1 second blocking task
-			console.log('Long task from button click completed');
+			window.dataLayer.push('Starting long task from button click');
+			blockMainThread(90); // 1 second blocking task
+			window.dataLayer.push('Long task from button click completed');
 		});
 	}
 </script>
