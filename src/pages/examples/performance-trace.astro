@@ -58,6 +58,18 @@ const images = [
 	}
 </script>
 
+<script is:inline>
+	window.dataLayer = window.dataLayer || [];
+	window.dataLayer.push({
+		'gtm.start': new Date().getTime(),
+		event: 'gtm.js',
+	});
+
+	const gtmScript = document.createElement('script');
+	gtmScript.async = true;
+	gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WMNBLJR';
+	document.head.appendChild(gtmScript);
+</script>
 <script>
 	// Long task on page load
 	function blockMainThread(duration: number) {
