@@ -28,6 +28,19 @@ const images = [
 </Layout>
 
 <script is:inline>
+	window.dataLayer = window.dataLayer || [];
+	window.dataLayer.push({
+		'gtm.start': new Date().getTime(),
+		event: 'gtm.js',
+	});
+
+	const gtmScript = document.createElement('script');
+	gtmScript.async = true;
+	gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WMNBLJR';
+	document.head.appendChild(gtmScript);
+</script>
+
+<script is:inline>
 	// Long task on page load
 	function blockMainThread(duration) {
 		const start = performance.now();
@@ -35,9 +48,10 @@ const images = [
 			// Blocking operation
 		}
 	}
-
-	window.dataLayer.push = () => {
+	const originalpush = dataLayer.push;
+	window.dataLayer.push = (...arg) => {
 		blockMainThread(50);
+		originalpush(...args);
 	};
 	// Execute long task on page load (e.g., 500ms blocking task)
 	blockMainThread(80);
@@ -55,17 +69,4 @@ const images = [
 			window.dataLayer.push('Long task from button click completed');
 		});
 	}
-</script>
-
-<script is:inline>
-	window.dataLayer = window.dataLayer || [];
-	window.dataLayer.push({
-		'gtm.start': new Date().getTime(),
-		event: 'gtm.js',
-	});
-
-	const gtmScript = document.createElement('script');
-	gtmScript.async = true;
-	gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WMNBLJR';
-	document.head.appendChild(gtmScript);
 </script>
