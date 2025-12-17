@@ -41,9 +41,7 @@ const images = [
 	console.log('Long task on page load completed');
 	setTimeout(() => blockMainThread(300), 0);
 
-	setTimeout(() => blockMainThread(500), 400);
-
-	setTimeout(() => blockMainThread(200), 1100);
+	setTimeout(() => blockMainThread(200), 700);
 
 	// blockMainThread(900);
 
@@ -78,8 +76,6 @@ const images = [
 			// Blocking operation
 		}
 	}
-
-	setTimeout(() => blockMainThread(300), 0);
 
 	setTimeout(() => blockMainThread(500), 400);
 </script>
