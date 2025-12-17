@@ -48,11 +48,6 @@ const images = [
 			// Blocking operation
 		}
 	}
-	const originalpush = dataLayer.push;
-	window.dataLayer.push = (...arg) => {
-		blockMainThread(50);
-		return originalpush(...arg);
-	};
 	// Execute long task on page load (e.g., 500ms blocking task)
 	blockMainThread(80);
 	console.log('Long task on page load completed');
