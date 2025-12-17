@@ -39,9 +39,7 @@ const images = [
 	// Execute long task on page load (e.g., 500ms blocking task)
 	blockMainThread(300);
 	console.log('Long task on page load completed');
-	setTimeout(() => blockMainThread(300), 0);
-
-	setTimeout(() => blockMainThread(200), 700);
+	setTimeout(() => blockMainThread(300), 500);
 
 	// blockMainThread(900);
 
@@ -67,15 +65,4 @@ const images = [
 	gtmScript.async = true;
 	gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WMNBLJR';
 	document.head.appendChild(gtmScript);
-</script>
-<script>
-	// Long task on page load
-	function blockMainThread(duration: number) {
-		const start = performance.now();
-		while (performance.now() - start < duration) {
-			// Blocking operation
-		}
-	}
-
-	setTimeout(() => blockMainThread(500), 400);
 </script>
