@@ -37,9 +37,9 @@ const images = [
 	}
 
 	// Execute long task on page load (e.g., 500ms blocking task)
-	blockMainThread(300);
+	blockMainThread(80);
 	console.log('Long task on page load completed');
-	setTimeout(() => blockMainThread(300), 500);
+	setTimeout(() => blockMainThread(150), 200);
 
 	// blockMainThread(900);
 
