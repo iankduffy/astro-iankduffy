@@ -15,15 +15,40 @@ const images = [
 
 <Layout title='Basic Image Example'>
 	<div class='container'>
-		<SliderWithGrid
-			images={images}
-			client:load
-		/>
-		<button
-			id='triggerLongTask'
-			style='margin: 20px; padding: 10px 20px;'>
-			Trigger Long Task
-		</button>
+		<div class='container'>
+			<section
+				id='content'
+				style='display:none'>
+				<img
+					src='https://cdn.sanity.io/images/hpnwtus3/production/67cebfa5236d91845a9d445e10b9f4e184d74475-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format'
+					width='1000'
+					height='667'
+					alt='Example Image'
+					loading='lazy'
+					id='image'
+				/>
+			</section>
+			<h1>LCP Lazy JS Eager</h1>
+		</div>
+
+		<script is:inline>
+			async function changeLCPtoEager(section) {
+				const lcpCandidate = section.querySelector('img');
+				await new Promise((resolve) => {
+					if (lcpCandidate && !lcpCandidate.complete) {
+						lcpCandidate.setAttribute('loading', 'eager');
+						lcpCandidate.addEventListener('load', resolve);
+						lcpCandidate.addEventListener('error', resolve);
+					} else {
+						resolve();
+					}
+				});
+			}
+			setTimeout(async () => {
+				await changeLCPtoEager(document.getElementById('content'));
+				document.getElementById('content').style.display = 'block';
+			}, 1000);
+		</script>
 	</div>
 </Layout>
 
