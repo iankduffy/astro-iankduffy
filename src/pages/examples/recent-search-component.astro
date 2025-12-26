@@ -1,0 +1,259 @@
+---
+import { RecentSearchReact } from '@src/features/demos/react/recent-search/RecentSearchReact';
+import Layout from '../../layouts/Layout.astro';
+import { WebComponentReact } from '@src/features/demos/react/recent-search/AttemptTwo';
+
+const fallbackOffers = [
+	{
+		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+		name: 'Fallback Search 1',
+		description: 'This is a fallback search result description',
+	},
+	{
+		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+		name: 'Fallback Search 2',
+		description: 'This is another fallback search result',
+	},
+];
+---
+
+<Layout title='LCP Lazy JS Eager'>
+	<div>
+		<h1>Web Component Recent Search</h1>
+		<recent-search data-status='loading'>
+			<div><h3 class='skeleton'>Recent Search</h3> </div>
+			<div class='row'>
+				<div class='skeleton'></div>
+				<div class='skeleton'></div>
+				<div class='skeleton'></div>
+			</div>
+			<div
+				class='fallback'
+				style='display: none;'>
+				<div class='row'>
+					{
+						fallbackOffers.map((offer) => (
+							<div class='search-item'>
+								<img
+									src={offer.img}
+									alt={offer.name}
+									width='150'
+									height='100'
+								/>
+								<div class='search-content'>
+									<h5>{offer.name}</h5>
+									<p>{offer.description}</p>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
+			<button class='add-recent-search'>Add Recent Search</button>
+			<button class='clear-recent-search'>Clear Recent Search</button>
+
+			<RecentSearchReact
+				client:load
+				fallbackOffers={fallbackOffers}
+			/>
+
+			<WebComponentReact client:load />
+
+			<script lang='ts' is:inline>
+				class RecentSearch extends HTMLElement {
+					constructor() {
+						super();
+					}
+
+					async connectedCallback() {
+						// this.attachShadow({ mode: 'open' });
+						console.log(this);
+						await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate loading delay
+						this.searchItems = this.getRecentSearches();
+						this.heading = this.querySelector('h3');
+
+						if (this.searchItems.length > 0) {
+							this.heading.textContent = 'Recent Searches';
+							this.classList.remove('skeleton');
+							this.renderSearchItems();
+						} else {
+							this.heading.textContent = 'No Recent Searches';
+							this.querySelector('.fallback').style.display = 'grid';
+						}
+
+						this.setAttribute('data-status', 'loaded');
+					}
+
+					renderSearchItems() {
+						const container = this.querySelector('.row');
+						// Clear only the container, not the entire component
+						container.innerHTML = '';
+
+						// Create items using the template
+						this.searchItems.forEach((item) => {
+							const element = document.createElement('div');
+							element.className = 'search-item';
+							element.innerHTML = `
+							<img src="${item.img || 'https://via.placeholder.com/150'}" alt="${item.name}" width="150" height="100" />
+							<div class="search-content">
+								<h5>${item.name}</h5>
+								<p>${item.description}</p>
+							</div>
+						`;
+
+							// Append to container
+							container.appendChild(element);
+						});
+					}
+
+					getRecentSearches() {
+						// return [
+						// 	{
+						// 		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+						// 		name: 'Example Search 1',
+						// 		description: 'Recent search result description',
+						// 	},
+						// 	{
+						// 		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+						// 		name: 'Example Search 2',
+						// 		description: 'Another search result',
+						// 	},
+						// 	{
+						// 		img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+						// 		name: 'Example Search 3',
+						// 		description: 'Third search item',
+						// 	},
+						// ];
+						return localStorage.getItem('recentSearches')
+							? JSON.parse(localStorage.getItem('recentSearches'))
+							: [];
+					}
+				}
+
+				const fakeItems = [
+					{
+						img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+						name: 'Example Search 1',
+						description: 'Recent search result description',
+					},
+					{
+						img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+						name: 'Example Search 2',
+						description: 'Another search result',
+					},
+					{
+						img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=200',
+						name: 'Example Search 3',
+						description: 'Third search item',
+					},
+				];
+
+				const addButton = document.querySelector('.add-recent-search');
+				const clearButton = document.querySelector('.clear-recent-search');
+
+				addButton.addEventListener('click', () => {
+					let currentSearches = localStorage.getItem('recentSearches')
+						? JSON.parse(localStorage.getItem('recentSearches'))
+						: [];
+					const nextItem = fakeItems[currentSearches.length % fakeItems.length];
+					currentSearches.push(nextItem);
+					localStorage.setItem(
+						'recentSearches',
+						JSON.stringify(currentSearches)
+					);
+					location.reload();
+				});
+
+				clearButton.addEventListener('click', () => {
+					localStorage.removeItem('recentSearches');
+					location.reload();
+				});
+
+				customElements.define('recent-search', RecentSearch);
+			</script>
+
+			<script>
+				import type { ChangeEvent } from 'react';
+
+				class WebSearch extends HTMLElement {
+					constructor() {
+						super();
+					}
+					connectedCallback() {
+						const input = this.querySelector('input');
+						const resultsContainer = this.querySelector('.results');
+
+						input?.addEventListener('input', (e: Event) => {
+							if (!resultsContainer) return;
+							const target = e.target as HTMLInputElement;
+							console.log('Search input:', target.value);
+							resultsContainer.textContent = `You searched for: ${target.value}`;
+						});
+					}
+				}
+				customElements.define('web-search', WebSearch);
+			</script>
+
+			<style lang='scss' is:global>
+				recent-search {
+					max-width: 1200px;
+					margin: 0 auto;
+					display: block;
+
+					&[data-status='loading'] {
+						min-height: 150px;
+
+						.row .skeleton {
+							background: #eee;
+							height: 100px;
+							border-radius: 0.25rem;
+							animation: pulse 1.5s infinite;
+						}
+					}
+
+					&:not(:defined) {
+						height: 150px;
+					}
+
+					.row {
+						display: grid;
+						grid-template-columns: 1fr 1fr 1fr;
+						gap: 1rem;
+					}
+
+					.search-item {
+						border: 1px solid #ddd;
+						border-radius: 8px;
+						display: flex;
+						gap: 0.5rem;
+						background: var(--brand-950);
+
+						img {
+							width: 25%;
+							height: auto;
+							border-radius: 4px;
+							aspect-ratio: 1/1;
+						}
+
+						.search-content {
+							padding: 1rem;
+
+							h5 {
+								margin: 0 0 0.25rem 0;
+								font-size: 1.1rem;
+								color: var(--brand-300);
+							}
+
+							p {
+								margin: 0;
+								color: var(--brand-200);
+								font-size: 0.9rem;
+							}
+						}
+					}
+				}
+			</style>
+		</recent-search>
+	</div>
+</Layout>

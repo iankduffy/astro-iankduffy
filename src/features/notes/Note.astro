@@ -1,0 +1,49 @@
+---
+interface Props {
+	title: string;
+	mainContent: PortableTextBlock[];
+}
+
+const { title, mainContent } = Astro.props;
+
+import { PortableText } from 'astro-portabletext';
+import AlertBox from '@src/portable-text-components/alert-box/AlertBox.astro';
+import CodeBlock from '@src/portable-text-components/code-block/CodeBlock.astro';
+import CanIUse from '@src/portable-text-components/can-i-use-block/CanIUse.astro';
+import VideoBlock from '@src/portable-text-components/article-video/VideoBlock.astro';
+import Heading from '@src/features/article/components/article-body/portable-text-components/heading/Heading.astro';
+import Link from '@src/features/article/components/article-body/portable-text-components/link/Link.astro';
+import { mergeComponents } from 'astro-portabletext/utils';
+import BulletList from '@src/features/article/components/article-body/portable-text-components/bullet-list/BulletList.astro';
+import PictureBlock from '@src/portable-text-components/picture-block/PictureBlock.astro';
+import type { PortableTextBlock } from 'sanity';
+---
+
+<article>
+	<h2>{title}</h2>
+	<PortableText
+		value={mainContent}
+		components={mergeComponents(
+			{
+				type: {
+					alertBox: AlertBox,
+					code: CodeBlock,
+					canIUse: CanIUse,
+					articleVideo: VideoBlock,
+					picture: PictureBlock,
+				},
+				block: {
+					h1: Heading,
+					h2: Heading,
+					h3: Heading,
+					h4: Heading,
+					h5: Heading,
+					h6: Heading,
+				},
+				mark: { link: Link },
+				list: { bullet: BulletList },
+			},
+			{}
+		)}
+	/>
+</article>
