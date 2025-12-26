@@ -1,0 +1,52 @@
+.drawer {
+	inset: unset;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	height: 100dvh;
+	background: #fff;
+	max-width: 450px;
+	width: 100%;
+	color: black;
+	border: none;
+	box-shadow:
+		0px 32px 64px -12px rgba(37, 42, 49, 0.141),
+		0px 5px 5px -2.5px rgba(37, 42, 49, 0.047);
+	&[open] {
+		transition:
+			transform 300ms ease-out,
+			overlay 300ms ease-out allow-discrete,
+			display 300ms ease-out allow-discrete;
+	}
+
+	* {
+		color: black;
+	}
+
+	@starting-style {
+		transform: translateX(100%);
+	}
+
+	header {
+		position: sticky;
+	}
+}
+
+body:has(dialog[open]) {
+	overflow-y: hidden;
+	max-height: 100dvh;
+}
+
+.modal {
+	border: none;
+	box-shadow:
+		0px 32px 64px -12px rgba(37, 42, 49, 0.141),
+		0px 5px 5px -2.5px rgba(37, 42, 49, 0.047);
+	border-radius: 12px;
+	max-width: calc(100% - 2em - 6px);
+	max-height: calc(100% - 2em - 36px);
+	margin: auto;
+	width: -moz-max-content;
+	width: max-content;
+	width: 540px;
+}

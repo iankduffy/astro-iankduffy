@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {
+	ParentComponent,
+	ParentDialogComponent,
+} from '../../features/demos/react/dialog/normal-dialog';
+---
+
+<Layout title='React - Dialog Example'>
+	<div>
+		<h1>React Dialog</h1>
+		<ParentComponent client:load />
+		<ParentDialogComponent client:load />
+
+		<script type='module'>
+			import {
+				isSupported,
+				apply,
+			} from 'https://cdn.jsdelivr.net/npm/dialog-closedby-polyfill/index.js';
+			if (!isSupported()) apply();
+		</script>
+	</div></Layout
+>
