@@ -1,12 +1,17 @@
+@import '../../../../styles/_shared/breakpoints.scss';
+
 .drawer {
 	inset: unset;
 	right: 0;
 	top: 0;
 	bottom: 0;
-	height: 100dvh;
+	margin: 0;
+	box-sizing: border-box;
+	height: 100%;
+	max-height: 100dvh;
 	background: #fff;
 	max-width: 450px;
-	width: 100%;
+	width: 100vw;
 	color: black;
 	border: none;
 	box-shadow:
@@ -39,6 +44,7 @@ body:has(dialog[open]) {
 
 .modal {
 	border: none;
+	bottom: 0;
 	box-shadow:
 		0px 32px 64px -12px rgba(37, 42, 49, 0.141),
 		0px 5px 5px -2.5px rgba(37, 42, 49, 0.047);
@@ -49,4 +55,8 @@ body:has(dialog[open]) {
 	width: -moz-max-content;
 	width: max-content;
 	width: 540px;
+
+	@include breakpoint(sm) {
+		bottom: unset;
+	}
 }

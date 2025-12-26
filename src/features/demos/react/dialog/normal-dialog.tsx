@@ -14,7 +14,7 @@ interface UncontrolledDialog {
 	isOpen?: never;
 	onOpenChange?: never;
 	resetOnClose?: boolean;
-	renderChildrenOnOpen: never;
+	renderChildrenOnOpen?: never;
 	type: 'modal' | 'drawer';
 }
 
@@ -25,7 +25,7 @@ interface ControlledDialog {
 	onOpenChange: (isOpen: boolean) => void;
 	title: string;
 	resetOnClose?: boolean;
-	renderChildrenOnOpen: boolean;
+	renderChildrenOnOpen?: boolean;
 	type?: 'modal' | 'drawer';
 }
 
@@ -70,17 +70,17 @@ export function ParentComponent() {
 }
 
 export function ParentDialogComponent() {
-	const [isOpen, setIsDialogOpen] = useState(false);
+	// const [isOpen, setIsDialogOpen] = useState(false);
 	return (
 		<div>
-			<button onClick={() => setIsDialogOpen((prev) => !prev)}>
+			{/* <button onClick={() => setIsDialogOpen((prev) => !prev)}>
 				Open Dialog
-			</button>
+			</button> */}
 			<DialogExample
-				isOpen={isOpen}
-				onOpenChange={setIsDialogOpen}
-				renderChildrenOnOpen={false}
-				// trigger={<button>Hello Trigger</button>}
+				// isOpen={isOpen}
+				// onOpenChange={setIsDialogOpen}
+				// renderChildrenOnOpen={false}
+				trigger={<button>Hello Trigger</button>}
 				title='Hello'
 				type='modal'>
 				<h2>Hello I am children </h2>
@@ -108,6 +108,7 @@ export function DialogExample({
 	const dialogID = useId();
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const [number, setNumbers] = useState(0);
+	const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
 
 	// const isControlled = Boolean(onOpenChange);
 
@@ -128,8 +129,11 @@ export function DialogExample({
 		<>
 			{trigger &&
 				React.cloneElement(trigger, {
-					commandfor: dialogID,
-					command: 'show-modal',
+					onClick: () => {
+						dialogRef.current?.showModal();
+						setUncontrolledOpen(true);
+					},
+					'aria-expanded': uncontrolledOpen,
 				})}
 			<dialog
 				closedby='any'
@@ -140,6 +144,7 @@ export function DialogExample({
 					if (onOpenChange) {
 						onOpenChange(false);
 					}
+					setUncontrolledOpen(false);
 					if (resetOnClose) {
 						setNumbers((prev) => prev + 1);
 					}
