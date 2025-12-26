@@ -6,6 +6,7 @@ import React, {
 	useState,
 } from 'react';
 import styles from './style.module.scss';
+import { SliderWithGrid } from '../css-snap-slider/example/SliderWithGrid';
 
 interface UncontrolledDialog {
 	trigger: React.ReactElement | null;
@@ -43,6 +44,16 @@ const useCountDown = () => {
 	return count;
 };
 
+const images = [
+	'https://cdn.sanity.io/images/hpnwtus3/production/67cebfa5236d91845a9d445e10b9f4e184d74475-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/f83941d069e3b77f9c0da6f40dd463e432b3d55c-3024x4032.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/3827428e3d3ad9bc9949d3fc2e33dab22c1802d8-4722x3148.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/084b46405c6f613efd285040d014c697b2588a9a-4032x3024.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/fc873326e44726cf304643db538a2d0d28d827bd-4317x2878.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://cdn.sanity.io/images/hpnwtus3/production/8d7c6f4e5c56da37874220780751b3c932a62d6e-5935x3957.jpg?w=1000&h=667&q=80&fit=crop&auto=format',
+	'https://images.unsplash.com/photo-1587896674919-6d6e91751318?w=1000&h=667&q=80&fit=crop&auto=format',
+];
+
 export function ParentComponent() {
 	const [isOpen, setIsDialogOpen] = useState(false);
 	// const count = useCountDown();
@@ -54,15 +65,13 @@ export function ParentComponent() {
 			<DialogExample
 				isOpen={isOpen}
 				onOpenChange={setIsDialogOpen}
-				renderChildrenOnOpen={true}
+				renderChildrenOnOpen={false}
 				// trigger={<button>Hello Trigger</button>}
 				title='Hello'>
-				<h2>Hello I am children </h2>
-				<input type='text' />
-				<details>
-					\<summary>Accordion</summary>
-					Hello I am gere
-				</details>
+				<SliderWithGrid images={images} />
+				<SliderWithGrid images={images} />
+				<SliderWithGrid images={images} />
+
 				{/* {count} */}
 			</DialogExample>
 		</div>
