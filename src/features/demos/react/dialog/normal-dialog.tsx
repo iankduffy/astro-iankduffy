@@ -1,4 +1,5 @@
 import React, {
+	useCallback,
 	useEffect,
 	useId,
 	useLayoutEffect,
@@ -122,12 +123,21 @@ export function DialogExample({
 	// const isControlled = Boolean(onOpenChange);
 
 	useLayoutEffect(() => {
+		console.log('aqui 2');
 		if (dialogRef.current?.open && !isOpen) {
 			dialogRef.current.close();
 		} else if (!dialogRef.current?.open && isOpen) {
 			dialogRef.current?.showModal();
 		}
 	}, [isOpen]);
+
+	const handleTriggerClick = useCallback(() => {
+		const dialog = dialogRef.current;
+		if (dialog && !dialog.open) {
+			dialog.showModal();
+			setUncontrolledOpen(true);
+		}
+	}, []);
 
 	const shouldShowContent =
 		(isOpen && renderChildrenOnOpen) || !renderChildrenOnOpen;
@@ -138,10 +148,7 @@ export function DialogExample({
 		<>
 			{trigger &&
 				React.cloneElement(trigger, {
-					onClick: () => {
-						dialogRef.current?.showModal();
-						setUncontrolledOpen(true);
-					},
+					onClick: handleTriggerClick,
 					'aria-expanded': uncontrolledOpen,
 				})}
 			<dialog
