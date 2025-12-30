@@ -1,4 +1,6 @@
 import React, {
+	startTransition,
+	Suspense,
 	useCallback,
 	useEffect,
 	useId,
@@ -57,22 +59,34 @@ const images = [
 
 export function ParentComponent() {
 	const [isOpen, setIsDialogOpen] = useState(false);
+	const [showContent, setShowContent] = useState(false);
 	// const count = useCountDown();
 	return (
 		<div>
-			<button onClick={() => setIsDialogOpen((prev) => !prev)}>
+			<button
+				onClick={() => {
+					setIsDialogOpen((prev) => !prev);
+					startTransition(() => {
+						setShowContent(true);
+					});
+				}}>
 				Open Drawer
 			</button>
 			<DialogExample
 				isOpen={isOpen}
 				onOpenChange={setIsDialogOpen}
-				renderChildrenOnOpen={false}
+				renderChildrenOnOpen={true}
 				// trigger={<button>Hello Trigger</button>}
 				title='Hello'>
-				<SliderWithGrid images={images} />
-				<SliderWithGrid images={images} />
-				<SliderWithGrid images={images} />
-
+				<Suspense fallback={<>Loading</>}>
+					{showContent && (
+						<>
+							<SliderWithGrid images={images} />
+							<SliderWithGrid images={images} />
+							<SliderWithGrid images={images} />
+						</>
+					)}
+				</Suspense>
 				{/* {count} */}
 			</DialogExample>
 		</div>
@@ -130,14 +144,6 @@ export function DialogExample({
 			dialogRef.current?.showModal();
 		}
 		console.timeEnd('useLayoutEffect');
-	}, [isOpen]);
-
-	useEffect(() => {
-		console.time('useEffect');
-		for (let i = 0; i < 100_000; i++) {
-			Math.random();
-		}
-		console.timeEnd('useEffect');
 	}, [isOpen]);
 
 	const handleTriggerClick = useCallback(() => {
