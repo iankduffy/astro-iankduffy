@@ -1,6 +1,5 @@
 import React, {
 	startTransition,
-	Suspense,
 	useCallback,
 	useEffect,
 	useId,
@@ -78,15 +77,15 @@ export function ParentComponent() {
 				renderChildrenOnOpen={true}
 				// trigger={<button>Hello Trigger</button>}
 				title='Hello'>
-				<Suspense fallback={<>Loading</>}>
-					{showContent && (
-						<>
-							<SliderWithGrid images={images} />
-							<SliderWithGrid images={images} />
-							<SliderWithGrid images={images} />
-						</>
-					)}
-				</Suspense>
+				{/* <Suspense fallback={<h1>Loading</h1>}> */}
+				{showContent && (
+					<>
+						<SliderWithGrid images={images} />
+						<SliderWithGrid images={images} />
+						<SliderWithGrid images={images} />
+					</>
+				)}
+				{/* </Suspense> */}
 				{/* {count} */}
 			</DialogExample>
 		</div>
