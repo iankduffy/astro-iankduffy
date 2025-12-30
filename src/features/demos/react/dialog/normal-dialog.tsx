@@ -123,12 +123,21 @@ export function DialogExample({
 	// const isControlled = Boolean(onOpenChange);
 
 	useLayoutEffect(() => {
-		console.log('aqui 2');
+		console.time('useLayoutEffect');
 		if (dialogRef.current?.open && !isOpen) {
 			dialogRef.current.close();
 		} else if (!dialogRef.current?.open && isOpen) {
 			dialogRef.current?.showModal();
 		}
+		console.timeEnd('useLayoutEffect');
+	}, [isOpen]);
+
+	useEffect(() => {
+		console.time('useEffect');
+		for (let i = 0; i < 100_000; i++) {
+			Math.random();
+		}
+		console.timeEnd('useEffect');
 	}, [isOpen]);
 
 	const handleTriggerClick = useCallback(() => {
