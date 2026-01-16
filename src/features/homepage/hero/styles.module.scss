@@ -6,21 +6,26 @@
 	gap: var(--spacing-md);
 	color: var(--brand-900);
 	align-items: center;
-	margin: var(--spacing-xl) auto;
-	padding: var(--spacing-xxxxl) 0;
+	margin: var(--spacing-lg) auto;
+	padding: var(--spacing-lg) 0;
 	background: linear-gradient(
 		to bottom,
 		var(--brand-100),
 		var(--brand-200),
 		var(--brand-100)
 	);
-	text-align: center;
+	text-align: left;
 	text-transform: uppercase;
 }
 
 .content {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: var(--spacing-xl);
 	@include breakpoint(md) {
-		max-width: 60vw;
+		// max-width: 90%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 	}
 }
 
@@ -29,16 +34,17 @@
 	flex-direction: column;
 	justify-content: center;
 	gap: var(--spacing-md);
-	font-size: clamp(1.5rem, -0.3707rem + 2vw, 3.75rem);
+	font-size: clamp(1.5rem, -0.3707rem + 2.5vw, 4rem);
 	text-wrap: balance;
-	color: var(--brand-800);
+	color: var(--brand-700);
 	margin-bottom: 0;
 
 	transition:
 		transform 600ms,
 		opacity 600ms;
 	transition-delay: 200ms;
-	will-change: contents;
+	will-change: transform, opacity;
+
 	@starting-style {
 		transform: translateY(100px);
 		opacity: 0;
@@ -46,7 +52,7 @@
 }
 
 .subText {
-	font-size: clamp(2rem, -0.3707rem + 10vw, 4rem);
+	font-size: clamp(1.75rem, -0.3707rem + 7vw, 3.25rem);
 	color: var(--brand-900);
 	transition:
 		transform 600ms,
@@ -54,7 +60,8 @@
 	transition-delay: 400ms;
 	margin: var(--spacing-sm) 0 0 0;
 	font-weight: bold;
-	will-change: contents;
+	will-change: transform, opacity;
+	text-wrap: pretty;
 
 	@starting-style {
 		transform: translateY(100px);
@@ -63,10 +70,50 @@
 }
 
 .image {
-	border-radius: 50%;
-	width: 100px;
 	aspect-ratio: 1/1;
-	border: 5px solid var(--brand-800);
-	view-transition-name: profile-image;
 	transition: 500ms ease-in-out;
+	position: relative;
+	width: 50%;
+	z-index: 5; // Add this
+	margin: 30px 0;
+
+	img {
+		view-transition-name: profile-image;
+		transition: 500ms transform;
+		border-radius: var(--spacing-xxs);
+
+		@starting-style {
+			transform: translate(25px, 25px);
+		}
+	}
+
+	&::after {
+		content: ' ';
+		display: block;
+		position: absolute;
+		background: var(--brand-300);
+		top: 0;
+		aspect-ratio: 1/1;
+		width: 100%;
+		transform: translate(35px, 35px);
+		z-index: -1; // Add this
+		transition: 500ms transform;
+		border-radius: var(--spacing-xxs);
+
+		@include breakpoint(md) {
+			transform: translate(50px, 50px);
+		}
+
+		@starting-style {
+			transform: translate(25px, 25px);
+		}
+	}
+}
+
+.imageContainer {
+	display: flex;
+	justify-content: center;
+
+	@include breakpoint(md) {
+	}
 }
