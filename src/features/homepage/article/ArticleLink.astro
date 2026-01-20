@@ -1,17 +1,80 @@
 ---
-const { slug, title, publishedDate, estimatedReadingTime, isFeatured, delay, _id, articleTags = [] } = Astro.props
-import CSS  from './styles.module.scss'
-const publishedDAte = new Date(publishedDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
-
+const {
+	slug,
+	title,
+	publishedDate,
+	estimatedReadingTime,
+	isFeatured,
+	delay,
+	_id,
+	articleTags = [],
+	isInternal = true,
+	url,
+	website,
+} = Astro.props;
+import CSS from './styles.module.scss';
+const publishedDAte = new Date(publishedDate).toLocaleDateString('en-GB', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
 // const CSSName = CSS.escapeCSSName(title.replaceAll(' ', '-'))
 ---
 
-<li class:list={[isFeatured ? CSS.featuredArticle : null, CSS.article]} style={{'--delay': `${delay * 5}%`}} >
-    <a href={`/articles/${slug.current}`} class:list={[CSS.articleLink]}>
-        <h3 style={{viewTransitionName: `article-title-${_id}`, textWrap: 'pretty', transition: '500ms'}}>{title}</h3>
-        <div class:list={[CSS.articleDetails]}>
-            <span style={{viewTransitionName: `article-publishedDate-${title.replaceAll(' ', '-')}` }} >{publishedDAte}</span>
-            {estimatedReadingTime ? <span style={{viewTransitionName: `article-readTime-${title.replaceAll(' ', '-')}` }}>{estimatedReadingTime} mins read</span> : null}
-        </div>
-    </a>
-</li>
+{
+	isInternal ? (
+		<li
+			class:list={[isFeatured ? CSS.featuredArticle : null, CSS.article]}
+			style={{ '--delay': `${delay * 5}%` }}>
+			<a
+				href={`/articles/${slug.current}`}
+				class:list={[CSS.articleLink]}>
+				<h3
+					style={{
+						viewTransitionName: `article-title-${_id}`,
+						textWrap: 'pretty',
+						transition: '500ms',
+					}}>
+					{title}
+				</h3>
+				<div class:list={[CSS.articleDetails]}>
+					<span
+						style={{
+							viewTransitionName: `article-publishedDate-${title.replaceAll(' ', '-')}`,
+						}}>
+						{publishedDAte}
+					</span>
+					{estimatedReadingTime ? (
+						<span
+							style={{
+								viewTransitionName: `article-readTime-${title.replaceAll(' ', '-')}`,
+							}}>
+							{estimatedReadingTime} mins read
+						</span>
+					) : null}
+				</div>
+			</a>
+		</li>
+	) : (
+		<li
+			class:list={[isFeatured ? CSS.featuredArticle : null, CSS.article]}
+			style={{ '--delay': `${delay * 5}%` }}>
+			<a
+				href={url}
+				target='_blank'
+				class:list={[CSS.articleLink]}>
+				<h3
+					style={{
+						textWrap: 'pretty',
+						transition: '500ms',
+					}}>
+					{title}
+				</h3>
+				<div class:list={[CSS.articleDetails]}>
+					<span>Posted On: {website}</span>
+					<span>{publishedDAte}</span>
+				</div>
+			</a>
+		</li>
+	)
+}

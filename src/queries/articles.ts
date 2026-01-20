@@ -21,7 +21,7 @@ export const getAllArticlesSlug = async (): Promise<
 	{ params: { slug: string } }[]
 > => {
 	const articlesSlugs = await sanityClient.fetch(
-		`*[_type == "articles"]{"params": {"slug": slug.current}}`
+		`*[_type == "articles"]{"params": {"slug": slug.current}}`,
 	);
 	return articlesSlugs;
 };
@@ -62,3 +62,17 @@ export const getArticleFromSlug = async (slug: string): Promise<Article> => {
 
 	return article;
 };
+
+export const externalArticles: (Pick<
+	Article,
+	'title' | 'publishedDate' | 'articleTags'
+> & { isInternal: boolean; url: string; website: string })[] = [
+	{
+		title: 'Tips for making the Performance Panel less overwhelming',
+		articleTags: ['Web Performance'],
+		publishedDate: '2025-12-28',
+		isInternal: false,
+		url: 'https://calendar.perfplanet.com/2025/tips-for-making-the-performance-panel-less-overwhelming/',
+		website: 'Web Performance Calendar',
+	},
+];
