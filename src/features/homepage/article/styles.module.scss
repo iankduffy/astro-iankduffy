@@ -60,12 +60,27 @@
 }
 
 .article {
-	background: var(--brand-200);
+	position: relative;
 	transition: 500ms;
 	border-radius: var(--spacing-xxs);
+	z-index: 5;
 
 	&:hover {
-		background: var(--brand-300);
+		&:before {
+			width: 100%;
+		}
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: var(--brand-200);
+		width: var(--spacing-xs);
+		transition: width 300ms;
+		height: 100%;
+		z-index: -1;
 	}
 
 	h3 {
