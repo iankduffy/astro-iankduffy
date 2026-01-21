@@ -78,13 +78,13 @@ export function ParentComponent() {
 				// trigger={<button>Hello Trigger</button>}
 				title='Hello'>
 				{/* <Suspense fallback={<h1>Loading</h1>}> */}
-				{showContent && (
-					<>
-						<SliderWithGrid images={images} />
-						<SliderWithGrid images={images} />
-						<SliderWithGrid images={images} />
-					</>
-				)}
+
+				<>
+					<SliderWithGrid images={images} />
+					<SliderWithGrid images={images} />
+					<SliderWithGrid images={images} />
+				</>
+
 				{/* </Suspense> */}
 				{/* {count} */}
 			</DialogExample>
@@ -180,7 +180,7 @@ export function DialogExample({
 					}
 				}}
 				ref={dialogRef}>
-				<header style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<header>
 					<h2>{title}</h2>
 					<button
 						autoFocus
