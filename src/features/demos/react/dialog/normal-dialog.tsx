@@ -30,7 +30,7 @@ interface ControlledDialog {
 	resetOnClose?: boolean;
 	renderChildrenOnOpen?: boolean;
 	type?: 'modal' | 'drawer';
-	closedBy: 'none' | 'any' | 'closerequest';
+	closedBy?: 'none' | 'any' | 'closerequest';
 }
 
 type DialogProps = ControlledDialog | UncontrolledDialog;
