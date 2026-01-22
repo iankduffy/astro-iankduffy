@@ -37,8 +37,9 @@
 		position: sticky;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		border-bottom: 1px solid black;
-		padding: var(--spacing-xxs) var(--spacing-xs);
+		padding: var(--spacing-xxs) var(--spacing-sm);
 	}
 }
 
@@ -49,7 +50,6 @@ body:has(dialog[open]) {
 
 .modal {
 	border: none;
-	bottom: 0;
 	box-shadow:
 		0px 32px 64px -12px rgba(37, 42, 49, 0.141),
 		0px 5px 5px -2.5px rgba(37, 42, 49, 0.047);
@@ -60,8 +60,25 @@ body:has(dialog[open]) {
 	width: -moz-max-content;
 	width: max-content;
 	width: 540px;
+	padding: 0;
+	background: #fff;
+	color: black;
+	inset: 0;
 
-	@include breakpoint(sm) {
-		bottom: unset;
+	* {
+		color: black;
+	}
+
+	// @include breakpoint(sm) {
+	// 	bottom: unset;
+	// }
+
+	header {
+		position: sticky;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid black;
+		padding: var(--spacing-xxs) var(--spacing-sm);
 	}
 }

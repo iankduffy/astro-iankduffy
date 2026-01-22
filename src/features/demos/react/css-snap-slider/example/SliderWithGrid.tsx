@@ -14,7 +14,7 @@ export function SliderWithGrid({ images }: { images: string[] }) {
 					<img
 						src={src}
 						alt={`Slide ${index + 1}`}
-						loading={index > 0 ? 'lazy' : 'eager'}
+						loading='lazy'
 						className={styles.slide}
 						key={index}
 						data-index={index + 1}
@@ -60,7 +60,7 @@ function Thumbnails({ images }: { images: string[] }) {
 						alt={`Slide ${index + 1}`}
 						className={clsx(
 							styles.slide,
-							index + 1 === currentSlide && styles.active
+							index + 1 === currentSlide && styles.active,
 						)}
 						key={index}
 						data-index={index + 1}
@@ -68,6 +68,7 @@ function Thumbnails({ images }: { images: string[] }) {
 						onClick={() => {
 							scrollToSlide(index + 1);
 						}}
+						loading='lazy'
 					/>
 				))}
 			</div>

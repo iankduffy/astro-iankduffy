@@ -30,6 +30,7 @@ interface ControlledDialog {
 	resetOnClose?: boolean;
 	renderChildrenOnOpen?: boolean;
 	type?: 'modal' | 'drawer';
+	closedBy: 'none' | 'any' | 'closerequest';
 }
 
 type DialogProps = ControlledDialog | UncontrolledDialog;
@@ -74,7 +75,7 @@ export function ParentComponent() {
 			<DialogExample
 				isOpen={isOpen}
 				onOpenChange={setIsDialogOpen}
-				renderChildrenOnOpen={true}
+				renderChildrenOnOpen={false}
 				// trigger={<button>Hello Trigger</button>}
 				title='Hello'>
 				{/* <Suspense fallback={<h1>Loading</h1>}> */}
@@ -106,13 +107,15 @@ export function ParentDialogComponent() {
 				trigger={<button>Hello Trigger</button>}
 				title='Hello'
 				type='modal'>
-				<h2>Hello I am children </h2>
-				<input type='text' />
-				<details>
-					\<summary>Accordion</summary>
-					Hello I am gere
-				</details>
-				{/* {count} */}
+				<div style={{ padding: 'var(--spacing-md)' }}>
+					<h2>Hello I am children </h2>
+					<input type='text' />
+					<details>
+						\<summary>Accordion</summary>
+						Hello I am gere
+					</details>
+					{/* {count} */}
+				</div>
 			</DialogExample>
 		</div>
 	);
