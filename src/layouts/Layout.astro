@@ -15,41 +15,79 @@ const { title, ogImage } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" transition:persist>
+<html
+	lang='en'
+	transition:persist>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | IanKDuffy.com</title>
-		<meta property="og:title" content={`${title} | IanKDuffy.com`} />
-		{ogImage && <meta property="og:image" content={ogImage} />}
-		<meta property='og:description' content={`An Article on ${title}`}/>
-		<meta property='og:url' content={astroURL.href} />
-		<link rel="sitemap" href="/sitemap-index.xml" />
+		<meta charset='UTF-8' />
+		<meta
+			name='description'
+			content='Astro description'
+		/>
+		<meta
+			name='viewport'
+			content='width=device-width'
+		/>
 		<link
-			rel="alternate"
-			type="application/rss+xml"
-			title="IankDuffy.com RSS Feed"
-			href={new URL("rss.xml", Astro.site)}
+			rel='icon'
+			type='image/svg+xml'
+			href='/logo.svg'
+		/>
+		<meta
+			name='generator'
+			content={Astro.generator}
+		/>
+		<title>{title} | IanKDuffy.com</title>
+		<meta
+			property='og:title'
+			content={`${title} | IanKDuffy.com`}
+		/>
+		{
+			ogImage && (
+				<meta
+					property='og:image'
+					content={ogImage}
+				/>
+			)
+		}
+		<meta
+			property='og:description'
+			content={`An Article on ${title}`}
+		/>
+		<meta
+			property='og:url'
+			content={astroURL.href}
+		/>
+		<link
+			rel='sitemap'
+			href='/sitemap-index.xml'
+		/>
+		<link
+			rel='alternate'
+			type='application/rss+xml'
+			title='IankDuffy.com RSS Feed'
+			href={new URL('rss.xml', Astro.site)}
 		/>
 	</head>
 	<body>
-		<Header/>
-			<slot />
+		<Header />
+		<slot />
 		<Footer />
-		<button id="toggle-mode" class="theme-switch-button">Toggle Theme</button>
-		<script type="speculationrules" is:inline>
+		<button
+			id='toggle-mode'
+			class='theme-switch-button'
+			>Toggle Theme</button
+		>
+		<script type='speculationrules' is:inline>
 			{
-			  "prefetch": [
-				{
-				  "where": {
-					"and": [{ "href_matches": "/*" }]
-				  }
-				  "eagerness": "moderate",
-				}
-			  ]
+				"prefetch": [
+					{
+						"where": {
+							"and": [{ "href_matches": "/*" }]
+						},
+						"eagerness": "moderate"
+					}
+				]
 			}
 		</script>
 	</body>
@@ -57,31 +95,41 @@ const { title, ogImage } = Astro.props;
 
 <script is:inline>
 	// document.addEventListener('astro:page-load', () => {
-		const html =  document.querySelector('html');
-		const theme = localStorage.getItem('theme') || html.style.getPropertyValue('color-scheme');
-		html.style.setProperty("color-scheme", theme);
-		const toggleMode = document.getElementById('toggle-mode');
+	const html = document.querySelector('html');
+	const theme =
+		localStorage.getItem('theme') ||
+		html.style.getPropertyValue('color-scheme');
+	html.style.setProperty('color-scheme', theme);
+	const toggleMode = document.getElementById('toggle-mode');
 
-		toggleMode.addEventListener('click', async (e) => {
-			html.style.viewTransitionName = 'changing-theme';
-			if (document.startViewTransition) {
-				const transition = document.startViewTransition(() => {
-					const xPosition = `${e.clientX / window.innerWidth * 100}%`
-					const yPosition = `${e.clientY / window.innerHeight * 100}%`
-					html.style.setProperty('--theme-button-cord', `${xPosition} ${yPosition}`)
-					const theme = html.style.getPropertyValue('color-scheme')
-					html.style.setProperty("color-scheme", theme === 'light' ? 'dark' : 'light');
-					localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-				})
-				await transition.finished;
-				html.style.viewTransitionName = '';
-			} else {
+	toggleMode.addEventListener('click', async (e) => {
+		html.style.viewTransitionName = 'changing-theme';
+		if (document.startViewTransition) {
+			const transition = document.startViewTransition(() => {
+				const xPosition = `${(e.clientX / window.innerWidth) * 100}%`;
+				const yPosition = `${(e.clientY / window.innerHeight) * 100}%`;
+				html.style.setProperty(
+					'--theme-button-cord',
+					`${xPosition} ${yPosition}`,
+				);
 				const theme = html.style.getPropertyValue('color-scheme');
-				html.style.setProperty("color-scheme", theme === 'light' ? 'dark' : 'light');
+				html.style.setProperty(
+					'color-scheme',
+					theme === 'light' ? 'dark' : 'light',
+				);
 				localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-			}
-			// html.style.viewTransitionName = '';
-
-		});
+			});
+			await transition.finished;
+			html.style.viewTransitionName = '';
+		} else {
+			const theme = html.style.getPropertyValue('color-scheme');
+			html.style.setProperty(
+				'color-scheme',
+				theme === 'light' ? 'dark' : 'light',
+			);
+			localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
+		}
+		// html.style.viewTransitionName = '';
+	});
 	// })
 </script>
