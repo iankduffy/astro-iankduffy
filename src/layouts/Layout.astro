@@ -133,3 +133,53 @@ const { title, ogImage } = Astro.props;
 	});
 	// })
 </script>
+
+<script>
+	interface LongAnimationMap {
+		origin: string | null;
+		sourceURL: string;
+		totalDuration: number;
+		frameCount: number;
+	}
+	const longAnimationMap: Map<string, LongAnimationMap> = new Map();
+	const isLongAnimationFrameEntry = (
+		entry: PerformanceEntry,
+	): entry is PerformanceLongAnimationFrameTiming =>
+		entry.entryType === 'long-animation-frame';
+
+	const observer = new PerformanceObserver((list) => {
+		for (const entry of list.getEntries()) {
+			if (isLongAnimationFrameEntry(entry)) {
+				for (const script of entry.scripts) {
+					const sourceURL = script.sourceURL ?? '';
+					const origin = script.sourceURL
+						? new URL(script.sourceURL ?? null).origin
+						: null;
+					const existing = longAnimationMap.get(sourceURL);
+
+					if (existing) {
+						existing.totalDuration += script.duration; // increment
+						existing.frameCount++;
+					} else {
+						longAnimationMap.set(sourceURL, {
+							origin,
+							sourceURL,
+							totalDuration: script.duration,
+							frameCount: 1,
+						});
+					}
+				}
+			}
+			console.log(entry);
+		}
+	});
+	observer.observe({ type: 'long-animation-frame', buffered: true });
+
+	document.addEventListener('page-hide', () => {
+		console.table(
+			Array.from(longAnimationMap, ([origin, value]) => ({
+				...value,
+			})),
+		);
+	});
+</script>

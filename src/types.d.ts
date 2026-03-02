@@ -16,6 +16,33 @@ declare module 'react' {
 }
 
 declare global {
+	interface PerformanceLongAnimationFrameScriptTiming {
+		invoker?: string;
+		sourceURL?: string;
+		sourceFunctionName?: string;
+		sourceCharPosition?: number;
+		sourceLine?: number;
+		sourceColumn?: number;
+		duration: number;
+		startTime: number;
+		executionStart: number;
+		forcedStyleAndLayoutDuration: number;
+		pauseDuration: number;
+		windowAttribution: string;
+	}
+
+	interface PerformanceLongAnimationFrameTiming extends PerformanceEntry {
+		readonly blockingDuration: number;
+		readonly firstUIEventTimestamp: number;
+		readonly renderStart: number;
+		readonly scripts: PerformanceLongAnimationFrameScriptTiming[];
+		readonly styleAndLayoutStart: number;
+	}
+
+	interface PerformanceEntryMap {
+		'long-animation-frame': PerformanceLongAnimationFrameTiming;
+	}
+
 	namespace JSX {
 		interface IntrinsicElements {
 			'custom-lightbox': any;
