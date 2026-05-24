@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ScrollStuckExample } from '../../features/demos/react/scroll-snap-web-component';
+---
+
+<Layout title='Scroll Stuck'>
+	<ScrollStuckExample client:load />
+</Layout>
+
+<style lang='scss' is:global>
+	scroll-stuck {
+		display: block;
+		position: sticky;
+		top: 5px;
+		container-type: scroll-state;
+		container-name: sticky-heading;
+
+		@supports (container-type: scroll-state) {
+			@container sticky-heading scroll-state(stuck: top) {
+				h2,
+				p {
+					background: blue;
+					box-shadow: 0 5px 2px #00000077;
+				}
+			}
+		}
+		@supports not (container-type: scroll-state) {
+			&.is-stuck {
+				h2,
+				p {
+					background: red;
+					box-shadow: 0 5px 2px #00000077;
+				}
+			}
+		}
+	}
+</style>

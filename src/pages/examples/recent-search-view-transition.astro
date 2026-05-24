@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Marker from '../../components/marker.html';
+---
+
+<Layout title='Recent Search Animation'
+	><div>
+		<recent-search>
+			<header>
+				<h3>Recent Search</h3>
+			</header>
+			<Marker />
+
+			<!--?start name="another-placeholder"-->
+			Loading… <!--?end-->
+		</recent-search>
+		<template for='another-placeholder'>
+			Here is some <em>HTML content</em>!
+		</template>
+	</div></Layout
+>

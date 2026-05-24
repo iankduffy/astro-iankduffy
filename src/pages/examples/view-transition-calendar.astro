@@ -110,25 +110,6 @@ import Layout from '../../layouts/Layout.astro';
 	customElements.define('calendar-element', CalendarElement);
 </script>
 
-<style lang='scss'>
-	.layout {
-		max-width: 500px;
-		margin: 0 auto;
-		width: 100%;
-		text-align: center;
-	}
-
-	.header {
-		display: flex;
-		justify-content: space-between;
-
-		button {
-			border: 1px solid #ddd;
-			padding: 16px;
-		}
-	}
-</style>
-
 <style is:inline>
 	.calendar-grid {
 		display: grid;
@@ -219,6 +200,25 @@ import Layout from '../../layouts/Layout.astro';
 			animation-name: slide-in-from-left;
 			animation-duration: 400ms;
 			animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+		}
+	}
+</style>
+
+<style lang='scss'>
+	.layout {
+		max-width: 500px;
+		margin: 0 auto;
+		width: 100%;
+		text-align: center;
+	}
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+
+		button {
+			border: 1px solid #ddd;
+			padding: 16px;
 		}
 	}
 </style>

@@ -46,6 +46,7 @@ declare global {
 	namespace JSX {
 		interface IntrinsicElements {
 			'custom-lightbox': any;
+			'scroll-stuck': any;
 		}
 	}
 }
