@@ -149,9 +149,9 @@ import styles from './slider.module.scss';
 					rootMargin: '0px',
 					threshold: 0.8,
 				});
-				const slides = [
-					...(this.slider?.childNodes as NodeListOf<HTMLElement>),
-				];
+				const slides = Array.from(
+					(this.slider?.childNodes ?? []) as NodeListOf<HTMLElement>
+				);
 				slides.forEach((slide) => observer.observe(slide));
 				this.cleanup = () => {
 					observer.disconnect();

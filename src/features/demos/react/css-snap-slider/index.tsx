@@ -96,7 +96,7 @@ function handleScrollSnapChange({
 			rootMargin: '0px',
 			threshold: 0.8,
 		});
-		const slides = [...slider.children];
+		const slides = Array.from(slider.children);
 		slides.forEach((slide) => observer.observe(slide));
 		return {
 			cleanUp: () => {
