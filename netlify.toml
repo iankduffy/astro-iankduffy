@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/slides/web-perf-time-to-pizza"
+  to = "https://speakerdeck.com/isduffy/web-perf-time-to-pizza"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/slides/web-perf-time-to-pizza/"
+  to = "https://speakerdeck.com/isduffy/web-perf-time-to-pizza"
+  status = 302
+  force = true
