@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SeatSelector as SeatSelectorComponent } from '../../features/demos/react/seat-selector';
+
+const passengers = [
+	{ id: 1, name: 'John Doe' },
+	{ id: 2, name: 'Jane Doe' },
+];
+---
+
+<Layout title='React - Dialog Example'>
+	<div class='container'>
+		<h1>Seat Selector Example</h1>
+		<SeatSelectorComponent
+			passengers={passengers}
+			client:load
+		/></div
+	>
+</Layout>
+
+<style>
+	.container {
+		max-width: 1200px;
+		width: 100%;
+	}
+</style>
